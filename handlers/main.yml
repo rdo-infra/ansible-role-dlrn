@@ -1,0 +1,19 @@
+- name: Restart postfix
+  service:
+    name: postfix
+    state: restarted
+
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+- name: Restart fail2ban
+  service:
+    name: fail2ban
+    state: restarted
+
+- name: Restart httpd
+  service:
+    name: httpd
+    state: restarted

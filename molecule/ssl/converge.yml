@@ -1,0 +1,50 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    web_domain: trunk.rdoproject.org
+    enable_https: true
+    api_workers:
+      - rhel8-master
+      - centos8-train
+      - centos-stein
+      - centos8-master-uc
+    dlrn_manage_letsencrypt: false
+    sshd_port: 3000
+  tasks:
+    - name: Pre-install some packages
+      package:
+        name:
+          - openssh-server
+          - cronie
+
+    - name: Pre-create some users, needed until we support workers
+      user:
+        name: "{{ item }}"
+        create_home: yes
+      with_items:
+        - rhel8-master
+        - centos8-train
+        - centos-stein
+        - centos8-master-uc
+
+    - name: Create directory for SSL certificates
+      file:
+        path: "/etc/letsencrypt/live/{{ web_domain }}/"
+        state: directory
+        mode: '0755'
+
+    - name: Deploy dummy SSL certificate
+      copy:
+        src: "{{ item }}"
+        dest: "/etc/letsencrypt/live/{{ web_domain }}/{{ item }}"
+        mode: 0640
+      with_items:
+        - cert.pem
+        - fullchain.pem
+        - privkey.pem
+
+    - name: "Include dlrn"
+      include_role:
+        name: "dlrn"
+
