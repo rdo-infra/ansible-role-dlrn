@@ -1,0 +1,186 @@
+# NOTE(jpena): this should be a temporary measure. We must be able to
+# set SELinux as enforcing
+- name: Include OS-specific variables
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_facts.distribution }}.{{ ansible_facts.distribution_major_version | default('') }}.yml"
+        - "{{ ansible_facts.distribution }}.yml"
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Ensure EPEL is enabled on CentOS
+  package:
+    name: epel-release
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Install required packages
+  package:
+    name: "{{ required_packages }}"
+    state: present
+
+- name: Set SELinux to permissive
+  selinux:
+    policy: targeted
+    state: permissive
+
+# NOTE(jpena): if we start from a system with SELinux disabled, we will need two
+# runs to get this right. Trying to set a SELinux boolean when SELinux is disabled
+# fails.
+- name: SELinux configuration
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+  block:
+    - name: Set SELinux booleans
+      seboolean:
+        name: "{{ item }}"
+        state: yes
+        persistent: yes
+      with_items:
+        - httpd_read_user_content
+        - httpd_enable_homedirs
+        - rsync_export_all_ro
+
+    - name: Allow SSH port access to SELinux
+      seport:
+        ports: "{{ sshd_port }}"
+        proto: tcp
+        setype: ssh_port_t
+        state: present
+
+- name: Add SSH port to sshd configuration
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^Port (?!22)'
+    line: "Port {{ sshd_port }}"
+  notify: Restart sshd
+
+- name: Keep SSH port 22 in sshd configuration
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#Port 22'
+    line: "Port 22"
+  notify: Restart sshd
+
+- name: Make postfix listen only on localhost
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: '^inet_interfaces.*'
+    line: inet_interfaces = 127.0.0.1
+  notify: Restart postfix
+
+- name: Enable postfix
+  service:
+    name: postfix
+    state: started
+    enabled: yes
+
+- name: Enable firewalld service
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Enable network service on CentOS 7
+  service:
+    name: network
+    state: started
+    enabled: yes
+  when:
+      - ansible_distribution_major_version | int == 7
+
+- name: Add mock group
+  group:
+    name: mock
+    state: present
+
+- name: Allow required services through firewall
+  firewalld:
+    zone: public
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  with_items:
+    - ssh
+    - http
+    - rsyncd
+
+- name: Allow custom SSH port through firewall
+  firewalld:
+    zone: public
+    port: "{{ sshd_port }}/tcp"
+    permanent: yes
+    state: enabled
+
+- name: Allow HTTPS through firewall
+  firewalld:
+    zone: public
+    service: https
+    permanent: yes
+    state: enabled
+  when: enable_https
+
+- name: Create /usr/local/share/dlrn directory
+  file:
+    path: /usr/local/share/dlrn
+    state: directory
+    mode: '0755'
+
+- name: Deploy required scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+  with_items:
+    - run-dlrn.sh
+    - run-purge.sh
+    - update-deps.sh
+    - purge-deps.sh
+
+- name: Set yum timeout config
+  ini_file:
+    path: /etc/yum.conf
+    section: main
+    option: timeout
+    value: '120'
+
+- name: Configure vgdelorean if needed
+  block:
+    - name: Find device
+      set_fact:
+        diskdev: "{{ disk_for_builders.split('/')[2] }}"
+
+    - name: Fail if device does not exist
+      fail:
+        msg: "Device {{ disk_for_builders }} does not exist"
+      when: ansible_devices[diskdev] is undefined
+
+    - name: Create vgdelorean
+      lvg:
+        vg: vgdelorean
+        pvs: "{{ disk_for_builders }}"
+
+    - name: Create vgdelorean/lvol1
+      lvol:
+        vg: vgdelorean
+        lv: lvol1
+        size: 100%VG
+
+    - name: Create file system
+      filesystem:
+        dev: /dev/vgdelorean/lvol1
+        force: no
+        fstype: ext4
+
+    - name: Mount vgdelorean/lvol1 at /home
+      mount:
+        path: /home
+        src: /dev/vgdelorean/lvol1
+        fstype: ext4
+        state: mounted
+  when:
+    - disk_for_builders is defined

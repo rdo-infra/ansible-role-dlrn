@@ -1,0 +1,20 @@
+- name: Install fail2ban packages
+  package:
+    name:
+      - fail2ban
+      - fail2ban-systemd
+    state: present
+
+- name: Deploy fail2ban config file for sshd
+  copy:
+    content: "[sshd]\nenabled = true\nport = 22,{{ sshd_port }}\n"
+    dest: /etc/fail2ban/jail.d/01-sshd.conf
+    mode: 0644
+  notify: Restart fail2ban
+
+- name: Enable fail2ban service
+  service:
+    name: fail2ban
+    state: started
+    enabled: yes
+

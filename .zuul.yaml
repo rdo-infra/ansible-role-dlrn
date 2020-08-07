@@ -1,0 +1,10 @@
+---
+- project:
+    check:
+      jobs:
+        - tox-linters
+        - tox-molecule
+    gate:
+      jobs:
+        - tox-linters
+        - tox-molecule
