@@ -1,0 +1,7 @@
+sshd_port: 22
+enable_https: False
+dlrn_server_type: primary
+web_domain: ''
+dlrn_manage_letsencrypt: False
+cert_mail: test@example.com
+api_workers: []

@@ -1,0 +1,39 @@
+- name: Create promoter user
+  user:
+    name: promoter
+    comment: 'promoter user'
+    home: '/home/promoter'
+    create_home: yes
+    groups: users
+    append: yes
+
+- name: Create .ssh directory for promoter user
+  file:
+    path: /home/promoter/.ssh
+    state: directory
+    mode: 0700
+    owner: promoter
+    group: promoter
+
+- name: Deploy authorized_keys file for promoter
+  copy:
+    content: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH7MmSecn77eU98/MOEnNBfzNJwva+/0df/G3iWKfaNcGq7JrHmiujLnjrWSVKaRogDEVVmitFKcKSR1dlpHGCFFcN7Wh3JlayKekQknyNxn1jYa1oGOiT4dO9PKcWeDkyGjtBaODDRi4TV4eBRIzFg3yCIzMnl/GinZEKLafREKmySHfteID3U4F+u1pPcXk7NywN/E7xvmMaRa+vr0+mF1ulxx1OMED1wxsFy51AO3au+eTwoKd7ZrtX0XL3DyNE91aty9hUUMMlbhtpXLDof5SfYWFGuXPfn/AEOD2nbq4QrgZ9DXw+1CgxgAsW2GBZrVYOWI5FDWrvTIljMxfD cico_rhos_ci_key@ci.centos.org'
+    dest: /home/promoter/.ssh/authorized_keys
+    mode: 0600
+    owner: promoter
+    group: promoter
+
+- name: Deploy promote.sh script
+  copy:
+    src: promote.sh
+    dest: /usr/local/bin/promote.sh
+    mode: 0755
+
+- name: Add sudo permissions to promoter
+  copy:
+    content: "promoter ALL= NOPASSWD: /usr/local/bin/promote.sh\n"
+    dest: /etc/sudoers.d/99_promoter
+    mode: 0440
+    owner: root
+    group: root
+

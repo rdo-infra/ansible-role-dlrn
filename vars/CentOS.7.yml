@@ -1,0 +1,23 @@
+required_packages:
+    - lvm2
+    - xfsprogs
+    - yum-utils
+    - vim-enhanced
+    - mock
+    - rpm-build
+    - git
+    - python-pip
+    - python-virtualenv
+    - gcc
+    - createrepo
+    - screen
+    - git-review
+    - postfix
+    - firewalld
+    - openssl-devel
+    - libffi-devel
+    - yum-plugin-priorities
+    - rpmdevtools
+    - selinux-policy-devel
+    - rsync
+    - httpd
