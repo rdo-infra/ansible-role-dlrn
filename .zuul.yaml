@@ -1,0 +1,16 @@
+---
+- job:
+    name: dlrn-tox-molecule
+    parent: tox-molecule
+    pre-run: zuul/molecule-prepare.yml
+    nodeset: rdo-centos-8
+
+- project:
+    check:
+      jobs:
+        - tox-linters
+        - tox-molecule
+    gate:
+      jobs:
+        - tox-linters
+        - tox-molecule
