@@ -1,0 +1,95 @@
+- name: Install required packages for CentOS 7
+  package:
+    name:
+      - httpd
+      - mod_wsgi
+    state: present
+  when: ansible_distribution_major_version | int == 7
+
+- name: Install required packages for CentOS 8
+  package:
+    name:
+      - httpd
+      - python3-mod_wsgi
+    state: present
+  when: ansible_distribution_major_version | int == 8
+
+- name: Deploy mod_ssl
+  package:
+    name: mod_ssl
+  when: enable_https
+
+- name: Create /var/www/html/images directory
+  file:
+    path: /var/www/html/images
+    state: directory
+    mode: '0755'
+
+- name: Fetch RDO logo
+  get_url:
+    url: https://raw.githubusercontent.com/redhat-openstack/trunk.rdoproject.org/master/images/rdo-logo-white.png
+    dest: /var/www/html/images/rdo-logo-white.png
+    mode: '0644'
+
+- name: Fetch home page
+  get_url:
+    url: https://raw.githubusercontent.com/redhat-openstack/trunk.rdoproject.org/master/index.html
+    dest: /var/www/html/index.html
+    mode: '0644'
+
+- name: Deploy update-web-index.sh script
+  copy:
+    src: update-web-index.sh
+    dest: /usr/local/bin/update-web-index.sh
+    mode: 0755
+
+- name: Create cron job to run update-web-index
+  cron:
+    name: update-web-index
+    user: root
+    minute: "0"
+    hour: "3"
+    day: "*"
+    job: '/usr/local/bin/update-web-index.sh > /dev/null'
+
+- name: Start httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Request SSL certficate
+  when:
+    - enable_https
+    - dlrn_manage_letsencrypt | default(false)
+  block:
+    - name: Prepare facts for task
+      set_fact:
+          ssl_cert_options:
+              cert1:
+                email: "{{ cert_mail | default('softwarefactory-operations-team@redhat.com') }}"
+                domain: "{{ web_domain }}"
+                webroot: "/var/www/html"
+          certbot_plugin: "--webroot"
+
+    - name: Run SSL certificate request
+      include_tasks: ssl.yml
+
+- name: Deploy vhost for port 80
+  template:
+    src: vhost_80.j2
+    dest: "/etc/httpd/conf.d/10-{{ web_domain }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart httpd
+
+- name: Deploy vhost for port 443
+  template:
+    src: vhost_443.j2
+    dest: "/etc/httpd/conf.d/10-ssl-{{ web_domain }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: enable_https
+  notify: Restart httpd

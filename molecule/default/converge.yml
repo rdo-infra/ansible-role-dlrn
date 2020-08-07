@@ -1,0 +1,32 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    web_domain: trunk.rdoproject.org
+    enable_https: false
+    api_workers:
+      - rhel8-master
+      - centos8-train
+      - centos-stein
+      - centos8-master-uc
+    dlrn_manage_letsencrypt: false
+  tasks:
+    - name: Pre-install some packages
+      package:
+        name:
+          - openssh-server
+          - cronie
+
+    - name: Pre-create some users, needed until we support workers
+      user:
+        name: "{{ item }}"
+        create_home: yes
+      with_items:
+        - rhel8-master
+        - centos8-train
+        - centos-stein
+        - centos8-master-uc
+
+    - name: "Include dlrn"
+      include_role:
+        name: "dlrn"

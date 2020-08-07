@@ -1,0 +1,39 @@
+- name: Create promoter user
+  user:
+    name: promoter
+    comment: 'promoter user'
+    home: '/home/promoter'
+    create_home: yes
+    groups: users
+    append: yes
+
+- name: Create .ssh directory for promoter user
+  file:
+    path: /home/promoter/.ssh
+    state: directory
+    mode: 0700
+    owner: promoter
+    group: promoter
+
+- name: Deploy authorized_keys file for promoter
+  copy:
+    content: "{{ promoter_authorized_key }}"
+    dest: /home/promoter/.ssh/authorized_keys
+    mode: 0600
+    owner: promoter
+    group: promoter
+
+- name: Deploy promote.sh script
+  copy:
+    src: promote.sh
+    dest: /usr/local/bin/promote.sh
+    mode: 0755
+
+- name: Add sudo permissions to promoter
+  copy:
+    content: "promoter ALL= NOPASSWD: /usr/local/bin/promote.sh\n"
+    dest: /etc/sudoers.d/99_promoter
+    mode: 0440
+    owner: root
+    group: root
+

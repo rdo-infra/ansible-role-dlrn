@@ -1,0 +1,81 @@
+---
+#   Copyright Red Hat, Inc. All Rights Reserved.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License"); you may
+#   not use this file except in compliance with the License. You may obtain
+#   a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#   WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#   License for the specific language governing permissions and limitations
+#   under the License.
+
+# NOTE(jpena): copied over from https://softwarefactory-project.io/cgit/software-factory/sf-infra/tree/roles/setup-ssl/tasks/main.yml
+#              so we can use it in environments where sf-infra is not in use
+
+- name: Setup certbot
+  become: true
+  when: certbot_install | default(true)
+  block:
+    - name: Install epel-release
+      package:
+        name:
+          - epel-release
+      when: ansible_distribution != "Fedora"
+
+    - name: Enable PowerTools repo in Centos 8
+      yum_repository:
+        name: "CentOS-PowerTools"
+        description: "CentOS-$releasever - PowerTools"
+        mirrorlist: "http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=PowerTools&infra=$infra"
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial"
+      when:
+        - ansible_distribution != "Fedora"
+        - ansible_distribution_major_version == "8"
+
+    - name: Install certbot from EPEL
+      package:
+        name:
+          - certbot
+        state: present
+        enablerepo: epel
+      when: ansible_distribution != "Fedora"
+
+    - name: Install python2-certbot-apache from EPEL on CentOS 7
+      package:
+        name:
+          - python2-certbot-apache
+        state: present
+        enablerepo: epel
+      when:
+        - ansible_distribution != "Fedora"
+        - ansible_distribution_major_version == "7"
+
+    - name: Install certbot on Fedora
+      package:
+        name:
+          - certbot
+          - python3-certbot-apache
+        state: present
+      when: ansible_distribution == "Fedora"
+
+# cronie, which provides crontab, might not be installed by default
+- name: Ensure cronie is installed for crontab configuration
+  become: true
+  package:
+    name: cronie
+    state: present
+
+- name: Generate lets encrypt SSLs
+  include_tasks: ssl_create_cert.yml
+  with_dict: "{{ ssl_cert_options }}"
+  loop_control:
+    loop_var: cert_item
+  args:
+    apply:
+      become: true
