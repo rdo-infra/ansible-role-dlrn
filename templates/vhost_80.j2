@@ -1,0 +1,50 @@
+<VirtualHost *:80>
+  ServerName default
+
+  ## Vhost docroot
+  DocumentRoot "/var/www/html"
+
+  ## Directories, there should at least be a declaration for /var/www/html
+
+  <Directory "/var/www/html">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride FileInfo
+    AddType text/plain yaml yml
+    Require all granted
+  </Directory>
+
+{% for worker in api_workers %}
+  # WSGI configuration for worker {{ worker }}
+  # NOTE(dpawlik): use python-path param instead of python-home,
+  # if python version required to compile mod_wsgi was different.
+  WSGIDaemonProcess dlrn-{{ worker }} python-home=/home/{{ worker }}/.venv group={{ worker }} processes=5 threads=1 user={{ worker }}
+  WSGIScriptAlias /api-{{ worker }} "/home/{{ worker }}/api/dlrn-api-{{ worker }}.wsgi"
+  {% if worker | regex_search('^rhel8-.*') %}WSGIScriptAlias /api-{{ worker | replace('rhel8', 'redhat') }} "/home/{{ worker }}/api/dlrn-api-{{ worker }}.wsgi"{% endif %}
+
+  <Location "/api-{{ worker }}">
+    Require all granted
+    SetEnv CONFIG_FILE /home/{{ worker }}/api/dlrn-api-{{ worker }}.cfg
+    WSGIProcessGroup dlrn-{{ worker }}
+    WSGIPassAuthorization On
+  </Location>
+
+  {% if worker | regex_search('^rhel8-.*') %}<Location "/api-{{ worker | replace('rhel8', 'redhat') }}">
+    Require all granted
+    SetEnv CONFIG_FILE /home/{{ worker }}/api/dlrn-api-{{ worker }}.cfg
+    WSGIProcessGroup dlrn-{{ worker }}
+    WSGIPassAuthorization On
+  </Location>{% endif %}
+
+{% endfor %}
+
+  ## Logging
+  ErrorLog "/var/log/httpd/{{ web_domain }}_error.log"
+  ServerSignature Off
+  CustomLog "/var/log/httpd/{{ web_domain }}_access.log" combined
+
+{% if enable_https %}
+  ## Redirect rules
+  Redirect permanent / https://{{ web_domain }}/
+{% endif %}
+</VirtualHost>
+
