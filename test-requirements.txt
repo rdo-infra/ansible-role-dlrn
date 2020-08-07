@@ -1,0 +1,5 @@
+molecule
+molecule[podman]
+selinux
+ansible-lint
+pytest
