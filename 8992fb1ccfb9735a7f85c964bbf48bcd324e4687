@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04917561_9982cb5d",
+        "filename": "README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-10T14:13:11Z",
+      "side": 1,
+      "message": "Perhaps mention what is required and what are the defaults? I see only two defined in defaults/main.yml",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ed3208_8d1a4a39",
+        "filename": "files/promote.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-10T14:13:11Z",
+      "side": 1,
+      "message": "missing license?",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59ab79c5_115c161b",
+        "filename": "files/rdoinfo-update.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-10T14:13:11Z",
+      "side": 1,
+      "message": "missing shebang",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdd0f13d_411b1c54",
+        "filename": "molecule/default/tests/test_web.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-10T14:13:11Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
