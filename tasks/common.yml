@@ -73,9 +73,31 @@
     line: inet_interfaces = 127.0.0.1
   notify: Restart postfix
 
+- name: Deploy rsyncd configuration file
+  copy:
+    src: rsyncd.conf
+    dest: "/etc/rsyncd.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create rsyncd.d directory
+  file:
+    path: /etc/rsyncd.d
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
 - name: Enable postfix
   service:
     name: postfix
+    state: started
+    enabled: yes
+
+- name: Enable rsyncd
+  service:
+    name: rsyncd
     state: started
     enabled: yes
 
@@ -103,6 +125,7 @@
     zone: public
     service: "{{ item }}"
     permanent: yes
+    immediate: yes
     state: enabled
   with_items:
     - ssh
@@ -114,6 +137,7 @@
     zone: public
     port: "{{ sshd_port }}/tcp"
     permanent: yes
+    immediate: yes
     state: enabled
 
 - name: Allow HTTPS through firewall
@@ -121,6 +145,7 @@
     zone: public
     service: https
     permanent: yes
+    immediate: yes
     state: enabled
   when: enable_https
 
