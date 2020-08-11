@@ -42,3 +42,4 @@
     src: /home/rdoinfo/rdoinfo
     dest: /var/www/html/rdoinfo
     state: link
+    mode: preserve

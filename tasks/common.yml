@@ -57,6 +57,7 @@
     path: /etc/ssh/sshd_config
     regexp: '^Port (?!22)'
     line: "Port {{ sshd_port }}"
+    mode: preserve
   notify: Restart sshd
 
 - name: Keep SSH port 22 in sshd configuration
@@ -64,6 +65,7 @@
     path: /etc/ssh/sshd_config
     regexp: '^#Port 22'
     line: "Port 22"
+    mode: preserve
   notify: Restart sshd
 
 - name: Make postfix listen only on localhost
@@ -71,11 +73,34 @@
     path: /etc/postfix/main.cf
     regexp: '^inet_interfaces.*'
     line: inet_interfaces = 127.0.0.1
+    mode: preserve
   notify: Restart postfix
+
+- name: Deploy rsyncd configuration file
+  copy:
+    src: rsyncd.conf
+    dest: "/etc/rsyncd.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create rsyncd.d directory
+  file:
+    path: /etc/rsyncd.d
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
 
 - name: Enable postfix
   service:
     name: postfix
+    state: started
+    enabled: yes
+
+- name: Enable rsyncd
+  service:
+    name: rsyncd
     state: started
     enabled: yes
 
@@ -103,6 +128,7 @@
     zone: public
     service: "{{ item }}"
     permanent: yes
+    immediate: yes
     state: enabled
   with_items:
     - ssh
@@ -114,6 +140,7 @@
     zone: public
     port: "{{ sshd_port }}/tcp"
     permanent: yes
+    immediate: yes
     state: enabled
 
 - name: Allow HTTPS through firewall
@@ -121,6 +148,7 @@
     zone: public
     service: https
     permanent: yes
+    immediate: yes
     state: enabled
   when: enable_https
 
@@ -147,6 +175,7 @@
     section: main
     option: timeout
     value: '120'
+    mode: preserve
 
 - name: Configure vgdelorean if needed
   block:

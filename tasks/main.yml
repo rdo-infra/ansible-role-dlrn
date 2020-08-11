@@ -10,12 +10,11 @@
 - name: Configure fail2ban
   include_tasks: fail2ban.yml
 
+- name: Configure DLRN workers
+  include_tasks: worker.yml
+  loop: "{{ lookup('dict', dlrn_workers, wantlist=True) }}"
+  loop_control:
+    loop_var: worker
+
 - name: Configure web server
   include_tasks: web.yml
-
-# NOTE(jpena): this will come in a follow-up patch
-#- name: Configure DLRN workers
-#  include_tasks: worker.yml
-#  loop: "{{ lookup('dict', dlrn_workers, wantlist=True) }}"
-#  loop_control:
-#    loop_var: worker
