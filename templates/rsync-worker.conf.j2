@@ -1,0 +1,19 @@
+{% if worker.key == 'centos-master-uc' %}
+[ {{ worker.value.distro }} ]
+{% else %}
+[ {{ worker.key.split('-')[0] }}-{{ worker.key.split('-')[1] }} ]
+{% endif %}
+path = /home/{{ worker.key }}/data/repos
+{% if worker.key == 'centos-master-uc' %}
+comment = {{ worker.value.distro }} repos
+{% else %}
+comment = {{ worker.key.split('-')[0] }}-{{ worker.key.split('-')[1] }} repos
+{% endif %}
+read only = true
+uid = nobody
+gid = nobody
+max connections = 4
+incoming chmod = false
+outgoing chmod = false
+hosts allow = {{ worker.value.public_rsync_hosts_allow | default([]) | join(',') }}
+hosts deny = *
