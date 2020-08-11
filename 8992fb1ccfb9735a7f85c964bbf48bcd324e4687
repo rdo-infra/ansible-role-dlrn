@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6800e9a3_55b45a0f",
+        "filename": "README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04917561_9982cb5d",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ed3208_8d1a4a39",
         "filename": "files/promote.sh",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b278be81_636c8a13",
+        "filename": "files/promote.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79ed3208_8d1a4a39",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fe02a4f_2bf1a0dc",
         "filename": "files/promote.sh",
         "patchSetId": 8
@@ -47,6 +83,30 @@
       "writtenOn": "2020-08-11T07:29:18Z",
       "side": 1,
       "message": "I suggest to add a double quote here. AFAIR shellcheck will fail at this point for some reason",
+      "range": {
+        "startLine": 4,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 14
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2b46c5a_d852dc59",
+        "filename": "files/promote.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "This was a direct copy from the puppet-dlrn script, but sure, fixing it here.",
+      "parentUuid": "6fe02a4f_2bf1a0dc",
       "range": {
         "startLine": 4,
         "startChar": 11,
@@ -105,6 +165,54 @@
     },
     {
       "key": {
+        "uuid": "021065e9_cd69e583",
+        "filename": "files/purge-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca83e3e5_3a9e0630",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "854664a4_1d16af5c",
+        "filename": "files/purge-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Why is this needed? It\u0027s been working fine for several years.",
+      "parentUuid": "7a82e3c8_8c2e6713",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59ab79c5_115c161b",
         "filename": "files/rdoinfo-update.sh",
         "patchSetId": 8
@@ -134,6 +242,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "59ab79c5_115c161b",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9080217f_3b03f6c8",
+        "filename": "files/rdoinfo-update.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f0f7531_f8bdaa6b",
       "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -186,6 +312,30 @@
     },
     {
       "key": {
+        "uuid": "7ca1983e_20e32448",
+        "filename": "files/update-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Ok, updating both. As with other scripts, this is a straight copy from the puppet-dlrn code... And in this case, I\u0027d want amoralej to check it, just in case.",
+      "parentUuid": "d83e5744_7698674c",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 31
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdd0f13d_411b1c54",
         "filename": "molecule/default/tests/test_web.py",
         "patchSetId": 8
@@ -197,6 +347,24 @@
       "writtenOn": "2020-08-10T14:13:11Z",
       "side": 1,
       "message": "trailing space",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d58172a_82d0272a",
+        "filename": "molecule/default/tests/test_web.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdd0f13d_411b1c54",
       "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -226,6 +394,30 @@
     },
     {
       "key": {
+        "uuid": "8eaee19b_b80cc8df",
+        "filename": "molecule/ssl/tests/test_ssl_common.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a635b2e0_92d33470",
+      "range": {
+        "startLine": 30,
+        "startChar": 44,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1315076e_4a7d947b",
         "filename": "molecule/ssl/tests/test_ssl_web.py",
         "patchSetId": 8
@@ -237,6 +429,24 @@
       "writtenOn": "2020-08-11T07:29:18Z",
       "side": 1,
       "message": "space",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cac8e1e3_853fe2a4",
+        "filename": "molecule/ssl/tests/test_ssl_web.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1315076e_4a7d947b",
       "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -266,6 +476,30 @@
     },
     {
       "key": {
+        "uuid": "77696f22_8f11a1c0",
+        "filename": "tasks/common.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94f790b8_bc6da476",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6d2f63c_c05b27c7",
         "filename": "tasks/rdoinfo.yml",
         "patchSetId": 8
@@ -277,6 +511,30 @@
       "writtenOn": "2020-08-11T07:29:18Z",
       "side": 1,
       "message": "why not yes?",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb54d7aa_af372a63",
+        "filename": "tasks/rdoinfo.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-11T09:03:14Z",
+      "side": 1,
+      "message": "We want to make sure the repo is created initially. There is a cron job (line 39-46) that takes care of the update, and we don\u0027t want an automated ansible run to interfere with that.",
+      "parentUuid": "b6d2f63c_c05b27c7",
       "range": {
         "startLine": 29,
         "startChar": 12,
