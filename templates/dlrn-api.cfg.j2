@@ -1,0 +1,8 @@
+{% if worker.value.db_connection == 'sqlite:///commits.sqlite' %}
+DB_PATH = 'sqlite:////home/{{ worker.key }}/dlrn/commits.sqlite'
+{% else %}
+DB_PATH = '{{ worker.value.db_connection }}'
+{% endif %}
+REPO_PATH = '/home/{{ worker.key }}/data/repos'
+CONFIG_FILE = '/usr/local/share/dlrn/{{ worker.key }}/projects.ini'
+
