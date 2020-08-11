@@ -78,7 +78,7 @@
 - name: Deploy vhost for port 80
   template:
     src: vhost_80.j2
-    dest: "/etc/httpd/conf.d/10-{{ web_domain }}.conf"
+    dest: "/etc/httpd/conf.d/25-{{ web_domain }}.conf"
     owner: root
     group: root
     mode: '0644'
@@ -87,7 +87,7 @@
 - name: Deploy vhost for port 443
   template:
     src: vhost_443.j2
-    dest: "/etc/httpd/conf.d/10-ssl-{{ web_domain }}.conf"
+    dest: "/etc/httpd/conf.d/25-ssl-{{ web_domain }}.conf"
     owner: root
     group: root
     mode: '0644'

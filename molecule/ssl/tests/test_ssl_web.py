@@ -21,8 +21,8 @@ def test_httpd_is_running(host):
      assert host.service("httpd").is_running
 
 def test_vhost_files(host):
-    vhost_file = host.file('/etc/httpd/conf.d/10-trunk.rdoproject.org.conf')
-    ssl_file = host.file('/etc/httpd/conf.d/10-ssl-trunk.rdoproject.org.conf')
+    vhost_file = host.file('/etc/httpd/conf.d/25-trunk.rdoproject.org.conf')
+    ssl_file = host.file('/etc/httpd/conf.d/25-ssl-trunk.rdoproject.org.conf')
 
     assert vhost_file.exists
     assert ssl_file.exists

@@ -27,26 +27,4 @@ def test_vhost_files(host):
     assert vhost_file.exists
     assert not ssl_file.exists
     assert b'Redirect' not in vhost_file.content
-    assert b'<Location "/api-rhel8-master">' in vhost_file.content
-    assert b'<Location "/api-redhat-master">' in vhost_file.content
-    assert b'<Location "/api-centos8-train">' in vhost_file.content
-    assert b'WSGIDaemonProcess dlrn-centos-stein python-home=' in vhost_file.content
-
-def test_rdo_files(host):
-    logo_file = host.file('/var/www/html/images/rdo-logo-white.png')
-    index_file = host.file('/var/www/html/index.html')
-    assert logo_file.exists
-    assert index_file.exists
-
-def test_http_ports(host):
-    assert host.socket("tcp://0.0.0.0:80").is_listening
-    assert not host.socket("tcp://0.0.0.0:443").is_listening
-
-def test_packages(host):
-    assert host.package("httpd").is_installed
-    assert not host.package("mod_ssl").is_installed
-    assert host.package("python3-mod_wsgi").is_installed
-
-def test_cron(host):
-    cmd = host.run('crontab -l -u root')
-    assert '/usr/local/bin/update-web-index.sh' in cmd.stdout
+    assert b'WSGIDaemonProcess' not in vhost_file.content
