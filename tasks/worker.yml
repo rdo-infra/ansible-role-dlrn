@@ -1,0 +1,423 @@
+- name: Log user
+  debug:
+    msg: "Deploying user {{ worker.key }}"
+
+- name: Fail if release numbering is incorrect
+  fail:
+    msg: "Invalid release numbering for {{ worker.key }}: {{ worker.value.release_numbering }}"
+  when:
+    - worker.value.release_numbering is defined
+    - worker.value.release_numbering != '0.date.hash'
+    - worker.value.release_numbering != '0.1.date.hash'
+    - worker.value.release_numbering != 'minor.date.hash'
+
+- name: Create user
+  user:
+    name: "{{ worker.key }}"
+    home: "/home/{{ worker.key }}"
+    create_home: yes
+    groups: users, mock
+    append: yes
+    uid: "{{ worker.value.uid | default(omit) }}"
+
+- name: Set 755 permissions to user home
+  file:
+    path: "/home/{{ worker.key }}"
+    state: directory
+    mode: 0755
+
+- name: Create worker API directory
+  file:
+    path: "/home/{{ worker.key }}/api"
+    state: directory
+    mode: 0755
+    owner: "root"
+    group: "root"
+
+- name: Create data/repos directory
+  file:
+    path: "/home/{{ worker.key }}/data/repos"
+    state: directory
+    mode: 0755
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+
+- name: Deploy dlrn-deps.repo file
+  copy:
+    src: "{{ worker.key }}-dlrn-deps.repo"
+    dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+    mode: 0644
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+
+- name: Create delorean-deps.repo symlink
+  file:
+    src: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+    dest: "/home/{{ worker.key }}/data/repos/delorean-deps.repo"
+    state: link
+
+- name: Create current-passed-ci symlink
+  file:
+    src: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
+    dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
+    state: link
+    force: yes
+  when:  worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|master-uc)')
+
+- name: Create deps directories
+  file:
+    path: "/home/{{ worker.key }}/data/repos/{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+  with_items:
+    - deps
+    - deps/latest
+    - deps/latest/SRPMS
+    - deps/latest/aarch64
+    - deps/latest/noarch
+    - deps/latest/ppc64le
+    - deps/latest/ppc64
+    - deps/latest/x86_64
+  when: worker.value.enable_deps_sync | default(false)
+
+- name: Create build deps directories
+  file:
+    path: "/home/{{ worker.key }}/data/repos/{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+  with_items:
+    - build-deps
+    - build-deps/latest
+    - build-deps/latest/SRPMS
+    - build-deps/latest/aarch64
+    - build-deps/latest/noarch
+    - build-deps/latest/ppc64le
+    - build-deps/latest/ppc64
+    - build-deps/latest/x86_64
+  when: worker.value.enable_brs_sync | default(false)
+
+- name: Deploy rdo-trunk-runtime-deps.repo
+  copy:
+    src: "{{ worker.key }}-rdo-trunk-runtime-deps.repo"
+    dest: "/home/{{ worker.key }}/data/repos/rdo-trunk-runtime-deps.repo"
+    mode: 0644
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+  when: worker.value.enable_brs_sync | default(false)
+
+- name: Create .ssh directory
+  file:
+    path: "/home/{{ worker.key }}/.ssh"
+    state: directory
+    mode: 0700
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+
+- name: Create SSH key
+  openssh_keypair:
+    path: "/home/{{ worker.key }}/.ssh/id_rsa"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    force: no
+    size: 2048  # This is the default for CentOS 7 and CentOS 8
+
+- name: Clone DLRN repo
+  git:
+    repo: 'https://github.com/softwarefactory-project/DLRN'
+    dest: "/home/{{ worker.key }}/dlrn"
+    version: master
+    update: no
+  become: yes
+  become_user: "{{ worker.key }}"
+
+- name: Deploy DLRN requirements on venv
+  pip:
+    requirements: "/home/{{ worker.key }}/dlrn/requirements.txt"
+    virtualenv: "/home/{{ worker.key }}/.venv"
+  become: yes
+  become_user: "{{ worker.key }}"
+
+- name: Deploy DLRN test requirements on venv
+  pip:
+    requirements: "/home/{{ worker.key }}/dlrn/test-requirements.txt"
+    virtualenv: "/home/{{ worker.key }}/.venv"
+  become: yes
+  become_user: "{{ worker.key }}"
+
+- name: Install DLRN on venv
+  shell: |
+    source /home/{{ worker.key }}/.venv/bin/activate
+    python setup.py install
+  args:
+    chdir: "/home/{{ worker.key }}/dlrn"
+    creates: "/home/{{ worker.key }}/.venv/bin/dlrn"
+  become: yes
+  become_user: "{{ worker.key }}"
+
+- name: Set DB url on alembic.ini
+  ini_file:
+    path: "/home/{{ worker.key }}/dlrn/alembic.ini"
+    section: alembic
+    option: sqlalchemy.url
+    value: "{{ worker.value.db_connection }}"
+
+- name: Create directory for workers project.ini
+  file:
+    path: "/usr/local/share/dlrn/{{ worker.key }}"
+    state: directory
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0700
+
+- name: Deploy projects.ini for worker
+  template:
+    src: projects.ini.j2
+    dest: "/usr/local/share/dlrn/{{ worker.key }}/projects.ini"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0600
+
+- name: Add sudo permissions to worker
+  copy:
+    content: "{{ worker.key }} ALL=(ALL) NOPASSWD: /bin/rm\n"
+    dest: "/etc/sudoers.d/10_{{ worker.key }}"
+    mode: 0440
+    owner: root
+    group: root
+
+- name: Create cron job for log rotation
+  cron:
+    name: "{{ worker.key }}-logrotate"
+    user: "{{ worker.key }}"
+    minute: "0"
+    hour: "4"
+    day: "*"
+    job: "/usr/bin/find /home/{{ worker.key }}/dlrn-logs/*.log -mtime +2 -exec rm {} \\;"
+
+- name: Create cron job to run DLRN
+  cron:
+    name: "{{ worker.key }}"
+    user: "{{ worker.key }}"
+    minute: "{{ worker.value.cron_minute | default('*/5') }}"
+    hour: "{{ worker.value.cron_hour |default('*') }}"
+    day: "*"
+    job: "DLRN_ENV={{ worker.value.cron_env | default('') }} /usr/local/bin/run-dlrn.sh"
+  when:
+    - worker.value.enable_cron | default(False)
+    - dlrn_server_type | default('primary') == 'primary'
+
+- name: Disable DLRN run cron job if not needed
+  cron:
+    name: "{{ worker.key }}"
+    user: "{{ worker.key }}"
+    state: absent
+  when:
+    - not worker.value.enable_cron | default(False) or dlrn_server_type | default('primary') != 'primary'
+
+- name: Create cron job to run dlrn-purge
+  cron:
+    name: "{{ worker.key }}-purge"
+    user: "{{ worker.key }}"
+    minute: "{{ worker.value.purge_minute | default('7') }}"
+    hour: "{{ worker.value.purge_hour | default('1') }}"
+    day: "*"
+    job: "/usr/local/bin/run-purge.sh"
+  when:
+    - worker.value.enable_purge | default(False)
+    - dlrn_server_type | default('primary') == 'primary'
+
+- name: Disable dlrn-purge cron job if not needed
+  cron:
+    name: "{{ worker.key }}-purge"
+    user: "{{ worker.key }}"
+    state: absent
+  when:
+    - not worker.value.enable_purge | default(False) or dlrn_server_type | default('primary') != 'primary'
+
+- name: Create cron job to sync dependencies
+  cron:
+    name: "{{ worker.key }}-deps"
+    user: "{{ worker.key }}"
+    minute: "10,40"
+    hour: "*"
+    day: "*"
+    job: '/usr/local/bin/update-deps.sh > $HOME/dlrn-logs/update-deps-$(date +\%Y\%m\%d\%H\%M).log 2>&1'
+  when:
+    - worker.value.enable_deps_sync | default(False)
+    - dlrn_server_type | default('primary') == 'primary'
+
+- name: Disable cron job to sync dependencies if not needed
+  cron:
+    name: "{{ worker.key }}-deps"
+    user: "{{ worker.key }}"
+    state: absent
+  when:
+    - not worker.value.enable_deps_sync | default(False) or dlrn_server_type | default('primary') != 'primary'
+
+- name: Create cron job to sync build dependencies
+  cron:
+    name: "{{ worker.key }}-build-deps"
+    user: "{{ worker.key }}"
+    minute: "25,55"
+    hour: "*"
+    day: "*"
+    job: 'TAG_PHASE="build" DEPS_DIR="${HOME}/data/repos/build-deps/" /usr/local/bin/update-deps.sh > $HOME/dlrn-logs/update-build-deps-$(date +\%Y\%m\%d\%H\%M).log 2>&1'
+  when:
+    - worker.value.enable_brs_sync | default(False)
+    - dlrn_server_type | default('primary') == 'primary'
+
+- name: Disable cron job to sync build dependencies if not needed
+  cron:
+    name: "{{ worker.key }}-build-deps"
+    user: "{{ worker.key }}"
+    state: absent
+  when:
+    - not worker.value.enable_brs_sync | default(False) or dlrn_server_type | default('primary') != 'primary'
+
+- name: Create job to purge dependency sync log
+  cron:
+    name: "{{ worker.key }}-deps-purge"
+    user: "{{ worker.key }}"
+    minute: "0"
+    hour: "3"
+    job: '/usr/local/bin/purge-deps.sh'
+  when:
+    - worker.value.enable_purge | default(False)
+    - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
+
+- name: Enable copr repo for centos-packager on CentOS 8
+  command: 'dnf copr enable ykarel/ykarel-centos-stream centos-stream-x86_64 -y'
+  args:
+    creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ykarel:ykarel-centos-stream.repo
+    warn: false
+  when:
+    - ansible_distribution_major_version | int == 8
+    - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
+
+- name: Install centos-packager
+  package:
+    name: centos-packager
+    state: present
+  when:
+    - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
+
+- name: Create directory under /var/www/html for stable release version
+  file:
+    path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
+    state: directory
+    mode: 0755
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri).*')
+
+- name: Set up symlinks
+  file:
+    src: "/home/{{ worker.key }}/data/repos"
+    dest: "{{ item }}"
+    state: link
+  with_items: "{{ worker.value.symlinks }}"
+
+- name: Deploy mock config version for master-uc variants
+  template:
+    src: "{{ worker.key.split('-')[0] }}.cfg.j2"
+    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.key.split('-')[0] }}-master-uc.cfg"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0644
+  when: worker.key | regex_search('^(centos|centos8)\-master-uc$')
+
+- name: Deploy mock config version for master variants
+  template:
+    src: "{{ worker.key.split('-')[0] }}.cfg.j2"
+    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.key.split('-')[0] }}.cfg"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0644
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-master$')
+
+- name: Deploy mock config version for stable release variants
+  template:
+    src: "{{ worker.key.split('-')[0] }}.cfg.j2"
+    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.key.split('-')[0] }}-{{ worker.key.split('-')[1:] | join('-') }}.cfg"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0644
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri).*')
+
+- name: Set up gerrit, if configured
+  when:
+    - worker.value.gerrit_user is defined
+    - dlrn_server_type | default('primary') == 'primary'
+  block:
+    - name: Fail if gerrit email is not defined
+      fail:
+        msg: "gerrit_email not set for {{ worker.key }}, but gerrit_user is set to {{ worker.value.gerrit_user }}"
+      when: worker.value.gerrit_email is not defined
+
+    - name: Deploy review.rdoproject.org server key
+      known_hosts:
+        name: '[review.rdoproject.org]:29418'
+        key: '[review.rdoproject.org]:29418 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcv42F0KURajhaHpXECtonyhyxyyIexl0eJvKCTnc6hCE2bf8Iymw/xQIxmIwoibFunSC74tZe2t7Zy+yf3nLeNgE3T8+79yNxA2N4cJuY1T51haE5T1LKTMEkPkA4ucS8Lvd7KiXeTWRqOUQtLDWiZSZxPILzlb13AQ1M2s4U3X0M7SBt4V27ezDe34OQbBHMAGVQOKZhQkNVp3e5gmMfPlE3FifjQ07RI2fyG8v/r4A8on9n/g8Ge0vbDyGR0Ejt314MJ9JpzQTSPzw05UkjJYE7Knw3sHyBU9qIFHEm1Gw4z0PukiuINUmnBDVkf9ep6IsIw4JSvzNQbaLO9t99'
+        path: /etc/ssh/ssh_known_hosts
+        state: present
+
+    - name: Set gerrit user
+      git_config:
+        name: gitreview.username
+        scope: global
+        value: "{{ worker.value.gerrit_user }}"
+      become: yes
+      become_user: "{{ worker.key }}"
+
+    - name: Set git user
+      git_config:
+        name: user.name
+        scope: global
+        value: "{{ worker.value.gerrit_user }}"
+      become: yes
+      become_user: "{{ worker.key }}"
+
+    - name: Set git email
+      git_config:
+        name: user.email
+        scope: global
+        value: "{{ worker.value.gerrit_email }}"
+      become: yes
+      become_user: "{{ worker.key }}"
+
+- name: Deploy WSGI file for worker API
+  copy:
+    src: dlrn-api.wsgi
+    dest: "/home/{{ worker.key }}/api/dlrn-api-{{ worker.key }}.wsgi"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0644
+
+- name: Deploy config file for worker API
+  template:
+    src: dlrn-api.cfg.j2
+    dest: "/home/{{ worker.key }}/api/dlrn-api-{{ worker.key }}.cfg"
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+    mode: 0600
+
+- name: Set up rsync if needed
+  when:
+    - worker.value.enable_public_rsync is defined
+    - worker.value.enable_public_rsync
+  block:
+    - name: Ensure rsyncd service is started
+      service:
+        name: rsyncd
+        state: started
+        enabled: yes
+
+    - name: Create rsyncd configuration for this worker
+      template:
+        src: rsync-worker.conf.j2
+        dest: "/etc/rsyncd.d/{{ worker.key }}.conf"
+        owner: root
+        group: root
+        mode: 0644
