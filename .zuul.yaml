@@ -4,7 +4,7 @@
     parent: tox-molecule
     pre-run: zuul/molecule-prepare.yml
     nodeset: rdo-centos-8
-    timeout: 7200
+    timeout: 10800
 
 - project:
     check:
