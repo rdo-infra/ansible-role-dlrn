@@ -36,6 +36,75 @@
     },
     {
       "key": {
+        "uuid": "6fe02a4f_2bf1a0dc",
+        "filename": "files/promote.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "I suggest to add a double quote here. AFAIR shellcheck will fail at this point for some reason",
+      "range": {
+        "startLine": 4,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 14
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca83e3e5_3a9e0630",
+        "filename": "files/purge-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "add a \"space\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a82e3c8_8c2e6713",
+        "filename": "files/purge-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "pls add here also a double quote",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59ab79c5_115c161b",
         "filename": "files/rdoinfo-update.sh",
         "patchSetId": 8
@@ -53,6 +122,70 @@
     },
     {
       "key": {
+        "uuid": "8f0f7531_f8bdaa6b",
+        "filename": "files/rdoinfo-update.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "59ab79c5_115c161b",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2ef69f1_c8c61ed7",
+        "filename": "files/update-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "https://github.com/koalaman/shellcheck/wiki/SC2045",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 26
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d83e5744_7698674c",
+        "filename": "files/update-deps.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "https://github.com/koalaman/shellcheck/wiki/SC2045",
+      "range": {
+        "startLine": 100,
+        "startChar": 17,
+        "endLine": 100,
+        "endChar": 31
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdd0f13d_411b1c54",
         "filename": "molecule/default/tests/test_web.py",
         "patchSetId": 8
@@ -64,6 +197,92 @@
       "writtenOn": "2020-08-10T14:13:11Z",
       "side": 1,
       "message": "trailing space",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a635b2e0_92d33470",
+        "filename": "molecule/ssl/tests/test_ssl_common.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 30,
+        "startChar": 44,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1315076e_4a7d947b",
+        "filename": "molecule/ssl/tests/test_ssl_web.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "space",
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94f790b8_bc6da476",
+        "filename": "tasks/common.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "to much spaces",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6d2f63c_c05b27c7",
+        "filename": "tasks/rdoinfo.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2020-08-11T07:29:18Z",
+      "side": 1,
+      "message": "why not yes?",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 14
+      },
       "revId": "8992fb1ccfb9735a7f85c964bbf48bcd324e4687",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
