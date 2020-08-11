@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c99182c5_be2fbeb9",
+        "filename": "README.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "It might be worth give more informations, for example:\n\n  Contribution are most welcome, use **git-review** to propose a change.\n  Setup your ssh keys after sign in https://review.rdoproject.org/auth/login",
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74aa97bb_5089bccb",
+        "filename": "tasks/common.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "That\u0027s a bit odd this role manages sshd. Shouldn\u0027t this be managed by a more neutral role?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 25
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f65ef626_2879599d",
+        "filename": "tasks/promoter.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "is there a reason to add it to the users group?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fabc7c8_d12e9c4a",
+        "filename": "tasks/promoter.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "shouldn\u0027t the promoter group be created?",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3c3ee37_8423a65f",
+        "filename": "tasks/promoter.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "perhaps makes the public key content a default var?",
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34ec7ed_0b583ee9",
+        "filename": "tasks/rdoinfo.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "not sure if that matter, but the space is usually omitted here, e.g. `users,mock`",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18f628e8_e11f2737",
+        "filename": "tasks/rdoinfo.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-11T20:16:49Z",
+      "side": 1,
+      "message": "that seems unnecessary, perhaps add a comment why this need to be done recursively?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
