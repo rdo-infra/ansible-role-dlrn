@@ -1,0 +1,73 @@
+[DEFAULT]
+datadir=/home/{{ worker.key }}/data
+scriptsdir=/home/{{ worker.key }}/dlrn/scripts
+templatedir=/home/{{ worker.key }}/dlrn/dlrn/templates
+baseurl={{ worker.value.baseurl | default('http://localhost') }}
+distro={{ worker.value.distgit_branch | default('rpm-master') }}
+source={{ worker.value.distro_branch | default('master') }}
+target={{ worker.value.target }}
+reponame=delorean
+project_name={{ worker.value.project_name | default('RDO') }}
+tags={{ worker.value.release | default('rocky') }}
+workers={{ worker.value.worker_processes | default(1) }}
+{% if dlrn_server_type | default('primary') == 'primary' %}
+smtpserver={% if not worker.value.disable_email | default(True) %}localhost{% else %}
+{% endif %}
+
+{% if worker.value.rsyncdest is defined %}rsyncdest={{ worker.value.rsyncdest }}
+{% endif %}
+{% if worker.value.rsyncport is defined %}rsyncport={{ worker.value.rsyncport }}
+{% endif %}
+{% if worker.value.gerrit_user is defined %}
+gerrit=yes
+gerrit_topic={{ worker.value.gerrit_topic | default('rdo-FTBFS') }}
+{% endif %}
+{% elif dlrn_server_type | default('primary') == 'backup' %}
+smtpserver=
+{% endif %}
+pkginfo_driver={{ worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') }}
+build_driver={{ worker.value.build_driver | default('dlrn.drivers.mockdriver.MockBuildDriver') }}
+database_connection={{ worker.value.db_connection | default('sqlite:///commits.sqlite') }}
+fallback_to_master={{ worker.value.fallback_to_master | default(True) }}
+include_srpm_in_repo={{ worker.value.include_srpm_in_repo | default(True) }}
+nonfallback_branches={{ worker.value.nonfallback_branches | default('^master$,^rpm-master$') }}
+custom_preprocess={{ worker.value.include_srpm_in_repo | default(omit) }}
+allow_force_rechecks={{ worker.value.allow_force_rechecks | default(False) }}
+keep_changelog={{ worker.value.keep_changelog | default(False) }}
+use_components={{ worker.value.use_components | default(False) }}
+release_numbering={{ worker.value.release_numbering | default('0.date.hash') }}
+release_minor={{ worker.value.release_numbering | default('0') }}
+{% if worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') == 'dlrn.drivers.gitrepo.GitRepoDriver' %}
+[gitrepo_driver]
+repo={{ worker.value.gitrepo_repo | default('http://github.com/openstack/rpm-packaging') }}
+directory={{ worker.value.gitrepo_dir | default('/openstack') }}
+skip={{ worker.value.gitrepo_skip | default(['openstack-macros']) | join(',') }}
+use_version_from_spec={{ worker.value.gitrepo_use_version_from_spec | default(True) }}
+{% elif worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') == 'dlrn.drivers.downstream.DownstreamInfoDriver' %}
+[downstream_driver]
+repo={{ worker.value.downstream_distroinfo_repo | default(omit) }}
+info_files={{ worker.value.downstream_info_files | default(omit) }}
+versions_url={{ worker.value.downstream_versions_url | default(omit) }}
+downstream_distro_branch={{ worker.value.downstream_distro_branch | default(omit) }}
+downstream_tag={{ worker.value.downstream_tag | default(omit) }}
+downstream_distgit_key={{ worker.value.downstream_distgit_key | default(omit) }}
+use_upstream_spec={{ worker.value.use_upstream_spec | default(False) }}
+downstream_spec_replace_list={{ worker.value.downstream_spec_replace_list | default(omit) }}
+{% endif %}
+
+{% if worker.value.build_driver | default('dlrn.drivers.mockdriver.MockBuildDriver') == 'dlrn.drivers.kojidriver.KojiBuildDriver' %}
+[kojibuild_driver]
+koji_exe={{ worker.value.koji_exe | default('koji') }}
+krb_principal={{ worker.value.koji_krb_principal | default(omit) }}
+krb_keytab={{ worker.value.koji_keytab | default('koji') }}
+scratch_build={{ worker.value.koji_scratch_builds | default(True) }}
+build_target={{ worker.value.koji_build_target | default(omit) }}
+arch={{ worker.value.koji_arch | default('x86_64') }}
+fetch_mock_config={{ worker.value.koji_fetch_mock_config | default(False) }}
+use_rhpkg={{ worker.value.koji_use_rhpkg | default(False) }}
+mock_base_packages={{ worker.value.koji_mock_base_packages | default(omit) }}
+{% if worker.value.koji_mock_package_manager is defined %}
+mock_package_manager={{  worker.value.koji_mock_package_manager }}
+{% endif %}
+additional_koji_tags={{ worker.value.additional_koji_tags | default(omit) }}
+{% endif %}
