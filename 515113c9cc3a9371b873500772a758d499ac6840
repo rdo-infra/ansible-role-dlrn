@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8cff2363_a3336b6c",
+        "filename": "README.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "Good tip, thanks!",
+      "parentUuid": "c99182c5_be2fbeb9",
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74aa97bb_5089bccb",
         "filename": "tasks/common.yml",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2020-08-11T20:16:49Z",
       "side": 1,
       "message": "That\u0027s a bit odd this role manages sshd. Shouldn\u0027t this be managed by a more neutral role?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 25
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98110f63_45ebb2cb",
+        "filename": "tasks/common.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "The role is meant to be self-sufficient, so we are not requiring any other roles to be run externally (same for ssl certificates).\n\nIt might make sense to make ssh or other service (e.g. firewalld) management optional, though. I\u0027d do this as a follow-up patch, if you\u0027re ok with that.",
+      "parentUuid": "74aa97bb_5089bccb",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9570e7ca_bcd8104d",
+        "filename": "tasks/promoter.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "I took it from the puppet-dlrn code.\n\nAll in all, I think we can probably remove the whole promoter.yml task, since promotions are now done via the DLRN API, but I\u0027d rather do this as a second step in case there is something still using it.",
+      "parentUuid": "f65ef626_2879599d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fabc7c8_d12e9c4a",
         "filename": "tasks/promoter.yml",
         "patchSetId": 9
@@ -76,6 +142,30 @@
       "writtenOn": "2020-08-11T20:16:49Z",
       "side": 1,
       "message": "shouldn\u0027t the promoter group be created?",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "478c3624_8fb50913",
+        "filename": "tasks/promoter.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "No, it is created automatically when the promoter user is created.",
+      "parentUuid": "9fabc7c8_d12e9c4a",
       "range": {
         "startLine": 16,
         "startChar": 11,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "f98c7bcc_393b8e82",
+        "filename": "tasks/promoter.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c3ee37_8423a65f",
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c34ec7ed_0b583ee9",
         "filename": "tasks/rdoinfo.yml",
         "patchSetId": 9
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "1e90d2f7_bda04a29",
+        "filename": "tasks/rdoinfo.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c34ec7ed_0b583ee9",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f628e8_e11f2737",
         "filename": "tasks/rdoinfo.yml",
         "patchSetId": 9
@@ -139,6 +271,30 @@
       "writtenOn": "2020-08-11T20:16:49Z",
       "side": 1,
       "message": "that seems unnecessary, perhaps add a comment why this need to be done recursively?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e1c0c05_5e88d7f0",
+        "filename": "tasks/rdoinfo.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-12T09:34:37Z",
+      "side": 1,
+      "message": "Hm, this comes from https://github.com/rdo-infra/puppet-dlrn/commit/ebe5de0c2cb1fd4c55c87f28caaf34b570f1535e , so yes, probably unnecessary. I\u0027ll remove it.",
+      "parentUuid": "18f628e8_e11f2737",
       "range": {
         "startLine": 10,
         "startChar": 0,
