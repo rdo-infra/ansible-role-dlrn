@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "336251fe_4bbeee2c",
+        "filename": "tasks/common.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 19
+      },
+      "writtenOn": "2020-08-12T13:39:20Z",
+      "side": 1,
+      "message": "The role can still be self sufficient by declaring dependencies like so: https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-dependencies\n\nI understand it is easier to have everything in one place, but that results in code duplication. I guess this could be done in a follow-up patch.",
+      "parentUuid": "98110f63_45ebb2cb",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 25
+      },
+      "revId": "515113c9cc3a9371b873500772a758d499ac6840",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f65ef626_2879599d",
         "filename": "tasks/promoter.yml",
         "patchSetId": 9
