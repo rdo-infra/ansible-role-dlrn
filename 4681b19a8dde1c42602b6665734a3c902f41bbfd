@@ -22,6 +22,30 @@
       "revId": "4681b19a8dde1c42602b6665734a3c902f41bbfd",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3e8d92b_d0dd3b3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-20T12:46:02Z",
+      "side": 1,
+      "message": "This helps because of the way we are using external roles in sf-infra.\n\nThe job to configure our hosts is executed from Zuul, and we keep a list of required-projects that ensures roles are synced by the Zuul merger. We then modify the role search path in ansible, and it requires a sub-directory with the role name to be present.",
+      "parentUuid": "a454902b_ad218a75",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 72
+      },
+      "revId": "4681b19a8dde1c42602b6665734a3c902f41bbfd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
