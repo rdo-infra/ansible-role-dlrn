@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a454902b_ad218a75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-08-20T11:43:49Z",
+      "side": 1,
+      "message": "iiuc this repo is standalone role will contain single role i.e dlrn. Not sure creating a roles directory and putting the role there makes much sense. But may be i am out of context wrt plan.",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 72
+      },
+      "revId": "4681b19a8dde1c42602b6665734a3c902f41bbfd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
