@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "758e0fda_12263cc7",
+        "filename": "tox.ini",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2020-08-21T10:26:43Z",
+      "side": 1,
+      "message": "/me starting to dislike ansible-lint :-/",
+      "revId": "b5d8d3b85bc1201c73b2c40a452c861cbf7d1e90",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
