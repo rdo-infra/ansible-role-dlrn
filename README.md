@@ -290,4 +290,4 @@ The module has only been tested on CentOS 7 and 8.
 
 The project uses the Gerrit infrastructure at https://review.rdoproject.org.
 
-Contributions are most welcome, plase use **git-review** to propose a change. Setup your ssh keys after sign in at https://review.rdoproject.org/auth/login .
+Contributions are most welcome, plase use **git-review** to propose a change. Setup your ssh keys after sign in at https://review.rdoproject.org/auth/login.
