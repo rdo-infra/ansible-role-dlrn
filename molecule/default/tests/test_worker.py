@@ -69,6 +69,7 @@ def test_centos8_train(host):
 # - Not enable gerrit configuration
 # - Not enable public rsync
 # - Use commits.sqliteabc in the db_connection string in alembic.ini
+# - Have custom keys for rdoinfo_driver in projects.ini
 
 def test_rhel8_master(host):
     cmd = host.run('crontab -l -u rhel8-master')
@@ -79,6 +80,9 @@ def test_rhel8_master(host):
     inifile = host.file('/usr/local/share/dlrn/rhel8-master/projects.ini')
     assert inifile.exists
     assert b'smtpserver=localhost' not in inifile.content
+    assert b'repo=http://github.com/redhat-openstack/rdoinfo' in inifile.content
+    assert b'info_files=test.yml' in inifile.content
+    assert b'cache_dir' not in inifile.content
 
     link1 = host.file('/var/www/html/rhel8-master')
     assert link1.exists

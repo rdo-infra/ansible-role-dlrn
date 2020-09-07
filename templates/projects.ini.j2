@@ -66,6 +66,17 @@ use_upstream_spec={{ worker.value.use_upstream_spec | default(False) }}
 {% if worker.value.downstream_spec_replace_list is defined %}
 downstream_spec_replace_list={{ worker.value.downstream_spec_replace_list | default('') }}
 {% endif %}
+{% elif worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') == 'dlrn.drivers.rdoinfo.RdoInfoDriver' %}
+[rdoinfo_driver]
+{% if worker.value.rdoinfo_repo is defined %}
+repo={{ worker.value.rdoinfo_repo }}
+{% endif %}
+{% if worker.value.rdoinfo_info_files is defined %}
+info_files={{ worker.value.rdoinfo_info_files }}
+{% endif %}
+{% if worker.value.rdoinfo_cache_dir is defined %}
+cache_dir={{ worker.value.rdoinfo_cache_dir }}
+{% endif %}
 {% endif %}
 
 {% if worker.value.build_driver | default('dlrn.drivers.mockdriver.MockBuildDriver') == 'dlrn.drivers.kojidriver.KojiBuildDriver' %}

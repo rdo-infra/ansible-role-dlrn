@@ -66,6 +66,8 @@
         enable_deps_sync: false
         enable_brs_sync: false
         enable_public_rsync: false
+        rdoinfo_repo: 'http://github.com/redhat-openstack/rdoinfo'
+        rdoinfo_info_files: 'test.yml'
       centos8-master-uc:
         distro: 'centos8'
         target: 'centos8-master-uc'

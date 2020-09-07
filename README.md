@@ -165,6 +165,16 @@ The role will use the following variables, defined in the inventory:
     spec files when building the source RPM. When set to the default value of false, DLRN will
     remove all changelog content from specs.
     Defaults to false.
+  - `rdoinfo_repo` (optional): If pkginfo_driver is 'dlrn.drivers.gitrepo.RdoInfoDriver', this
+    option will define the Git repo to use as a source for the information.
+    Not defined by default, so DLRN will use its internally default value.
+  - `rdoinfo_info_files` (optional): If pkginfo_driver is 'dlrn.drivers.gitrepo.RdoInfoDriver', this
+    option will define the base YAML file(s) to be used by distroinfo to fetch the information
+    from the repository.
+    Not defined by default, so DLRN will use its internally default value.
+  - `rdoinfo_cache_dir` (optional): If pkginfo_driver is 'dlrn.drivers.gitrepo.RdoInfoDriver', this
+    option will define the directory used by distroinfo as a cache for the repository.
+    Not defined by default, so DLRN will use its internally default value.
   - `gitrepo_repo` (optional): If pkginfo_driver is 'dlrn.drivers.gitrepo.GitRepoDriver', this
     option must be specified, and is the Git repo to use as a source.
     Defaults to 'http://github.com/openstack/rpm-packaging'
