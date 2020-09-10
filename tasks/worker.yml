@@ -17,6 +17,7 @@
     home: "/home/{{ worker.key }}"
     create_home: yes
     groups: users, mock
+    comment: "User for {{ worker.key }} worker"
     append: yes
     uid: "{{ worker.value.uid | default(omit) }}"
 

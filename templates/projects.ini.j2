@@ -31,7 +31,8 @@ database_connection={{ worker.value.db_connection | default('sqlite:///commits.s
 fallback_to_master={{ worker.value.fallback_to_master | default(True) }}
 include_srpm_in_repo={{ worker.value.include_srpm_in_repo | default(True) }}
 nonfallback_branches={{ worker.value.nonfallback_branches | default('^master$,^rpm-master$') }}
-{% if worker.value.custom_preprocess is defined %} custom_preprocess={{ worker.value.custom_preprocess | default('') }}
+{% if worker.value.custom_preprocess is defined %}
+custom_preprocess={{ worker.value.custom_preprocess | default('') }}
 {% endif %}
 allow_force_rechecks={{ worker.value.allow_force_rechecks | default(False) }}
 keep_changelog={{ worker.value.keep_changelog | default(False) }}
@@ -85,7 +86,7 @@ koji_exe={{ worker.value.koji_exe | default('koji') }}
 {% if worker.value.koji_krb_principal is defined %}
 krb_principal={{ worker.value.koji_krb_principal | default('') }}
 {% endif %}
-krb_keytab={{ worker.value.koji_keytab | default('koji') }}
+krb_keytab={{ worker.value.koji_krb_keytab | default('koji') }}
 scratch_build={{ worker.value.koji_scratch_builds | default(True) }}
 {% if worker.value.koji_build_target is defined %}
 build_target={{ worker.value.koji_build_target | default('') }}
