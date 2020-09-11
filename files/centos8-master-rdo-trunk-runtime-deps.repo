@@ -26,3 +26,10 @@ baseurl=http://mirror.centos.org/centos/8/opstools/$basearch/collectd-5/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
+
+[centos-nfv-ovs]
+name=NFV SIG OpenvSwitch
+baseurl=http://mirror.centos.org/centos/8/nfv/$basearch/openvswitch-2/
+gpgcheck=0
+enabled=1
+module_hotfixes=1
