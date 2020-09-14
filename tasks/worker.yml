@@ -63,7 +63,7 @@
     dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
     state: link
     force: yes
-  when:  worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|master-uc)')
+  when:  worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|master-uc)')
 
 - name: Create deps directories
   file:
@@ -311,7 +311,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: 0755
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri).*')
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria).*')
 
 - name: Set up symlinks
   file:
@@ -345,7 +345,7 @@
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
     mode: 0644
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri).*')
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria).*')
 
 - name: Set up gerrit, if configured
   when:
