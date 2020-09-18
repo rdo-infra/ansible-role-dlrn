@@ -33,3 +33,10 @@ baseurl=http://mirror.centos.org/centos/8/opstools/$basearch/collectd-5/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
+
+[centos-8-fix]
+name=centos-8-fix
+baseurl=https://trunk.rdoproject.org/centos8-master/deps/c8-fix/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
