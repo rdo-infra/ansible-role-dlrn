@@ -1,6 +1,0 @@
-[delorean-rhel8-train-deps]
-name=dlrn-train-rhel8-deps
-baseurl=http://trunk.rdoproject.org/rhel8-train/deps/latest
-enabled=1
-gpgcheck=0
-module_hotfixes=1
