@@ -1,5 +1,6 @@
+ansible<2.10
 molecule
-molecule[podman]
+molecule-podman>0.2
 selinux
 ansible-lint
 pytest
