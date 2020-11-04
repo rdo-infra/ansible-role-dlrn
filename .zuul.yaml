@@ -1,10 +1,13 @@
 ---
 - job:
     name: dlrn-tox-molecule
-    parent: tox-molecule
+    parent: tox
     pre-run: zuul/molecule-prepare.yml
     nodeset: rdo-centos-8
     timeout: 10800
+    vars:
+      tox_envlist: molecule
+
 
 - project:
     check:
