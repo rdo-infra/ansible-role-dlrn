@@ -226,6 +226,14 @@ The role will use the following variables, defined in the inventory:
     useful when the downstream DLRN instance has special requirements, such as building without
     documentation.
     Not defined by default.
+  - `downstream_source_git_key` (optional): If pkginfo_driver is
+    'dlrn.drivers.downstream.DownstreamInfoDriver', this option will specify the key used to find the
+    downstream source git in the 'packages' section of packaging metadata (from 'repo/info_files').
+    Not defined by default.
+  - `downstream_source_git_branch` (optional): If pkginfo_driver is
+    'dlrn.drivers.downstream.DownstreamInfoDriver', this option specifies the branch to use when
+    cloning the downstream source git, since it may be different from the upstream git branch.
+    Not defined by default.
   - `koji_exe` (optional): If build_driver is 'dlrn.drivers.kojidriver.KojiBuildDriver',
     this option defines the executable to use. Some Koji instances create their own client
     packages to add their default configuration, such as CBS or Brew.
