@@ -67,6 +67,12 @@ use_upstream_spec={{ worker.value.use_upstream_spec | default(False) }}
 {% if worker.value.downstream_spec_replace_list is defined %}
 downstream_spec_replace_list={{ worker.value.downstream_spec_replace_list | default('') }}
 {% endif %}
+{% if worker.value.downstream_source_git_key is defined %}
+downstream_source_git_key={{ worker.value.downstream_source_git_key | default('') }}
+{% endif %}
+{% if worker.value.downstream_source_git_branch is defined %}
+downstream_source_git_branch={{ worker.value.downstream_source_git_branch | default('') }}
+{% endif %}
 {% elif worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') == 'dlrn.drivers.rdoinfo.RdoInfoDriver' %}
 [rdoinfo_driver]
 {% if worker.value.rdoinfo_repo is defined %}
