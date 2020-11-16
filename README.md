@@ -27,13 +27,13 @@ The role will use the following variables, defined in the inventory:
   for changes in repos and synchronizes every build to a passive server if rsync is enabled. A passive
   server receives builds from the primary and serves the repos. Some DLRN configuration will be
    different depending on the server type. Defaults to `primary`.
-* `web_domain` (required) defines the web url used to serve the repositories, without the initial
+* `web_domain` (optional) defines the web url used to serve the repositories, without the initial
   `http://` part. Defaults to an empty string.
 * `disk_for_builders` (optional), if set, specifies a disk to be used by the role for the workers. This
   disk will be initialized using LVM and mounted as /home.
-* `sshd_port` (required) defines an extra SSH port. The SSH daemon will be configured to use it,
+* `sshd_port` (optional) defines an extra SSH port. The SSH daemon will be configured to use it,
   so you may reduce the number of automated attacks. Defaults to 22.
-* `enable_https` (required) allows us to specify if we want to set up HTTPS
+* `enable_https` (optional) allows us to specify if we want to set up HTTPS
   for the web component. If set to `true`, the required Apache vhost entries will be created. Defaults
   to `false`.
 * `dlrn_manage_letsencrypt` (optional), when `enable_https` is set to `true`, tells the role to take care
