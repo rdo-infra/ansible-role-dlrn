@@ -3,7 +3,7 @@
     name: dlrn-tox-molecule
     parent: tox
     pre-run: zuul/molecule-prepare.yml
-    nodeset: rdo-centos-8
+    nodeset: single-fedora-32-node
     timeout: 10800
     vars:
       tox_envlist: molecule
