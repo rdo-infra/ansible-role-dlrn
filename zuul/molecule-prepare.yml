@@ -9,3 +9,9 @@
       with_items:
         - container_manage_cgroup
       become: yes
+
+    - name: Set alias for podman to workaround https://github.com/containers/podman/issues/6734
+      shell:
+        cmd: |
+          echo 'alias podman="systemd-run --scope --user podman"' >> .bashrc
+        chdir: '{{ ansible_user_dir }}'
