@@ -1,0 +1,6 @@
+---
+- hosts: all
+  include_role:
+    name: tox
+    apply:
+      become: yes
