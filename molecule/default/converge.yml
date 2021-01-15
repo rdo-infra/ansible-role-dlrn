@@ -92,6 +92,7 @@
         release_numbering: '0.date.hash'
         enable_public_rsync: true
         public_rsync_hosts_allow: ['dummy.example.com']
+        mock_config: centos8stream.cfg.j2
       centos-stein:
         distro: 'centos7'
         target: 'centos-stein'
