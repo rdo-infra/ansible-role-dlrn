@@ -1,0 +1,85 @@
+config_opts['root'] = 'dlrn-{{ worker.key }}-x86_64'
+config_opts['target_arch'] = 'x86_64'
+config_opts['legal_host_arches'] = ('x86_64',)
+config_opts['chroot_setup_cmd'] = 'install basesystem rpm-build python3-devel gcc make python3-sqlalchemy python3-sphinx python3-eventlet python3-six python3-pbr openstack-macros git-core python3-setuptools_scm'
+config_opts['dist'] = 'el8'  # only useful for --resultdir variable subst
+config_opts['releasever'] = '8'
+config_opts['plugin_conf']['ccache_enable'] = False
+config_opts['package_manager'] = 'dnf'
+config_opts['extra_chroot_dirs'] = [ '/run/lock', ]
+config_opts['bootstrap_image'] = 'centos:8'
+config_opts['dnf_vars'] = { 'stream': '8-stream',
+                            'contentdir': 'centos',
+                          }
+config_opts['dnf_install_command'] = 'install dnf dnf-plugins-core centos-gpg-keys'
+{% if worker.value.mock_tmpfs_enable %}
+config_opts['plugin_conf']['tmpfs_enable'] = True
+config_opts['plugin_conf']['tmpfs_opts'] = {}
+config_opts['plugin_conf']['tmpfs_opts']['required_ram_mb'] = 4096
+config_opts['plugin_conf']['tmpfs_opts']['max_fs_size'] = '4g'
+config_opts['plugin_conf']['tmpfs_opts']['mode'] = '0755'
+config_opts['plugin_conf']['tmpfs_opts']['keep_mounted'] = True
+{% else %}
+config_opts['plugin_conf']['tmpfs_enable'] = False
+{% endif %}
+config_opts['priorities.conf'] = """
+[main]
+enabled = 1
+check_obsoletes = 1
+"""
+
+config_opts['yum.conf'] = """
+[main]
+keepcache=1
+debuglevel=2
+reposdir=/dev/null
+logfile=/var/log/yum.log
+retries=20
+obsoletes=1
+gpgcheck=0
+assumeyes=1
+plugins=1
+syslog_ident=mock
+syslog_device=
+mdpolicy=group:primary
+best=1
+protected_packages=
+module_platform_id=platform:el8
+user_agent=DLRN
+
+# repos
+
+[Stream-BaseOS]
+name=CentOS-Stream - Base
+#baseurl=http://mirror.centos.org/centos/8-stream/BaseOS/$basearch/os/
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=BaseOS&infra=$infra
+failovermethod=priority
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+gpgcheck=1
+skip_if_unavailable=False
+
+[Stream-AppStream]
+name=CentOS-Stream - AppStream
+#baseurl=http://mirror.centos.org/centos/8-stream/AppStream/$basearch/os/
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=AppStream&infra=$infra
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+[Stream-extras]
+name=CentOS-Stream - Extras
+#baseurl=http://mirror.centos.org/centos/8-stream/extras/$basearch/os/
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=extras&infra=$infra
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+[Stream-PowerTools]
+name=CentOS-Stream - PowerTools
+#baseurl=http://mirror.centos.org/centos/8-stream/PowerTools/$basearch/os/
+mirrorlist=http://mirrorlist.centos.org/?release=8-stream&arch=$basearch&repo=PowerTools&infra=$infra
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+"""

@@ -59,6 +59,11 @@ The role will use the following variables, defined in the inventory:
   - `disable_email` (optional): Disable e-mail notifications. Defaults to true.
   - `mock_tmpfs_enable` (optional): Enable the mock tmpfs plugin. Note this requires a lot of RAM.
     Defaults to false.
+  - `mock_config` (optional): If defined, a custom mock configuration file will be used for this
+    worker, and this variable defines the name of the file template (e.g. mockfile.cfg.j2). If
+    undefined (the default), the file template will be derived from the worker name, being the
+    name part before the first '-' sign (e.g. centos8.cfg.j2 for centos8-master, fedora.cfg.j2
+    for fedora-ussuri, etc.). Undefined by default.
   - `enable_cron` (optional): Enable cron jobs to run DLRN on the worker. Defaults to false.
   - `cron_env` (optional): Environment variables for DLRN cron command (run-dlrn.sh).
     Defaults to empty string.
