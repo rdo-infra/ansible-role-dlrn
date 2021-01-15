@@ -36,6 +36,7 @@ def test_centos8_train(host):
     inifile = host.file('/usr/local/share/dlrn/centos8-train/projects.ini')
     assert inifile.exists
     assert b'smtpserver=localhost' not in inifile.content
+    assert b'target=centos8-train' in inifile.content
 
     link1 = host.file('/var/www/html/centos8-train')
     assert link1.exists
@@ -83,6 +84,7 @@ def test_rhel8_master(host):
     assert b'repo=http://github.com/redhat-openstack/rdoinfo' in inifile.content
     assert b'info_files=test.yml' in inifile.content
     assert b'cache_dir' not in inifile.content
+    assert b'target=rhel8' in inifile.content
 
     link1 = host.file('/var/www/html/rhel8-master')
     assert link1.exists
@@ -119,6 +121,7 @@ def test_rhel8_master(host):
 # - Enable mock tmpfs in its mock configuration
 # - Not enable gerrit configuration
 # - Enable public rsync, allowing access to a server named "dummy.example.com"
+# - Use the centos8stream configuration for the mock template
 
 def test_centos8_master_uc(host):
     cmd = host.run('crontab -l -u centos8-master-uc')
@@ -129,6 +132,7 @@ def test_centos8_master_uc(host):
     inifile = host.file('/usr/local/share/dlrn/centos8-master-uc/projects.ini')
     assert inifile.exists
     assert b'smtpserver=localhost' not in inifile.content
+    assert b'target=centos8-master-uc' in inifile.content
 
     link1 = host.file('/var/www/html/centos8')
     assert link1.exists
@@ -143,6 +147,7 @@ def test_centos8_master_uc(host):
     mockfile = host.file('/home/centos8-master-uc/dlrn/scripts/centos8-master-uc.cfg')
     assert mockfile.exists
     assert b'config_opts[\'plugin_conf\'][\'tmpfs_enable\'] = True' in mockfile.content
+    assert b'[Stream-BaseOS]' in mockfile.content
 
     rsyncfile = host.file('/etc/rsyncd.d/centos8-master-uc.conf')
     assert rsyncfile.exists
@@ -175,6 +180,7 @@ def test_centos_stein(host):
     assert b'smtpserver=localhost' in inifile.content
     assert b'release_numbering=minor.date.hash' in inifile.content
     assert b'release_minor=5' in inifile.content
+    assert b'target=centos-stein' in inifile.content
 
     link1 = host.file('/var/www/html/centos7-stein')
     assert link1.exists

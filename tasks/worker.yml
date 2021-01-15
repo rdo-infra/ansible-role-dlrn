@@ -320,32 +320,23 @@
     state: link
   with_items: "{{ worker.value.symlinks }}"
 
-- name: Deploy mock config version for master-uc variants
-  template:
-    src: "{{ worker.key.split('-')[0] }}.cfg.j2"
-    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.key.split('-')[0] }}-master-uc.cfg"
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-    mode: 0644
-  when: worker.key | regex_search('^(centos|centos8)\-master-uc$')
+- name: Set fact for source mock configuration template
+  set_fact:
+    mock_cfg_template: "{{ worker.value.mock_config }}"
+  when: worker.value.mock_config is defined
 
-- name: Deploy mock config version for master variants
-  template:
-    src: "{{ worker.key.split('-')[0] }}.cfg.j2"
-    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.key.split('-')[0] }}.cfg"
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-    mode: 0644
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-master$')
+- name: Set fact for source mock configuration template (default)
+  set_fact:
+    mock_cfg_template: "{{ worker.key.split('-')[0] }}.cfg.j2"
+  when: worker.value.mock_config is not defined
 
-- name: Deploy mock config version for stable release variants
+- name: Deploy mock config
   template:
-    src: "{{ worker.key.split('-')[0] }}.cfg.j2"
-    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.key.split('-')[0] }}-{{ worker.key.split('-')[1:] | join('-') }}.cfg"
+    src: "{{ mock_cfg_template }}"
+    dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.value.target }}.cfg"
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
     mode: 0644
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria).*')
 
 - name: Set up gerrit, if configured
   when:
