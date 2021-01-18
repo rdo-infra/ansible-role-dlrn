@@ -45,6 +45,30 @@
       "revId": "da1a0a39d78762727302566e2d00eff304ba6224",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5d4af40_78ee81f5",
+        "filename": "templates/centos8stream.cfg.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-01-18T13:46:34Z",
+      "side": 1,
+      "message": "/usr/share/distribution-gpg-keys/centos/RPM-GPG-KEY-CentOS-Official provided by distribution-gpg-keys rpm from EPEL while /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial from centos-gpg-keys.",
+      "parentUuid": "14eebd4a_d10fd21f",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 81
+      },
+      "revId": "da1a0a39d78762727302566e2d00eff304ba6224",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
