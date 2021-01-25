@@ -49,6 +49,9 @@ The role will use the following variables, defined in the inventory:
   used for the LetsEncrypt certificate. Defaults to `test@example.com`.
 * `api_workers` (optional) is a list of the workers where the DLRN API will be enabled.
   Defaults to an empty list.
+* `force_python_version` (optional), if set, allows us to force a non-default Python version for
+  the DLRN virtualenv. Set it to ``python3`` if you want to use python3 on a CentOS 7 system, for
+  example. By default, it is undefined, meaning the default Python version will be used.
 * `dlrn_workers` (optional). This dictionary contains the definition of all workers to be deployed
   by the role. Each dictionary entry can contain the following entries:
 

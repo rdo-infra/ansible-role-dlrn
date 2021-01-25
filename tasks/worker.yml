@@ -139,6 +139,7 @@
   pip:
     requirements: "/home/{{ worker.key }}/dlrn/requirements.txt"
     virtualenv: "/home/{{ worker.key }}/.venv"
+    virtualenv_python: "{{ force_python_version | default(omit) }}"
   become: yes
   become_user: "{{ worker.key }}"
 
@@ -146,6 +147,7 @@
   pip:
     requirements: "/home/{{ worker.key }}/dlrn/test-requirements.txt"
     virtualenv: "/home/{{ worker.key }}/.venv"
+    virtualenv_python: "{{ force_python_version | default(omit) }}"
   become: yes
   become_user: "{{ worker.key }}"
 
