@@ -75,6 +75,7 @@
         name:
           - openssh-server
           - cronie
+          - initscripts
 
     - name: "Include dlrn"
       include_role:

@@ -107,13 +107,13 @@
     state: started
     enabled: yes
 
-- name: Enable network service on CentOS 7
-  service:
-    name: network
-    state: started
-    enabled: yes
-  when:
-    - ansible_distribution_major_version | int == 7
+#- name: Enable network service on CentOS 7
+#  service:
+#    name: network
+#    state: started
+#    enabled: yes
+#  when:
+#    - ansible_distribution_major_version | int == 7
 
 - name: Add mock group
   group:
