@@ -12,15 +12,22 @@ RDOINFO_LOCATION=${RDOINFO_LOCATION:-/home/rdoinfo/rdoinfo}
 DATE_VERSION=$(date +%Y%m%d%H%M)
 RSYNC_REMOTE=${RSYNC_REMOTE:-1}
 TAG_PHASE=${TAG_PHASE:-testing}
+STREAM_RELEASES="master-uc wallaby"
 
 # Find CentOS version
 
 case $(echo $USER|cut -d'-' -f1) in
 centos)
   CENTOS_RELEASE=7
+  TAG_PREFFIX="cloud7"
   ;;
 centos8)
   CENTOS_RELEASE=8
+  if [ $(echo $STREAM_RELEASES|grep -c $RELEASE) -ne 0 ]; then
+      TAG_PREFFIX="cloud8s"
+  else
+      TAG_PREFFIX="cloud8"
+  fi
   ;;
 esac
 
@@ -55,9 +62,9 @@ fi
 
 echo "INFO: synchronizing dependencies revision $DATE_VERSION to $LATEST_DEPS_DIR"
 if [ $RELEASE = "master-uc" ]; then
-    CBS_TAG=${CBS_TAG:-"cloud${CENTOS_RELEASE}-openstack-${MASTER_TAG}-${TAG_SUFFIX}"}
+    CBS_TAG=${CBS_TAG:-"${TAG_PREFFIX}-openstack-${MASTER_TAG}-${TAG_SUFFIX}"}
 else
-    CBS_TAG=${CBS_TAG:-"cloud${CENTOS_RELEASE}-openstack-${RELEASE}-${TAG_SUFFIX}"}
+    CBS_TAG=${CBS_TAG:-"${TAG_PREFFIX}-openstack-${RELEASE}-${TAG_SUFFIX}"}
 fi
 
 TEMPDIR=$(mktemp -d)
