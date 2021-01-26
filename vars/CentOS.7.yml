@@ -8,6 +8,8 @@ required_packages:
     - git
     - python-pip
     - python-virtualenv
+    - python3-pip
+    - python3-virtualenv
     - gcc
     - createrepo
     - screen
