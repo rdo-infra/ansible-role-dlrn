@@ -135,6 +135,15 @@
   become: yes
   become_user: "{{ worker.key }}"
 
+- name: Create virtual environment for DLRN
+  pip:
+    name: pip
+    state: latest
+    virtualenv: "/home/{{ worker.key }}/.venv"
+    virtualenv_python: "{{ force_python_version | default(omit) }}"
+  become: yes
+  become_user: "{{ worker.key }}"
+
 - name: Deploy DLRN requirements on venv
   pip:
     requirements: "/home/{{ worker.key }}/dlrn/requirements.txt"
