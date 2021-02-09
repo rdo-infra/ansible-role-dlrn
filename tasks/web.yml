@@ -67,12 +67,12 @@
   block:
     - name: Prepare facts for task
       set_fact:
-          ssl_cert_options:
-              cert1:
-                email: "{{ cert_mail | default('softwarefactory-operations-team@redhat.com') }}"
-                domain: "{{ web_domain }}"
-                webroot: "/var/www/html"
-          certbot_plugin: "--webroot"
+        ssl_cert_options:
+          cert1:
+            email: "{{ cert_mail | default('softwarefactory-operations-team@redhat.com') }}"
+            domain: "{{ web_domain }}"
+            webroot: "/var/www/html"
+        certbot_plugin: "--webroot"
 
     - name: Run SSL certificate request
       include_tasks: ssl.yml

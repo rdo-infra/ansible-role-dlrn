@@ -47,4 +47,3 @@
     - name: "Include dlrn"
       include_role:
         name: "dlrn"
-

@@ -63,7 +63,7 @@
     dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
     state: link
     force: yes
-  when:  worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|master-uc)')
+  when: worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|master-uc)')
 
 - name: Create deps directories
   file:

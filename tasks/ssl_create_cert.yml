@@ -32,5 +32,5 @@
     minute: "{{ 60 | random }}"
     hour: "0"
     weekday: "0"
-    user:  "root"
+    user: "root"
     job: " /usr/bin/certbot certonly -a webroot --keep-until-expiring -d {{ cert_item.value.domain }} --webroot-path {{ cert_item.value.webroot | default('/var/www/html') }} && /usr/bin/systemctl reload httpd"
