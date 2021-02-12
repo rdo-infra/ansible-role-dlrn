@@ -141,6 +141,7 @@
     state: latest   # noqa package-latest
     virtualenv: "/home/{{ worker.key }}/.venv"
     virtualenv_python: "{{ force_python_version | default(omit) }}"
+    virtualenv_site_packages: true
   become: yes
   become_user: "{{ worker.key }}"
 
