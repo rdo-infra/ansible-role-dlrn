@@ -32,12 +32,18 @@
     url: https://raw.githubusercontent.com/redhat-openstack/trunk.rdoproject.org/master/images/rdo-logo-white.png
     dest: /var/www/html/images/rdo-logo-white.png
     mode: '0644'
+  register: fetch_logo
+  until: fetch_logo is not failed
+  retries: 5
 
 - name: Fetch home page
   get_url:
     url: https://raw.githubusercontent.com/redhat-openstack/trunk.rdoproject.org/master/index.html
     dest: /var/www/html/index.html
     mode: '0644'
+  register: fetch_home
+  until: fetch_home is not failed
+  retries: 5
 
 - name: Deploy update-web-index.sh script
   copy:
