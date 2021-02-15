@@ -27,40 +27,23 @@
     state: directory
     mode: '0755'
 
-- name: Fetch RDO logo
-  get_url:
-    url: https://raw.githubusercontent.com/redhat-openstack/trunk.rdoproject.org/master/images/rdo-logo-white.png
+- name: Deploy RDO logo
+  copy:
+    src: web/rdo-logo-white.png
     dest: /var/www/html/images/rdo-logo-white.png
     mode: '0644'
-  register: fetch_logo
-  until: fetch_logo is not failed
-  retries: 6
-  delay: 5
 
-- name: Fetch home page
-  get_url:
-    url: https://raw.githubusercontent.com/redhat-openstack/trunk.rdoproject.org/master/index.html
+- name: Deploy home page
+  copy:
+    src: web/index.html
     dest: /var/www/html/index.html
     mode: '0644'
-  register: fetch_home
-  until: fetch_home is not failed
-  retries: 6
-  delay: 5
 
-- name: Deploy update-web-index.sh script
-  copy:
-    src: update-web-index.sh
-    dest: /usr/local/bin/update-web-index.sh
-    mode: 0755
-
-- name: Create cron job to run update-web-index
+- name: Remove cron job to run update-web-index, if present
   cron:
     name: update-web-index
     user: root
-    minute: "0"
-    hour: "3"
-    day: "*"
-    job: '/usr/local/bin/update-web-index.sh > /dev/null'
+    state: absent
 
 - name: Start httpd service
   service:

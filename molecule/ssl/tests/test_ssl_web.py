@@ -53,4 +53,4 @@ def test_packages(host):
 
 def test_cron(host):
     cmd = host.run('crontab -l -u root')
-    assert '/usr/local/bin/update-web-index.sh' in cmd.stdout
+    assert '/usr/local/bin/update-web-index.sh' not in cmd.stdout

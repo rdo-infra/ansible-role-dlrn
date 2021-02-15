@@ -1,5 +1,6 @@
 galaxy_info:
-  author: Javier Peña <jpena@redhat.com>
+  author: jpena
+  role_name: dlrn
   description: This is an Ansible role aimed at setting up a new DLRN instance from scratch
   company: RDO
 
