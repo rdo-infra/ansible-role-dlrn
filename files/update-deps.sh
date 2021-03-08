@@ -12,7 +12,6 @@ RDOINFO_LOCATION=${RDOINFO_LOCATION:-/home/rdoinfo/rdoinfo}
 DATE_VERSION=$(date +%Y%m%d%H%M)
 RSYNC_REMOTE=${RSYNC_REMOTE:-1}
 TAG_PHASE=${TAG_PHASE:-testing}
-STREAM_RELEASES="master-uc wallaby"
 
 # Find CentOS version
 
@@ -23,11 +22,7 @@ centos)
   ;;
 centos8)
   CENTOS_RELEASE=8
-  if [ $(echo $STREAM_RELEASES|grep -c $RELEASE) -ne 0 ]; then
-      TAG_PREFFIX="cloud8s"
-  else
-      TAG_PREFFIX="cloud8"
-  fi
+  TAG_PREFFIX="cloud8s"
   ;;
 esac
 
