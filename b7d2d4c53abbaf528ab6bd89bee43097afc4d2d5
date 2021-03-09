@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96b969fa_d71d7c1e",
+        "filename": "files/centos8-wallaby-dlrn-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-03-09T09:28:20Z",
+      "side": 1,
+      "message": "given that we are using stream mock config we may need to use 8-stream here. BTW, i guess we have the same for other builders, right?",
+      "range": {
+        "startLine": 46,
+        "startChar": 40,
+        "endLine": 46,
+        "endChar": 41
+      },
+      "revId": "b7d2d4c53abbaf528ab6bd89bee43097afc4d2d5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
