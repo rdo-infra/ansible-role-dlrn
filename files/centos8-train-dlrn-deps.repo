@@ -41,9 +41,3 @@ enabled=1
 gpgcheck=0
 module_hotfixes=1
 
-[centos-8-powertools]
-name=centos-8-powertools
-baseurl=http://mirror.centos.org/centos/8-stream/PowerTools/$basearch/os/
-enabled=1
-gpgcheck=0
-module_hotfixes=1
