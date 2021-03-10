@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "839a0060_3168e350",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-03-10T05:42:44Z",
+      "side": 1,
+      "message": "i think this no longer be needed, also this caused issue https://bugs.launchpad.net/tripleo/+bug/1918325/comments/7",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "b3015ac02364698da15512998eee01592303aa02",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
