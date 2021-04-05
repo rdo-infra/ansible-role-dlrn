@@ -56,7 +56,7 @@
         purge_hour: '7'
         purge_minute: '7'
         symlinks: ['/var/www/html/rhel8-master', '/var/www/html/redhat8-master']
-        release: 'wallaby-uc'
+        release: 'xena-uc'
         baseurl: 'http://trunk.rdoproject.org/rhel8-master'
         pkginfo_driver: 'dlrn.drivers.rdoinfo.RdoInfoDriver'
         db_connection: 'sqlite:///commits.sqliteabc'
@@ -79,7 +79,7 @@
         purge_hour: '2'
         purge_minute: '7'
         symlinks: ['/var/www/html/centos8', '/var/www/html/centos8-master']
-        release: 'wallaby-uc'
+        release: 'xena-uc'
         baseurl: 'https://trunk.rdoproject.org/centos8'
         pkginfo_driver: 'dlrn.drivers.rdoinfo.RdoInfoDriver'
         build_driver: 'dlrn.drivers.mockdriver.MockBuildDriver'

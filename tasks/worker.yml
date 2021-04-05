@@ -63,7 +63,7 @@
     dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
     state: link
     force: yes
-  when: worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|master-uc)')
+  when: worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|master-uc)')
 
 - name: Create deps directories
   file:
@@ -303,7 +303,7 @@
     - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
 
 - name: Enable copr repo for centos-packager on CentOS 8
-  command: 'dnf copr enable ykarel/ykarel-centos-stream centos-stream-x86_64 -y'
+  command: 'dnf copr enable ykarel/ykarel-centos-stream centos-stream-8-x86_64 -y'
   args:
     creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ykarel:ykarel-centos-stream.repo
     warn: false
@@ -323,7 +323,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: 0755
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby).*')
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena).*')
 
 - name: Set up symlinks
   file:
