@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10b57246_51f8b9dc",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-04-07T11:38:26Z",
+      "side": 1,
+      "message": "have we already tested these repos? if not may be good to change before changing deps repos",
+      "revId": "ca073fc138e688e9227a93716ee47d2bbb2c50d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
