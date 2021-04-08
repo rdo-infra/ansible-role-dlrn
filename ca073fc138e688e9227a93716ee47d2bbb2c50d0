@@ -70,6 +70,24 @@
       "revId": "ca073fc138e688e9227a93716ee47d2bbb2c50d0",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a557c97_cc1bc488",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-04-08T13:39:18Z",
+      "side": 1,
+      "message": "Actually, do jobs download and modify the delorean-deps.repo file directly? I thought they didn\u0027t, and that caused the RFE to allow setting up a custom file instead.",
+      "parentUuid": "fd50edfe_f2ceeaf4",
+      "revId": "ca073fc138e688e9227a93716ee47d2bbb2c50d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
