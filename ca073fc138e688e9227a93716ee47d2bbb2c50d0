@@ -88,6 +88,29 @@
       "revId": "ca073fc138e688e9227a93716ee47d2bbb2c50d0",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d122df7_aac59a56",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-04-12T11:31:58Z",
+      "side": 1,
+      "message": "I\u0027ve just crosstagged rabbitmq builds to messaging8s so we can also update this repo.",
+      "range": {
+        "startLine": 24,
+        "startChar": 40,
+        "endLine": 24,
+        "endChar": 41
+      },
+      "revId": "ca073fc138e688e9227a93716ee47d2bbb2c50d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
