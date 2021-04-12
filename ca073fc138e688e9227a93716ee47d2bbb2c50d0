@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "aabacec9_f39047dd",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-04-12T12:07:05Z",
+      "side": 1,
+      "message": "In upstream tripleo jobs, it\u0027s done via repo-setup[1] role or tripleo-repos[2].\nmainly the RFE referred DLRN builders and CI jobs which pulls delorean-deps.repo in mock config and not inject mirrors.\n\n\n[1] https://github.com/openstack/tripleo-quickstart/blob/master/config/release/tripleo-ci/CentOS-8/master.yml#L136-L138 and  https://github.com/openstack/tripleo-quickstart/blob/master/config/release/tripleo-ci/CentOS-8/master.yml#L180\n[2] https://github.com/openstack/tripleo-repos/blob/master/tripleo_repos/main.py#L218",
+      "parentUuid": "4a557c97_cc1bc488",
+      "revId": "ca073fc138e688e9227a93716ee47d2bbb2c50d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d122df7_aac59a56",
         "filename": "files/centos8-master-dlrn-deps.repo",
         "patchSetId": 3
