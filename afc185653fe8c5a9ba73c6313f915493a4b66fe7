@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e6bf228_fbda329a",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-04-13T08:25:04Z",
+      "side": 0,
+      "message": "This name is used in https://opendev.org/openstack/tripleo-quickstart/src/branch/master/config/release/dependency_ci/openvswitch/repo_config.yaml#L9\n\nWe need to fix that too or add both repos temporarily to make the transition in a backwards compatible way.",
+      "range": {
+        "startLine": 37,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "afc185653fe8c5a9ba73c6313f915493a4b66fe7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
