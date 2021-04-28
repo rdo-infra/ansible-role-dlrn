@@ -19,7 +19,7 @@ testinfra_hosts = ['all']
 
 # The centos8-train worker will:
 # - Not enable cron jobs for run-dlrn.sh
-# - Enable cron jobs for run-purge.sh
+# - Enable cron jobs for run-purge.sh, with custom args
 # - Enable dependency sync cron jobs
 # - Create two symlinks: /var/www/html/centos8-train and /var/www/html/train/centos8
 # - Disable email sending
@@ -30,7 +30,7 @@ testinfra_hosts = ['all']
 def test_centos8_train(host):
     cmd = host.run('crontab -l -u centos8-train')
     assert 'run-dlrn.sh' not in cmd.stdout
-    assert 'run-purge.sh' in cmd.stdout
+    assert 'run-purge.sh --older-than 30 -y' in cmd.stdout
     assert 'update-deps.sh' in cmd.stdout
 
     inifile = host.file('/usr/local/share/dlrn/centos8-train/projects.ini')
