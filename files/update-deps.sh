@@ -74,6 +74,7 @@ fi
 
 repoquery --archlist=x86_64,noarch,ppc64le,aarch64 --repofrompath=deps,file://$LATEST_DEPS_DIR --disablerepo=* --enablerepo=deps -s -q -a $QUERY_EXTRA_OPTS|sort -u|sed 's/.src.rpm//g'>$TEMPDIR/current_deps
 rdopkg info -l $RDOINFO_LOCATION "buildsys-tags:$CBS_TAG" "tags:dependency"|grep $CBS_TAG|awk '{print $2}'>$TEMPDIR/required_deps
+rdopkg info -l $RDOINFO_LOCATION "name:openstack-macros"|grep $CBS_TAG|awk '{print $2}'>$TEMPDIR/required_deps
 
 # We only want to download builds for supported arches
 ARCH_OPT="-a src"
