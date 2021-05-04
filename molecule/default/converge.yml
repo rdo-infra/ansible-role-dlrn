@@ -45,6 +45,7 @@
         rsyncport: '3000'
         use_components: true
         enable_public_rsync: false
+        purge_custom_args: '--older-than 30 -y'
       rhel8-master:
         distro: 'rhel8'
         target: 'rhel8'

@@ -238,7 +238,7 @@
     minute: "{{ worker.value.purge_minute | default('7') }}"
     hour: "{{ worker.value.purge_hour | default('1') }}"
     day: "*"
-    job: "/usr/local/bin/run-purge.sh"
+    job: "/usr/local/bin/run-purge.sh {{ worker.value.purge_custom_args | default('') }}"
   when:
     - worker.value.enable_purge | default(False)
     - dlrn_server_type | default('primary') == 'primary'

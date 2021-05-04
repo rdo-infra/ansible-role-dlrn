@@ -80,6 +80,9 @@ The role will use the following variables, defined in the inventory:
     Defaults to '1'.
   - `purge_minute` (optional): If enable_purge is set to true, set the minute for the cron job.
     Defaults to '7'.
+  - `purge_custom_args` (optional): If enable_purge is set to true, and this option is set,
+    it will define the custom arguments passed to the `run-purge.sh` script instead of the
+    default ones. Undefined by default.
   - `symlinks` (optional): List of directories to be symlinked under to the repo directory.
     Example: ['/var/www/html/centos8', '/var/www/html/centos8-master'].
     If not specified (default), no symlinks will be created.
