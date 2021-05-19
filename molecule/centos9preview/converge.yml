@@ -1,0 +1,50 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    dlrn_server_type: primary
+    disable_worker_email: &disable_email true
+    enable_worker_cronjobs: &enable_cron true
+    enable_purge_cronjobs: &enable_purge false
+    web_domain: trunk.rdoproject.org
+    enable_https: false
+    api_workers:
+      - centos9-master-preview
+    dlrn_manage_letsencrypt: false
+    dlrn_workers:
+      centos9-master-preview:
+        distro: 'centos8'
+        target: 'centos9-master-preview'
+        distgit_branch: 'rpm-master'
+        distro_branch: 'master'
+        disable_email: *disable_email
+        enable_cron: *enable_cron
+        enable_purge: *enable_purge
+        purge_hour: '2'
+        purge_minute: '7'
+        symlinks: ['/var/www/html/centos9', '/var/www/html/centos9-master-preview']
+        release: 'xena-uc'
+        baseurl: 'https://trunk.rdoproject.org/centos9-master-preview'
+        pkginfo_driver: 'dlrn.drivers.rdoinfo.RdoInfoDriver'
+        build_driver: 'dlrn.drivers.mockdriver.MockBuildDriver'
+        db_connection: 'sqlite:///commits.sqlite'
+        mock_tmpfs_enable: true
+        fallback_to_master: true
+        include_srpm_in_repo: true
+        enable_deps_sync: false
+        enable_brs_sync: false
+        release_numbering: '0.date.hash'
+        enable_public_rsync: true
+        public_rsync_hosts_allow: ['dummy.example.com']
+        mock_config: centos9preview.cfg.j2
+  tasks:
+    - name: Pre-install some packages
+      package:
+        name:
+          - openssh-server
+          - cronie
+
+    - name: "Include dlrn"
+      include_role:
+        name: "dlrn"
+
