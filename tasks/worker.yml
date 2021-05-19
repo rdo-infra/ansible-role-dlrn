@@ -153,14 +153,6 @@
   become: yes
   become_user: "{{ worker.key }}"
 
-- name: Deploy DLRN test requirements on venv
-  pip:
-    requirements: "/home/{{ worker.key }}/dlrn/test-requirements.txt"
-    virtualenv: "/home/{{ worker.key }}/.venv"
-    virtualenv_python: "{{ force_python_version | default(omit) }}"
-  become: yes
-  become_user: "{{ worker.key }}"
-
 - name: Install DLRN on venv
   shell: |
     source /home/{{ worker.key }}/.venv/bin/activate
