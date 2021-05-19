@@ -1,0 +1,13 @@
+[delorean-master-testing]
+name=dlrn-master-testing
+baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/latest/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
+
+[cs9-preview-rabbitmq]
+name=centos9-preview-rabbitmq
+baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/rabbit/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
