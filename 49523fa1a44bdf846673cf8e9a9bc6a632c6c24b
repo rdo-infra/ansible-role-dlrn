@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7580dc06_a63fd0f0",
+        "filename": "molecule/centos9preview/tests/test_worker.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2021-05-20T10:13:12Z",
+      "side": 1,
+      "message": "it just a detail",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "49523fa1a44bdf846673cf8e9a9bc6a632c6c24b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2dbf57b_f18ea2d7",
+        "filename": "molecule/centos9preview/tests/test_worker.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 207
+      },
+      "writtenOn": "2021-05-20T10:13:12Z",
+      "side": 1,
+      "message": "also small detail",
+      "range": {
+        "startLine": 60,
+        "startChar": 81,
+        "endLine": 60,
+        "endChar": 82
+      },
+      "revId": "49523fa1a44bdf846673cf8e9a9bc6a632c6c24b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
