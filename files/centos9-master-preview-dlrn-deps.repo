@@ -18,3 +18,10 @@ baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/rabbit/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
+
+[cs9-missing-temp]
+name=centos9-missing-temporal
+baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/temp-missing-centos/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
