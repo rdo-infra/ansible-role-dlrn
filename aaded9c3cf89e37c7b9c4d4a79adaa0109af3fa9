@@ -1,0 +1,10 @@
+Code-Review+2: Javier Peña <jpena@redhat.com>
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+1: Joel Capitao <jcapitao@redhat.com>
+Workflow+1: Javier Peña <jpena@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Fri, 21 May 2021 13:55:48 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/33795
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
