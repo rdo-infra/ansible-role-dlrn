@@ -50,6 +50,17 @@
     mode: 0644
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
+  register: dlrndeps_status
+  ignore_errors: true
+
+- name: Create dummy dlrn-deps.repo file if template is not present
+  copy:
+    content: ' '
+    dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+    mode: 0644
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+  when: dlrndeps_status.failed
 
 - name: Create delorean-deps.repo symlink
   file:
