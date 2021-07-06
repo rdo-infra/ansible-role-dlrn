@@ -35,6 +35,9 @@
     WSGIPassAuthorization On
   </Location>{% endif %}
 
+  {% if worker | regex_search('.*-master-uc$') %}RewriteEngine on
+  RewriteRule ^/api-{{ worker | replace ('-master-uc', '-master') }}/(.*) /api-{{ worker }}/$1 [PT]{% endif %}
+
 {% endfor %}
 
   ## Logging

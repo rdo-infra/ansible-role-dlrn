@@ -122,6 +122,8 @@ def test_rhel8_master(host):
 # - Not enable gerrit configuration
 # - Enable public rsync, allowing access to a server named "dummy.example.com"
 # - Use the centos8stream configuration for the mock template
+# - Have an api-centos8-master-uc entry at /etc/httpd/conf.d/25-trunk.rdoproject.org.conf
+# - Have a rewrite rule from api-centos8-master to api-centos8-master-uc in the same file
 
 def test_centos8_master_uc(host):
     cmd = host.run('crontab -l -u centos8-master-uc')
@@ -157,6 +159,10 @@ def test_centos8_master_uc(host):
     assert 'user.name=rdo-trunk' not in gitconfig.stdout
     assert 'user.email=javier.pena@redhat.com' not in gitconfig.stdout
     assert 'gitreview.username=rdo-trunk' not in gitconfig.stdout
+
+    vhostfile = host.file('/etc/httpd/conf.d/25-trunk.rdoproject.org.conf')
+    assert b'<Location "/api-centos8-master-uc">' in vhostfile.content
+    assert b'RewriteRule ^/api-centos8-master/(.*) /api-centos8-master-uc/$1 [PT]' in vhostfile.content
 
 # The centos-stein worker will:
 # - Enable cron jobs for run-dlrn.sh
