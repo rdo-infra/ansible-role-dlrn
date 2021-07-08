@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88c4ef06_0a3be149",
+        "filename": "templates/vhost_80.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-07-08T11:11:11Z",
+      "side": 1,
+      "message": "There\u0027s a typo here, it should be FilesMatch [1].\n\n[1] - https://httpd.apache.org/docs/2.4/mod/core.html#filesmatch",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "915a9184e335f13f29829243cf3ea15e8dfd09b1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
