@@ -45,6 +45,11 @@
   ServerSignature Off
   CustomLog "/var/log/httpd/ssl-{{ web_domain }}_access.log" combined
 
+  <Location "/server-status">
+    SetHandler server-status
+    Require host localhost
+  </Location>
+
   ## SSL directives
   SSLEngine on
   SSLCertificateFile      "/etc/letsencrypt/live/{{ web_domain }}/cert.pem"
