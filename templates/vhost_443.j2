@@ -13,6 +13,14 @@
     Require all granted
   </Directory>
 
+  # Ensure we set proper headers for cache management.
+  <FileMatches "\.(md5)$">
+    FileEtag none
+    Header unset ETag
+    # Let cache for 1800s (30 minutes), but let's accept serving old data for another 30 minutes
+    Header set Cache-Control "max-age=1800, public, stale-if-error=1800"
+  </FileMatches>
+
 {% for worker in api_workers %}
   # WSGI configuration for worker {{ worker }}
   # NOTE(dpawlik): use python-path param instead of python-home,
