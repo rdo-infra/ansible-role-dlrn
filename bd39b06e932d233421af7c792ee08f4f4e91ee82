@@ -46,6 +46,30 @@
       "revId": "bd39b06e932d233421af7c792ee08f4f4e91ee82",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70dbb4ca_183feec9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-08-02T13:28:20Z",
+      "side": 1,
+      "message": "yeap i got the cache part and benefit, didn\u0027t got was what we were trying to achieve with just serving md5 files from cache when rdo servers are down, as when they are down repos(like delorean.repo and rpms for those repos) itself will not be available",
+      "parentUuid": "16610737_01c43144",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "bd39b06e932d233421af7c792ee08f4f4e91ee82",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
