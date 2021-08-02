@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e9fc5fb_6f9c6032",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-08-02T13:13:20Z",
+      "side": 1,
+      "message": "Not sure how much it will help if just .md5 served from cache as rdo server is down so repos itself will not be available.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "bd39b06e932d233421af7c792ee08f4f4e91ee82",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
