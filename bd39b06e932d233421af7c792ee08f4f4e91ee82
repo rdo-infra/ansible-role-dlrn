@@ -70,6 +70,30 @@
       "revId": "bd39b06e932d233421af7c792ee08f4f4e91ee82",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af034bf9_3968bc11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 547
+      },
+      "writtenOn": "2021-08-02T13:35:25Z",
+      "side": 1,
+      "message": "oh, THAT. :) so that rule affects only .md5, because as far as I can tell/know, there isn\u0027t any cache policy, meaning the .rpm will be stored in the proxy cache for \"a certain time\", and be served from there, even after that 30 minutes delay.\n\nThe main issue was related to the container tags, since it\u0027s using that hash content, and there were container pull issues, because the tag wasn\u0027t correct at some point.\n\nSooo.. with my current knowledge of the infra, it sounded reasonable to get a 30 minutes cache for those .md5 files in order to prevent the issues on the proxy side or, at least, limit it in the time, while ensuring those files aren\u0027t directly fetched from the backend (since it could lead in useless load).\n\nNow, if there\u0027s a thing that actually prevents .rpm caching, we can match it for the .md5 as well, but as said... I didn\u0027t see anything like that, either on the source side (here) or on the proxy side.\n\nI\u0027d be happy to update the values to something more \"correct\" if there\u0027s a need, of course.",
+      "parentUuid": "70dbb4ca_183feec9",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "bd39b06e932d233421af7c792ee08f4f4e91ee82",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
