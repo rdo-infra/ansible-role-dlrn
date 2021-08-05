@@ -55,7 +55,7 @@ def test_centos8_train(host):
     rsyncfile = host.file('/etc/rsyncd.d/centos8-train.conf')
     assert not rsyncfile.exists
 
-    gitconfig = host.run('sudo -u centos8-train git config --global -l') 
+    gitconfig = host.run('sudo -u centos8-train git config --global -l')
     assert 'user.name=rdo-trunk' in gitconfig.stdout
     assert 'user.email=javier.pena@redhat.com' in gitconfig.stdout
     assert 'gitreview.username=rdo-trunk' in gitconfig.stdout
@@ -103,7 +103,7 @@ def test_rhel8_master(host):
     rsyncfile = host.file('/etc/rsyncd.d/rhel8-master.conf')
     assert not rsyncfile.exists
 
-    gitconfig = host.run('sudo -u rhel8-master git config --global -l') 
+    gitconfig = host.run('sudo -u rhel8-master git config --global -l')
     assert 'user.name=rdo-trunk' not in gitconfig.stdout
     assert 'user.email=javier.pena@redhat.com' not in gitconfig.stdout
     assert 'gitreview.username=rdo-trunk' not in gitconfig.stdout
@@ -155,7 +155,7 @@ def test_centos8_master_uc(host):
     assert rsyncfile.exists
     assert b'hosts allow = dummy.example.com' in rsyncfile.content
 
-    gitconfig = host.run('sudo -u centos8-master-uc git config --global -l') 
+    gitconfig = host.run('sudo -u centos8-master-uc git config --global -l')
     assert 'user.name=rdo-trunk' not in gitconfig.stdout
     assert 'user.email=javier.pena@redhat.com' not in gitconfig.stdout
     assert 'gitreview.username=rdo-trunk' not in gitconfig.stdout
@@ -164,49 +164,49 @@ def test_centos8_master_uc(host):
     assert b'<Location "/api-centos8-master-uc">' in vhostfile.content
     assert b'RewriteRule ^/api-centos8-master/(.*) /api-centos8-master-uc/$1 [PT]' in vhostfile.content
 
-# The centos-stein worker will:
+# The centos-train worker will:
 # - Enable cron jobs for run-dlrn.sh
 # - Not enable cron jobs for run-purge.sh
 # - Enable dependency sync cron jobs
-# - Create two symlinks: /var/www/html/centos7-stein and /var/www/html/stein/centos7
+# - Create two symlinks: /var/www/html/centos7-train and /var/www/html/train/centos7
 # - Enable email sending
 # - Enable mock tmpfs in its mock configuration
 # - Not enable gerrit configuration
 # - Enable public rsync, allowing access to a server named "dummy.example.com"
 # - Set release_numbering to "minor.date.hash" and release_minor to '5'
 
-def test_centos_stein(host):
-    cmd = host.run('crontab -l -u centos-stein')
+def test_centos_train(host):
+    cmd = host.run('crontab -l -u centos-train')
     assert 'run-dlrn.sh' in cmd.stdout
     assert 'run-purge.sh' not in cmd.stdout
     assert 'update-deps.sh' in cmd.stdout
 
-    inifile = host.file('/usr/local/share/dlrn/centos-stein/projects.ini')
+    inifile = host.file('/usr/local/share/dlrn/centos-train/projects.ini')
     assert inifile.exists
     assert b'smtpserver=localhost' in inifile.content
     assert b'release_numbering=minor.date.hash' in inifile.content
     assert b'release_minor=5' in inifile.content
-    assert b'target=centos-stein' in inifile.content
+    assert b'target=centos-train' in inifile.content
 
-    link1 = host.file('/var/www/html/centos7-stein')
+    link1 = host.file('/var/www/html/centos7-train')
     assert link1.exists
     assert link1.is_symlink
-    assert link1.linked_to == '/home/centos-stein/data/repos'
+    assert link1.linked_to == '/home/centos-train/data/repos'
 
-    link2 = host.file('/var/www/html/stein/centos7')
+    link2 = host.file('/var/www/html/train/centos7')
     assert link2.exists
     assert link2.is_symlink
-    assert link2.linked_to == '/home/centos-stein/data/repos'
+    assert link2.linked_to == '/home/centos-train/data/repos'
 
-    mockfile = host.file('/home/centos-stein/dlrn/scripts/centos-stein.cfg')
+    mockfile = host.file('/home/centos-train/dlrn/scripts/centos-train.cfg')
     assert mockfile.exists
     assert b'config_opts[\'plugin_conf\'][\'tmpfs_enable\'] = True' in mockfile.content
 
-    rsyncfile = host.file('/etc/rsyncd.d/centos-stein.conf')
+    rsyncfile = host.file('/etc/rsyncd.d/centos-train.conf')
     assert rsyncfile.exists
     assert b'hosts allow = dummy.example.com' in rsyncfile.content
 
-    gitconfig = host.run('sudo -u centos-stein git config --global -l') 
+    gitconfig = host.run('sudo -u centos-train git config --global -l')
     assert 'user.name=rdo-trunk' not in gitconfig.stdout
     assert 'user.email=javier.pena@redhat.com' not in gitconfig.stdout
     assert 'gitreview.username=rdo-trunk' not in gitconfig.stdout

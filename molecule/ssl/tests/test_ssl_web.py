@@ -30,11 +30,11 @@ def test_vhost_files(host):
     assert b'<Location "/api-rhel8-master">' in vhost_file.content
     assert b'<Location "/api-redhat-master">' in vhost_file.content
     assert b'<Location "/api-centos8-train">' in vhost_file.content
-    assert b'WSGIDaemonProcess dlrn-centos-stein python-home=' in vhost_file.content
+    assert b'WSGIDaemonProcess dlrn-centos-train python-home=' in vhost_file.content
     assert b'<Location "/api-rhel8-master">' in ssl_file.content
     assert b'<Location "/api-redhat-master">' in ssl_file.content
     assert b'<Location "/api-centos8-train">' in ssl_file.content
-    assert b'WSGIDaemonProcess dlrn-centos-stein python-home=' in vhost_file.content
+    assert b'WSGIDaemonProcess dlrn-centos-train python-home=' in vhost_file.content
 
 def test_rdo_files(host):
     logo_file = host.file('/var/www/html/images/rdo-logo-white.png')

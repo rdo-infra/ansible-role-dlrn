@@ -18,7 +18,7 @@ testinfra_hosts = ['all']
 
 def test_cronjob_missing(host):
     cmd = host.run('crontab -l -u centos8-train')
-    cmd2  = host.run('crontab -l -u centos-stein')
+    cmd2  = host.run('crontab -l -u centos-train')
     assert 'run-dlrn.sh' not in cmd.stdout
     # since this is a passive server, no cron jobs will be enabled
     assert 'run-dlrn.sh' not in cmd2.stdout
@@ -29,7 +29,7 @@ def test_cronjob_missing(host):
 
 def test_smtp_missing(host):
     inifile = host.file('/usr/local/share/dlrn/centos8-train/projects.ini')
-    inifile2 = host.file('/usr/local/share/dlrn/centos-stein/projects.ini')
+    inifile2 = host.file('/usr/local/share/dlrn/centos-train/projects.ini')
     assert inifile.exists
     assert inifile2.exists
     # No mail configuration, regardless of whether it is enabled or not

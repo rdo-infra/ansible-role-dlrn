@@ -7,7 +7,7 @@
     api_workers:
       - rhel8-master
       - centos8-train
-      - centos-stein
+      - centos-train
       - centos8-master-uc
     dlrn_manage_letsencrypt: false
     sshd_port: 3000
@@ -25,7 +25,7 @@
       with_items:
         - rhel8-master
         - centos8-train
-        - centos-stein
+        - centos-train
         - centos8-master-uc
 
     - name: Create directory for SSL certificates

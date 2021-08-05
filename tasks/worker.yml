@@ -74,7 +74,7 @@
     dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
     state: link
     force: yes
-  when: worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|master-uc)')
+  when: worker.key | regex_search('^(centos|centos8)\-(train|ussuri|victoria|wallaby|xena|master-uc)')
 
 - name: Create deps directories
   file:
@@ -326,7 +326,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: 0755
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena).*')
+  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(train|ussuri|victoria|wallaby|xena).*')
 
 - name: Set up symlinks
   file:
