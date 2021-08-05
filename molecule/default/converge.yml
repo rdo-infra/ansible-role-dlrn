@@ -11,7 +11,7 @@
     api_workers:
       - rhel8-master
       - centos8-train
-      - centos-stein
+      - centos-train
       - centos8-master-uc
     dlrn_manage_letsencrypt: false
     dlrn_workers:
@@ -94,11 +94,11 @@
         enable_public_rsync: true
         public_rsync_hosts_allow: ['dummy.example.com']
         mock_config: centos8stream.cfg.j2
-      centos-stein:
+      centos-train:
         distro: 'centos7'
-        target: 'centos-stein'
-        distgit_branch: 'stein-rdo'
-        distro_branch: 'stable/stein'
+        target: 'centos-train'
+        distgit_branch: 'train'
+        distro_branch: 'stable/train'
         disable_email: false
         enable_cron: *enable_cron
         enable_purge: *enable_purge
@@ -106,9 +106,9 @@
         cron_minute: '12,42'
         purge_hour: '3'
         purge_minute: '37'
-        symlinks: ['/var/www/html/centos7-stein', '/var/www/html/stein/centos7']
-        release: 'stein'
-        baseurl: 'https://trunk.rdoproject.org/centos7-stein'
+        symlinks: ['/var/www/html/centos7-train', '/var/www/html/train/centos7']
+        release: 'train'
+        baseurl: 'https://trunk.rdoproject.org/centos7-train'
         pkginfo_driver: 'dlrn.drivers.rdoinfo.RdoInfoDriver'
         db_connection: 'sqlite:///commits.sqlite'
         mock_tmpfs_enable: true
