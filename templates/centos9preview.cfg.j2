@@ -22,6 +22,7 @@ config_opts['plugin_conf']['tmpfs_opts']['keep_mounted'] = True
 config_opts['plugin_conf']['tmpfs_enable'] = False
 {% endif %}
 config_opts['dnf.conf'] = """
+config_opts['isolation'] = 'simple'
 [main]
 keepcache=1
 debuglevel=2
