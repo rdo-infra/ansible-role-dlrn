@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "737d0e90_db6f0a03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2021-08-25T09:29:04Z",
+      "side": 1,
+      "message": "we will need python3-* subpackages, in CS9/RHEL9 we have only librbd and librados2",
+      "revId": "a4278bf4c505101cee355bb9fc7aa81df4435685",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
