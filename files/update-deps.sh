@@ -24,6 +24,10 @@ centos8)
   CENTOS_RELEASE=8
   TAG_PREFFIX="cloud8s"
   ;;
+centos9)
+  CENTOS_RELEASE=9s
+  TAG_PREFFIX="cloud9s"
+  ;;
 esac
 
 if [ "$TAG_PHASE" = "build" ]; then
