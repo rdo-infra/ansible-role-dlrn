@@ -68,13 +68,21 @@
     dest: "/home/{{ worker.key }}/data/repos/delorean-deps.repo"
     state: link
 
+- name: Create current-tripleo-rdo symlink for releases where it will not exist
+  file:
+    src: "/home/{{ worker.key }}/data/repos/puppet-passed-ci"
+    dest: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
+    state: link
+    force: yes
+  when: worker.key | regex_search('^(centos8|centos9)\-(xena)')
+
 - name: Create current-passed-ci symlink
   file:
     src: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
     dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
     state: link
     force: yes
-  when: worker.key | regex_search('^(centos|centos8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|master-uc)')
+  when: worker.key | regex_search('^(centos|centos8|centos9)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|master-uc)')
 
 - name: Create deps directories
   file:
@@ -326,7 +334,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: 0755
-  when: worker.key | regex_search('^(centos|centos8|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena).*')
+  when: worker.key | regex_search('^(centos|centos8|centos9|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena).*')
 
 - name: Set up symlinks
   file:
