@@ -16,10 +16,10 @@ import testinfra
 
 testinfra_hosts = ['all']
 
-def test_selinux_permissive(host):
+def test_selinux_enforcing(host):
     selinux = host.file('/etc/sysconfig/selinux')
     assert selinux.exists
-    assert b'SELINUX=permissive' in selinux.content
+    assert b'SELINUX=enforcing' in selinux.content
 
 def test_packages(host):
     assert host.package("epel-release").is_installed
