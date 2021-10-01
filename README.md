@@ -313,7 +313,12 @@ please take into account the following details:
 
 # Limitations
 
-The module has only been tested on CentOS 7 and 8.
+The module has only been tested on CentOS/RHEL 7 and 8.
+
+SELinux is set to `enforcing`, and the required SELinux booleans and file contexts
+are set. However, there is one limitation with this setup:
+
+* Remote import operations are not working.
 
 # Contributing
 
