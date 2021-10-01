@@ -22,10 +22,10 @@
     name: "{{ required_packages }}"
     state: present
 
-- name: Set SELinux to permissive
+- name: Set SELinux to enforcing
   selinux:
     policy: targeted
-    state: permissive
+    state: enforcing
 
 # NOTE(jpena): if we start from a system with SELinux disabled, we will need two
 # runs to get this right. Trying to set a SELinux boolean when SELinux is disabled
@@ -44,6 +44,9 @@
         - httpd_read_user_content
         - httpd_enable_homedirs
         - rsync_export_all_ro
+        - httpd_can_network_connect
+        - daemons_use_tty
+        - httpd_unified
 
     - name: Allow SSH port access to SELinux
       seport:
