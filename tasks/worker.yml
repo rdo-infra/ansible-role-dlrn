@@ -27,6 +27,26 @@
     state: directory
     mode: 0755
 
+- name: Set SELinux file context for data directory
+  sefcontext:
+    target: "/home/{{ worker.key }}/data(/.*)?"
+    setype: 'httpd_sys_rw_content_t'
+    ignore_selinux_state: yes
+  register: data_fcontext
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+
+- name: Set SELinux file context for venv directory
+  sefcontext:
+    target: "/home/{{ worker.key }}/.venv(/.*)?"
+    setype: 'httpd_sys_rw_content_t'
+    ignore_selinux_state: yes
+  register: venv_fcontext
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+
 - name: Create worker API directory
   file:
     path: "/home/{{ worker.key }}/api"
@@ -436,3 +456,15 @@
         owner: root
         group: root
         mode: 0644
+
+- name: Run restorecon on data directory
+  command: restorecon -R -v "/home/{{ worker.key }}/data"
+  when:
+    - data_fcontext is defined
+    - data_fcontext.changed
+
+- name: Run restorecon on venv directory
+  command: restorecon -R -v "/home/{{ worker.key }}/.venv"
+  when:
+    - venv_fcontext is defined
+    - venv_fcontext.changed
