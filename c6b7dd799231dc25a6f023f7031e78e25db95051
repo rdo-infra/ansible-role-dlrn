@@ -22,6 +22,30 @@
       "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb6a4bd_16782b5e",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 168
+      },
+      "writtenOn": "2021-10-04T14:02:56Z",
+      "side": 1,
+      "message": "I think that is a fair trade-off for now. We can look longer term at trying to restrict the access a little bit more. I will note, however, that since the sqlitedb doesn\u0027t control the building or sync\u0027ing of the code, it\u0027s likely not an issue to leave it.",
+      "parentUuid": "2a64d810_fdc559d5",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 41
+      },
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
