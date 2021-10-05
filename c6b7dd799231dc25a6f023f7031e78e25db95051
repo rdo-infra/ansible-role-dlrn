@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7a1a90b8_847c2480",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2021-10-05T10:05:14Z",
+      "side": 1,
+      "message": "I see!! Thank you for the explanation.",
+      "parentUuid": "1fba9372_4771981d",
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a64d810_fdc559d5",
         "filename": "tasks/worker.yml",
         "patchSetId": 5
@@ -172,6 +190,30 @@
       "side": 1,
       "message": "In my tests, I needed /home/\u003cworker\u003e/dlrn and /home/\u003cworker\u003e/dlrn/commits.sqlite to have the file context, so I thought we might as well do it for the whole directory. WDYT?",
       "parentUuid": "112cccee_2b00aa93",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 41
+      },
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb3af04_2f3cdd80",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2021-10-05T10:05:14Z",
+      "side": 1,
+      "message": "Oh, even when running the restorecon on the file specifically? Either way works as far as I\u0027m concerned, so this is fine too.",
+      "parentUuid": "aeca0ba2_afd92c15",
       "range": {
         "startLine": 50,
         "startChar": 0,
