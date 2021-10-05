@@ -223,6 +223,30 @@
       "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15800e05_508fd1a7",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-10-05T10:22:10Z",
+      "side": 1,
+      "message": "Yep, at least that\u0027s what happened in my tests.",
+      "parentUuid": "0eb3af04_2f3cdd80",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 41
+      },
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
