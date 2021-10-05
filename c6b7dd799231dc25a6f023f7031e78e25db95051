@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8049923a_df68fce6",
+        "filename": "molecule/default/tests/test_common.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-10-05T10:01:23Z",
+      "side": 1,
+      "message": "Oh, true :).",
+      "parentUuid": "b19896ab_ec453b52",
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c73fbbab_d9029f4f",
         "filename": "molecule/ssl/tests/test_ssl_common.py",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2021-10-05T09:55:23Z",
       "side": 1,
       "message": "I\u0027m curious about this one. I\u0027m reading the docs about the parameter but it\u0027s not super clear to me when/why it\u0027s needed. For my own understanding, what breaks without it? Is it because ansible tries to read the current state first and that doesn\u0027t work? But setting/writing a new value does?",
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fba9372_4771981d",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-10-05T10:01:23Z",
+      "side": 1,
+      "message": "This is useful when running molecule tests. SELinux is disabled in the container, so it would fail to get the file context.",
+      "parentUuid": "3129c117_cc34888f",
       "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
@@ -112,6 +148,30 @@
       "side": 1,
       "message": "If this is needed for only one specific file that doesn\u0027t get recreated, it\u0027s also possible to apply a rule to a single file rather than the whole directory. But this seems fine to me as is, too.",
       "parentUuid": "dcb6a4bd_16782b5e",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 41
+      },
+      "revId": "c6b7dd799231dc25a6f023f7031e78e25db95051",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeca0ba2_afd92c15",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-10-05T10:01:23Z",
+      "side": 1,
+      "message": "In my tests, I needed /home/\u003cworker\u003e/dlrn and /home/\u003cworker\u003e/dlrn/commits.sqlite to have the file context, so I thought we might as well do it for the whole directory. WDYT?",
+      "parentUuid": "112cccee_2b00aa93",
       "range": {
         "startLine": 50,
         "startChar": 0,
