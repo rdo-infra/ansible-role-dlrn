@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "299df9d5_c4902c51",
+        "filename": "files/centos9-master-uc-dlrn-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-10-05T15:55:30Z",
+      "side": 1,
+      "message": "Could you fix the typo now that we are changing the comment? :)",
+      "revId": "e1d26fef6834c023022086d293b409729ec3f1a1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98933218_f2692f96",
+        "filename": "files/centos9-master-uc-rdo-trunk-runtime-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-10-05T15:55:30Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 8
+      },
+      "revId": "e1d26fef6834c023022086d293b409729ec3f1a1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
