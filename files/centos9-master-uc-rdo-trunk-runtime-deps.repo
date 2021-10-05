@@ -5,7 +5,7 @@ enabled=1
 gpgcheck=0
 module_hotfixes=1
 
-#Modfify repos for rabbitmq and storage once they are built and tagged in cbs
+#Modify the repo for rabbitmq once it is built and tagged in cbs
 [cs9-preview-rabbitmq]
 name=centos9-preview-rabbitmq
 baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/rabbit/
@@ -13,9 +13,9 @@ enabled=1
 gpgcheck=0
 module_hotfixes=1
 
-[cs9-preview-storage]
-name=centos9-preview-storage
-baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/storage/
+[centos9-storage]
+name=centos9-storage
+baseurl=https://buildlogs.centos.org/9-stream/storage/x86_64/ceph-pacific/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
