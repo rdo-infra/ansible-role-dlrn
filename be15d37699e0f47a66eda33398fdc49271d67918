@@ -22,6 +22,30 @@
       "revId": "be15d37699e0f47a66eda33398fdc49271d67918",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d88326ef_d3bf97c4",
+        "filename": "files/centos9-master-uc-dlrn-deps.repo",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-10-06T06:07:01Z",
+      "side": 1,
+      "message": "Thanks for fixing it",
+      "parentUuid": "60acd247_7d9e567f",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "be15d37699e0f47a66eda33398fdc49271d67918",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
