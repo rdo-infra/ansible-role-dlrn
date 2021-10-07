@@ -86,3 +86,10 @@
     mode: '0644'
   when: enable_https
   notify: Restart httpd
+
+- name: Allow long file names in autoindex.conf
+  lineinfile:
+    path: /etc/httpd/conf.d/autoindex.conf
+    regexp: '^IndexOptions'
+    line: "IndexOptions FancyIndexing HTMLTable VersionSort NameWidth=* DescriptionWidth=* Charset=UTF-8"
+  notify: Restart httpd

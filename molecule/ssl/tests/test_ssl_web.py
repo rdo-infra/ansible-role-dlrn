@@ -54,3 +54,9 @@ def test_packages(host):
 def test_cron(host):
     cmd = host.run('crontab -l -u root')
     assert '/usr/local/bin/update-web-index.sh' not in cmd.stdout
+
+def test_autoindex_options(host):
+    autoindex_file = host.file('/etc/httpd/conf.d/autoindex.conf')
+
+    assert autoindex_file.exists
+    assert b'IndexOptions FancyIndexing HTMLTable VersionSort NameWidth=* DescriptionWidth=* Charset=UTF-8' in autoindex_file.content
