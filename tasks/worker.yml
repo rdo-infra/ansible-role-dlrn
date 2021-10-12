@@ -468,19 +468,19 @@
         mode: 0644
 
 - name: Run restorecon on data directory
-  command: restorecon -R -v "/home/{{ worker.key }}/data"
+  command: restorecon -R "/home/{{ worker.key }}/data"
   when:
     - data_fcontext is defined
     - data_fcontext.changed
 
 - name: Run restorecon on venv directory
-  command: restorecon -R -v "/home/{{ worker.key }}/.venv"
+  command: restorecon -R "/home/{{ worker.key }}/.venv"
   when:
     - venv_fcontext is defined
     - venv_fcontext.changed
 
 - name: Run restorecon on dlrn directory
-  command: restorecon -R -v "/home/{{ worker.key }}/dlrn"
+  command: restorecon -R "/home/{{ worker.key }}/dlrn"
   when:
     - dlrn_fcontext is defined
     - dlrn_fcontext.changed
