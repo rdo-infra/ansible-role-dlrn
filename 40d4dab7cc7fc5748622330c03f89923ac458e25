@@ -1,0 +1,9 @@
+Code-Review+2: Daniel Pawlik <pawlik.dan@gmail.com>
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Workflow+1: Yatin Karel <ykarel@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Wed, 13 Oct 2021 05:55:03 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/36223
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
