@@ -42,7 +42,7 @@ user_agent=DLRN
 
 [9-BaseOS]
 name=CentOS-Stream - Base
-baseurl=https://composes.stream.centos.org/production/latest-CentOS-Stream/compose/BaseOS/x86_64/os/
+baseurl=http://mirror.stream.centos.org/9-stream/BaseOS/x86_64/os/
 failovermethod=priority
 gpgcheck=0
 enabled=1
@@ -50,21 +50,21 @@ skip_if_unavailable=False
 
 [9-AppStream]
 name=CentOS-Stream - AppStream
-baseurl=https://composes.stream.centos.org/production/latest-CentOS-Stream/compose/AppStream/x86_64/os/
+baseurl=http://mirror.stream.centos.org/9-stream/AppStream/x86_64/os/
 gpgcheck=0
 enabled=1
 gpgkey=file:///usr/share/distribution-gpg-keys/centos/RPM-GPG-KEY-CentOS-Official
 
 [9-PowerTools]
 name=CentOS-Stream - PowerTools
-baseurl=https://composes.stream.centos.org/production/latest-CentOS-Stream/compose/CRB/x86_64/os/
+baseurl=http://mirror.stream.centos.org/9-stream/CRB/x86_64/os/
 gpgcheck=0
 enabled=1
 gpgkey=file:///usr/share/distribution-gpg-keys/centos/RPM-GPG-KEY-CentOS-Official
 
 [9-HighAvailability]
 name=CentOS-Stream - HighAvailability
-baseurl=https://composes.stream.centos.org/production/latest-CentOS-Stream/compose/HighAvailability/x86_64/os/
+baseurl=http://mirror.stream.centos.org/9-stream/HighAvailability/x86_64/os/
 gpgcheck=0
 enabled=1
 gpgkey=file:///usr/share/distribution-gpg-keys/centos/RPM-GPG-KEY-CentOS-Official
