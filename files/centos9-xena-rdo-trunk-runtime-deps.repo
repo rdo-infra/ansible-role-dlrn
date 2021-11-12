@@ -1,0 +1,36 @@
+[delorean-xena-testing]
+name=dlrn-xena-testing
+baseurl=https://trunk.rdoproject.org/centos9-xena/deps/latest/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
+
+#Modify the repo for rabbitmq once it is built and tagged in cbs
+[cs9-preview-rabbitmq]
+name=centos9-preview-rabbitmq
+baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/rabbit/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
+
+[centos9-storage]
+name=centos9-storage
+baseurl=https://buildlogs.centos.org/9-stream/storage/x86_64/ceph-pacific/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
+
+[centos9-opstools]
+name=centos9-opstools
+baseurl=https://buildlogs.centos.org/centos/9-stream/opstools/x86_64/collectd-5/
+enabled=1
+gpgcheck=0
+module_hotfixes=1
+
+[centos9-nfv-ovs]
+name=NFV SIG OpenvSwitch
+baseurl=https://buildlogs.centos.org/centos/9-stream/nfv/x86_64/openvswitch-2/
+gpgcheck=0
+enabled=1
+module_hotfixes=1
+
