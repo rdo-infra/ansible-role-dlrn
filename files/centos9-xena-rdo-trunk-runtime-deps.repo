@@ -5,10 +5,9 @@ enabled=1
 gpgcheck=0
 module_hotfixes=1
 
-#Modify the repo for rabbitmq once it is built and tagged in cbs
-[cs9-preview-rabbitmq]
-name=centos9-preview-rabbitmq
-baseurl=https://trunk.rdoproject.org/centos9-master-preview/deps/rabbit/
+[centos9-rabbitmq]
+name=centos9-rabbitmq
+baseurl=https://buildlogs.centos.org/centos/9-stream/messaging/x86_64/rabbitmq-38/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
