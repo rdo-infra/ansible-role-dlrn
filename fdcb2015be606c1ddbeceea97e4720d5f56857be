@@ -1,0 +1,8 @@
+Code-Review+2: Alan Pevec <alan.pevec@redhat.com>
+Workflow+1: Alan Pevec <alan.pevec@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Fri, 19 Nov 2021 14:27:56 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/36778
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
