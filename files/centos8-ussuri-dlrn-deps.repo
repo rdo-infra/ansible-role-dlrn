@@ -14,14 +14,14 @@ module_hotfixes=1
 
 [advanced-virtualization]
 name=Advanced Virtualization mirror
-baseurl=http://mirror.centos.org/centos/8/virt/$basearch/advanced-virtualization/
+baseurl=http://mirror.centos.org/centos/8-stream/virt/$basearch/advancedvirt-common/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
 
 [centos-rabbitmq-38]
 name=Messaging RabbitMQ
-baseurl=http://mirror.centos.org/centos/8/messaging/$basearch/rabbitmq-38
+baseurl=http://mirror.centos.org/centos/8-stream/messaging/$basearch/rabbitmq-38
 gpgcheck=0
 enabled=1
 module_hotfixes=1
@@ -29,7 +29,7 @@ skip_if_unavailable=1
 
 [centos-opstools]
 name=opstools
-baseurl=http://mirror.centos.org/centos/8/opstools/$basearch/collectd-5/
+baseurl=https://trunk.rdoproject.org/centos8-master/deps/collectd/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
@@ -43,7 +43,7 @@ module_hotfixes=1
 
 [centos-nfv-ovs]
 name=NFV SIG OpenvSwitch
-baseurl=http://mirror.centos.org/centos/8/nfv/$basearch/openvswitch-2/
+baseurl=http://mirror.centos.org/centos/8-stream/nfv/$basearch/openvswitch-2/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
