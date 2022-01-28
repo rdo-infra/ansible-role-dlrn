@@ -5,7 +5,9 @@ driver:
   name: podman
 platforms:
   - name: instance
-    image: centos:8
+    registry:
+      url: quay.io/centos
+    image: centos:stream8
     command: "/sbin/init"
 provisioner:
   name: ansible
