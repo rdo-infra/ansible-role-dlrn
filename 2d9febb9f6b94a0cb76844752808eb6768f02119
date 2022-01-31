@@ -16,6 +16,24 @@
       "message": "How about using https://vault.centos.org/centos/8/opstools/ instead?",
       "revId": "2d9febb9f6b94a0cb76844752808eb6768f02119",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e511fbb0_03995695",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2022-01-31T22:33:21Z",
+      "side": 0,
+      "message": "vault.c.o is not scalable environment, it is meant to be digital archive not for everyday use esp. not by high-load like CI\nWe also do not mirror it in openinfra AFS.",
+      "parentUuid": "cea449d2_fbca9633",
+      "revId": "2d9febb9f6b94a0cb76844752808eb6768f02119",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
