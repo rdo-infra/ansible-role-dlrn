@@ -18,6 +18,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e392ac7_829d7a2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2022-01-31T13:57:47Z",
+      "side": 1,
+      "message": "Done :)",
+      "parentUuid": "5c70c727_7154253a",
+      "revId": "1c43486e473b4ec73a6cc6000715849ba1780df1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d54928a1_59f78e74",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-01-31T12:22:22Z",
       "side": 1,
       "message": "we need to fix this, and be careful the name of the directory advanced-virtualization changed for cs8",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "1c43486e473b4ec73a6cc6000715849ba1780df1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c51cf40_cd559748",
+        "filename": "files/centos8-train-dlrn-deps.repo",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2022-01-31T13:57:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54928a1_59f78e74",
       "range": {
         "startLine": 17,
         "startChar": 39,
@@ -64,6 +106,30 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bd841cf_071eff75",
+        "filename": "files/centos8-train-dlrn-deps.repo",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2022-01-31T13:57:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df76e34c_09854180",
+      "range": {
+        "startLine": 24,
+        "startChar": 38,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "1c43486e473b4ec73a6cc6000715849ba1780df1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adb9038c_dbd8cce7",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-01-31T12:22:22Z",
       "side": 1,
       "message": "in ussuri and victoria we also need to fix urls for nfv, messaging, advvirt",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "1c43486e473b4ec73a6cc6000715849ba1780df1",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a5d033_63b0d6af",
+        "filename": "files/centos8-victoria-dlrn-deps.repo",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2022-01-31T13:57:47Z",
+      "side": 1,
+      "message": "Done too",
+      "parentUuid": "adb9038c_dbd8cce7",
       "range": {
         "startLine": 24,
         "startChar": 0,
