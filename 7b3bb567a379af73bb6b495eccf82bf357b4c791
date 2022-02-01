@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4464e12a_5e30f16a",
+        "filename": "files/centos8-master-dlrn-deps.repo",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2022-02-01T09:03:02Z",
+      "side": 1,
+      "message": "Perhaps in follow-ups those hardcoded mirrors should instead leverage the mirror_fqdn parameter which is widely used",
+      "revId": "7b3bb567a379af73bb6b495eccf82bf357b4c791",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
