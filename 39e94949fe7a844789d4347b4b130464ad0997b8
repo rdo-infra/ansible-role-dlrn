@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9969e147_5a6f6c0d",
+        "filename": "files/centos8-train-old-rdo-trunk-runtime-deps.repo",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-02-01T10:33:49Z",
+      "side": 1,
+      "message": "this one too",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "39e94949fe7a844789d4347b4b130464ad0997b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ba3358_65dc20cd",
+        "filename": "files/centos8-train-rdo-trunk-runtime-deps.repo",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-02-01T10:33:49Z",
+      "side": 1,
+      "message": "this one",
+      "range": {
+        "startLine": 17,
+        "startChar": 37,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "39e94949fe7a844789d4347b4b130464ad0997b8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
