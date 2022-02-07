@@ -16,18 +16,18 @@ import testinfra
 
 testinfra_hosts = ['all']
 
-# The centos9-master-preview worker will:
+# The centos9-master-uc worker will:
 # - Enable cron jobs for run-dlrn.sh
 # - Not enable cron jobs for run-purge.sh
 # - Mot enable dependency sync cron jobs
-# - Create two symlinks: /var/www/html/centos9 and /var/www/html/centos9-master-preview
+# - Create two symlinks: /var/www/html/centos9 and /var/www/html/centos9-master
 # - Disable email sending
 # - Enable mock tmpfs in its mock configuration
 # - Not enable gerrit configuration
 # - Enable public rsync, allowing access to a server named "dummy.example.com"
-# - Use the centos9preview configuration for the mock template
+# - Use the centos9stream configuration for the mock template
 
-def test_centos9_master_preview(host):
+def test_centos9_master_uc(host):
     cmd = host.run('crontab -l -u centos9-master-uc')
     assert 'run-dlrn.sh' in cmd.stdout
     assert 'run-purge.sh' not in cmd.stdout
@@ -46,7 +46,7 @@ def test_centos9_master_preview(host):
     mockfile = host.file('/home/centos9-master-uc/dlrn/scripts/centos9-master-uc.cfg')
     assert mockfile.exists
     assert b'config_opts[\'plugin_conf\'][\'tmpfs_enable\'] = True' in mockfile.content
-    assert b'[9-BaseOS]' in mockfile.content
+    assert b'[baseos]' in mockfile.content
 
     rsyncfile = host.file('/etc/rsyncd.d/centos9-master-uc.conf')
     assert rsyncfile.exists
