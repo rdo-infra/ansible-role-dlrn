@@ -29,7 +29,7 @@ skip_if_unavailable=1
 
 [centos-opstools]
 name=opstools
-baseurl=http://mirror.centos.org/centos/8-stream/opstools/$basearch/collectd-5/
+baseurl=https://trunk.rdoproject.org/centos8-master/deps/collectd/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
