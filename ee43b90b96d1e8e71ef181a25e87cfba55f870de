@@ -33,6 +33,23 @@
       "message": "waiting to see if mirrors clear",
       "revId": "ee43b90b96d1e8e71ef181a25e87cfba55f870de",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b75d1a48_0b269a65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2022-02-09T06:08:53Z",
+      "side": 1,
+      "message": "No match for argument: collectd-libpod-stats\nNo match for argument: collectd-sensubility\nNo match for argument: python3-sqlalchemy-collectd\nError: Unable to find a match: collectd-libpod-stats collectd-sensubility python3-sqlalchemy-collectd\n\nNeed to get missing packages in opstools repo to use those repos.",
+      "revId": "ee43b90b96d1e8e71ef181a25e87cfba55f870de",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
