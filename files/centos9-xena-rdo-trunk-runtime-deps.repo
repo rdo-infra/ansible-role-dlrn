@@ -7,28 +7,28 @@ module_hotfixes=1
 
 [centos9-rabbitmq]
 name=centos9-rabbitmq
-baseurl=https://buildlogs.centos.org/centos/9-stream/messaging/$basearch/rabbitmq-38/
+baseurl=http://mirror.stream.centos.org/SIGs/9-stream/messaging/$basearch/rabbitmq-38/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
 
 [centos9-storage]
 name=centos9-storage
-baseurl=https://buildlogs.centos.org/9-stream/storage/$basearch/ceph-pacific/
+baseurl=http://mirror.stream.centos.org/SIGs/9-stream/storage/$basearch/ceph-pacific/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
 
 [centos9-opstools]
 name=centos9-opstools
-baseurl=https://buildlogs.centos.org/centos/9-stream/opstools/$basearch/collectd-5/
+baseurl=http://mirror.stream.centos.org/SIGs/9-stream/opstools/$basearch/collectd-5/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
 
 [centos9-nfv-ovs]
 name=NFV SIG OpenvSwitch
-baseurl=https://buildlogs.centos.org/centos/9-stream/nfv/$basearch/openvswitch-2/
+baseurl=http://mirror.stream.centos.org/SIGs/9-stream/nfv/$basearch/openvswitch-2/
 gpgcheck=0
 enabled=1
 module_hotfixes=1
