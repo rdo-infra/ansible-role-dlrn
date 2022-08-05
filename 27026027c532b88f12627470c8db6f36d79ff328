@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9989b9d2_ba5d5178",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-08-05T08:47:27Z",
+      "side": 1,
+      "message": "Actually, the name of the worker will be centos9-master (centos9-master-head is only a symlink and URL). The expected file name is:\n\nsrc: \"{{ worker.key }}-dlrn-deps.repo\"\n\nSo name should be centos9-master-dlrn-deps.repo and centos9-master-rdo-trunk-runtime-deps.repo (as files/centos8-master-dlrn-deps.repo and files/centos8-master-rdo-trunk-runtime-deps.repo)",
+      "revId": "27026027c532b88f12627470c8db6f36d79ff328",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
