@@ -6,6 +6,7 @@
     create_home: yes
     groups: users
     append: yes
+    shell: "{{ promoter_shell | default(omit) }}"
 
 - name: Create .ssh directory for promoter user
   file:
