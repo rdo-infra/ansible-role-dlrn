@@ -20,6 +20,7 @@
     comment: "User for {{ worker.key }} worker"
     append: yes
     uid: "{{ worker.value.uid | default(omit) }}"
+    shell: "{{ worker.value.shell | default(omit) }}"
 
 - name: Set 755 permissions to user home
   file:

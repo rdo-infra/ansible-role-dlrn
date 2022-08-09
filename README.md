@@ -52,6 +52,8 @@ The role will use the following variables, defined in the inventory:
 * `force_python_version` (optional), if set, allows us to force a non-default Python version for
   the DLRN virtualenv. Set it to ``python3`` if you want to use python3 on a CentOS 7 system, for
   example. By default, it is undefined, meaning the default Python version will be used.
+* `rdoinfo_shell` (optional). With this we select the shell to use for the user rdoinfo.
+* `promoter_shell` (optional). With this we select the shell to use for the user promoter.
 * `dlrn_workers` (optional). This dictionary contains the definition of all workers to be deployed
   by the role. Each dictionary entry can contain the following entries:
 
@@ -74,6 +76,7 @@ The role will use the following variables, defined in the inventory:
     Defaults to '*'.
   - `cron_minute` (optional): If enable_cron=true, set the minute for the cron job.
     Defaults to '*/5' (every 5 minutes).
+  - `shell` (optional): With this we select the shell to use for the given user.
   - `enable_purge` (optional): Enable a cron job to periodically purge old commits from the
     DLRN db and file system, reducing space requirements. Defaults to false.
   - `purge_hour` (optional): If enable_purge is set to true, set the hour for the cron job.
