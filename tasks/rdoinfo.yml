@@ -6,6 +6,7 @@
     create_home: yes
     groups: users,mock
     append: yes
+    shell: "{{ rdoinfo_shell | default(omit) }}"
 
 - name: Set 755 permissions to rdoinfo home
   file:
