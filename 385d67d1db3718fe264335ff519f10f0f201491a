@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fc31c85_d337c810",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2022-09-07T11:19:38Z",
+      "side": 1,
+      "message": "This is necessary to fix: https://softwarefactory-project.io/r/c/software-factory/sf-infra/+/25992\nCould you check if also zed version may be added at L107 and L115?",
+      "revId": "385d67d1db3718fe264335ff519f10f0f201491a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
