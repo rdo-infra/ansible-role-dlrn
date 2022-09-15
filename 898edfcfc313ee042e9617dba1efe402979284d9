@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a42951af_35f61cb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 602
+      },
+      "writtenOn": "2022-09-15T10:36:32Z",
+      "side": 1,
+      "message": "Thank you for the help. I guess once this merges we can revert [1]\nand rely on the repos provided by this change. \n\n[1] https://review.opendev.org/c/openstack/tripleo-quickstart/+/852731",
+      "revId": "898edfcfc313ee042e9617dba1efe402979284d9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
