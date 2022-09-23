@@ -58,6 +58,48 @@
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
+- name: Create worker api login logs directory
+  file:
+    path: "/var/log/dlrn/{{ worker.key }}/api_login"
+    state: directory
+    mode: 0755
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+  when:
+    - worker.value.enable_api_login_logs | default(false)
+
+- name: Set SELinux file context for dlrn api logging
+  sefcontext:
+    target: "/var/log/dlrn/{{ worker.key }}/api_login(/.*)?"
+    setype: 'httpd_log_t'
+    ignore_selinux_state: yes
+  register: dlrn_api_login_logs_fcontext
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+    - worker.value.enable_api_login_logs | default(false)
+
+- name: Create worker api logs directory
+  file:
+    path: "/var/log/dlrn/{{ worker.key }}/api"
+    state: directory
+    mode: 0755
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+  when:
+    - worker.value.enable_api_login_logs | default(false)
+
+- name: Set SELinux file context for dlrn api
+  sefcontext:
+    target: "/var/log/dlrn/{{ worker.key }}/api(/.*)?"
+    setype: 'httpd_log_t'
+    ignore_selinux_state: yes
+  register: dlrn_api_logs_fcontext
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+    - worker.value.enable_api_login_logs | default(false)
+
 - name: Create worker API directory
   file:
     path: "/home/{{ worker.key }}/api"
@@ -485,3 +527,15 @@
   when:
     - dlrn_fcontext is defined
     - dlrn_fcontext.changed
+
+- name: Run restorecon on dlrn login logs directory
+  command: restorecon -R "/var/log/dlrn/{{ worker.key }}/api_login"
+  when:
+    - dlrn_api_login_logs_fcontext is defined
+    - dlrn_api_login_logs_fcontext.changed
+
+- name: Run restorecon on dlrn logs directory
+  command: restorecon -R "/var/log/dlrn/{{ worker.key }}/api"
+  when:
+    - dlrn_api_logs_fcontext is defined
+    - dlrn_api_logs_fcontext.changed
