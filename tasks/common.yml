@@ -159,6 +159,12 @@
     state: directory
     mode: '0755'
 
+- name: Create api-logs directory
+  file:
+    path: /var/log/dlrn-logs/
+    state: directory
+    mode: '0755'
+
 - name: Deploy required scripts
   copy:
     src: "{{ item }}"
