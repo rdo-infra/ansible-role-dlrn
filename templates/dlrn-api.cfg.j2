@@ -6,3 +6,7 @@ DB_PATH = '{{ worker.value.db_connection }}'
 REPO_PATH = '/home/{{ worker.key }}/data/repos'
 CONFIG_FILE = '/usr/local/share/dlrn/{{ worker.key }}/projects.ini'
 
+{% if worker.value.enable_api_login_logs|default(False) %}
+API_LOG_PATH = '/home/{{ worker.key }}/dlrn-logs/api_login.log'
+API_LOG_LEVEL= 'INFO'
+{% endif %}
