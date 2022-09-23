@@ -295,6 +295,7 @@ The role will use the following variables, defined in the inventory:
   - `additional_koji_tags` (optional): If build_driver is 'dlrn.drivers.kojidriver.KojiBuildDriver'
     this option defines a list of additional tags to be applied to the build, once it is finished.
     Not defined by default.
+  - `enable_api_login_logs` (optional): If true, the API will log every authorization process for protected endpoints at ~/dlrn-logs/api_login.log
 
 # Migration notes
 

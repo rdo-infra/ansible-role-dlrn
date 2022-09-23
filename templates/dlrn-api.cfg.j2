@@ -6,3 +6,39 @@ DB_PATH = '{{ worker.value.db_connection }}'
 REPO_PATH = '/home/{{ worker.key }}/data/repos'
 CONFIG_FILE = '/usr/local/share/dlrn/{{ worker.key }}/projects.ini'
 
+{% if worker.value.enable_api_login_logs|default(False) %}
+from dlrn.config import FlaskRequestFormatter
+API_LOG_PATH = '/home/{{ worker.key }}/dlrn-logs/api_login.log'
+API_LOG_CONFIG = {
+    'version': 1,
+    'formatters': {
+        'default': {
+            '()': FlaskRequestFormatter,
+            'format': '"timestamp": %(asctime)s "src": %(remote_addr)s %(message)s',
+        },
+    },
+    'handlers': {
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': API_LOG_PATH,
+            'backupCount': 3,
+            'maxBytes': 15728640,  # 1024 * 1024 * 15
+            'formatter': 'default',
+        },
+    },
+    'loggers': {
+        'main': {
+            'level': 'INFO',
+        },
+        'api_login': {
+            'level': 'INFO',
+            'handlers': ['file'],
+            'propagate': False,
+        },
+
+        'root': {
+            'level': 'WARN',
+        },
+    }
+}
+{% endif %}
