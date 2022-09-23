@@ -58,6 +58,25 @@
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
+- name: Create worker dlrn-logs directory
+  file:
+    path: "/home/{{ worker.key }}/dlrn-logs"
+    state: directory
+    mode: 0755
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+
+- name: Set SELinux file context for dlrn api logging
+  sefcontext:
+    target: "/home/{{ worker.key }}/dlrn-logs(/.*)?"
+    setype: 'httpd_sys_rw_content_t'
+    ignore_selinux_state: yes
+  register: dlrn_api_logs_fcontext
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+    - worker.value.enable_api_login_logs
+
 - name: Create worker API directory
   file:
     path: "/home/{{ worker.key }}/api"
@@ -485,3 +504,9 @@
   when:
     - dlrn_fcontext is defined
     - dlrn_fcontext.changed
+
+- name: Run restorecon on dlrn logs directory
+  command: restorecon -R "/home/{{ worker.key }}/dlrn-logs"
+  when:
+    - dlrn_api_logs_fcontext is defined
+    - dlrn_api_logs_fcontext.changed
