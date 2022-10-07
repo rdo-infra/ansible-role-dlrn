@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a109f6eb_66d7eb5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2022-10-07T09:30:53Z",
+      "side": 1,
+      "message": "The addition of the new release in index.html should be done after bootstrap process finished.\nOtherwise, users may assume it\u0027s stable whereas it\u0027s WIP",
+      "revId": "38ebeb1eab531dd796e8707fe66f87804d46f95e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
