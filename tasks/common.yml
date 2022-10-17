@@ -167,6 +167,7 @@
   with_items:
     - run-dlrn.sh
     - run-purge.sh
+    - run-user.sh
     - update-deps.sh
     - purge-deps.sh
 
