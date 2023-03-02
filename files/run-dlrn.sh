@@ -1,5 +1,6 @@
 #!/bin/bash
 LOCK="/home/${USER}/dlrn.lock"
+DISABLED="/usr/local/share/dlrn/disabled"
 set -e
 
 # if any arguments are given, assume console foreground execution
@@ -26,6 +27,11 @@ then
     LOGFILE=/home/${USER}/dlrn-logs/dlrn-run.console.$(date +%s).log
 else
     LOGFILE=/home/${USER}/dlrn-logs/dlrn-run.$(date +%s).log
+fi
+if [ -e $DISABLED ]
+then
+    echo "DLRN execution disabled by admin. Please contact to an admin to remove it by executing 'disable-dlrn --unlock'" >> $LOGFILE
+    exit 1
 fi
 cd ~/dlrn
 
