@@ -177,6 +177,14 @@
     - update-deps.sh
     - purge-deps.sh
 
+- name: Deploy disabled-dlrn script
+  copy:
+    src: "disable-dlrn.sh"
+    dest: "/usr/local/bin/disable-dlrn.sh"
+    mode: 0744
+    owner: root
+    group: root
+
 - name: Set yum timeout config
   ini_file:
     path: /etc/yum.conf
