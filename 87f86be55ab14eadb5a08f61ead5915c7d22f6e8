@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7829ca02_3eafc452",
+        "filename": "files/disable-dlrn.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 168
+      },
+      "writtenOn": "2023-03-02T14:15:29Z",
+      "side": 1,
+      "message": "Based on https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04s09.html#requirements10 the requirements are the same fir /usr/share which can be found at https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04s11.html which states it should be read-only. Maybe /usr/local/etc or some other location is better.",
+      "parentUuid": "d3d8af58_1ae6b7e4",
+      "revId": "87f86be55ab14eadb5a08f61ead5915c7d22f6e8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "094bfa53_a76b5478",
         "filename": "files/disable-dlrn.sh",
         "patchSetId": 3
