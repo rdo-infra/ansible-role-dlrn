@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b56afc6_93ac9b04",
+        "filename": "files/disable-dlrn.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-03-02T14:53:22Z",
+      "side": 1,
+      "message": "actually /usr/local/etc/dlrn/ would be a good location. TBH we should have used that too for projects.ini but for some reason it was done in /usr/local/share/dlrn/",
+      "parentUuid": "1e7f14fa_2a8691b7",
+      "revId": "87f86be55ab14eadb5a08f61ead5915c7d22f6e8",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "094bfa53_a76b5478",
         "filename": "files/disable-dlrn.sh",
         "patchSetId": 3
