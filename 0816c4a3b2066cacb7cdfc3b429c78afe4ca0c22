@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91748144_9a50c3dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-03-09T11:39:59Z",
+      "side": 1,
+      "message": "let\u0027s hold on until we have https://softwarefactory-project.io/r/c/software-factory/sf-infra/+/27709 merged and check that the automation is back to normal.",
+      "revId": "0816c4a3b2066cacb7cdfc3b429c78afe4ca0c22",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
