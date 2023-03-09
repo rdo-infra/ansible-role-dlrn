@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dcfe855_bda09fef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-03-09T11:50:40Z",
+      "side": 1,
+      "message": "https://softwarefactory-project.io/r/c/software-factory/sf-infra/+/27702 needs this patch",
+      "revId": "98161e0dcd2acd4eedf16a74631d109df326c6a0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
