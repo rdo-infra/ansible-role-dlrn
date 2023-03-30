@@ -226,6 +226,24 @@
     force: no
     size: 2048  # This is the default for CentOS 7 and CentOS 8
 
+- name: Push SSH key to RDO Gerrit instance
+  uri:
+    url: https://review.rdoproject.org/r/a/accounts/self/sshkeys
+    user: rdo-trunk
+    password: "{{ gerrit_rdo_trunk.password }}"
+    method: POST
+    src: "/home/{{ worker.key }}/.ssh/id_rsa.pub"
+    remote_src: true
+    force_basic_auth: true
+    status_code: 201
+    headers:
+      Content-Type: text/plain
+  register: _result
+  until: _result.status == 201
+  retries: 12
+  delay: 5
+  become: yes
+
 - name: Clone DLRN repo
   git:
     repo: 'https://github.com/softwarefactory-project/DLRN'
