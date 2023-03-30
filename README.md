@@ -107,6 +107,9 @@ The role will use the following variables, defined in the inventory:
   - `gerrit_user` (optional): User to run Gerrit reviews after build failures. If not defined
     (this is the default),  do not enable Gerrit reviews.
     Example: 'rdo-trunk'.
+  - `gerrit_password` (optional): Password to authenticate against Gerrit tenant in order to push
+    the SSH public key.
+    Not defined by default.
   - `gerrit_email` (optional): E-mail for gerrit_user.
     Example: 'rdo-trunk@rdoproject.org'
     Not defined by default.
@@ -114,6 +117,9 @@ The role will use the following variables, defined in the inventory:
     is defined.
     Example: 'rdo-FTBFS-train'.
     Defaults to 'rdo-FTBFS'.
+  - `push_ssh_pubkey_to_gerrit` (optional): push the SSH public key of the worker to the
+    gerrit_user Gerrit account. Only used if gerrit_user and gerrit_password are defined.
+    Defaults to false.
   - `rsyncdest` (optional): destination where builtdir and reports are replicated when build is ok.
     format: <user>@<ip or hostname>:<destdir>
     Example: 'centos-master@backupserver.example.com:/home/centos-master/data/repos'.
