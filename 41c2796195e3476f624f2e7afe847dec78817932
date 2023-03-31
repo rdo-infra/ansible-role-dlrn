@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c431b6_d340183a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-03-31T14:41:38Z",
+      "side": 1,
+      "message": "Waiting for the gerrit_password to be pushed in zuul.d/secrets.yaml",
+      "revId": "41c2796195e3476f624f2e7afe847dec78817932",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
