@@ -16,6 +16,24 @@
       "message": "may we leave existing key and add a new one instead of just replace it?",
       "revId": "ec9251d0141206687973ac6581b18c0cdeb51acc",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2a4c97_a24891af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-04-19T16:31:13Z",
+      "side": 1,
+      "message": "Sure, it might be more safe 👍 Updated in PS2",
+      "parentUuid": "86c25cea_a91fb264",
+      "revId": "ec9251d0141206687973ac6581b18c0cdeb51acc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
