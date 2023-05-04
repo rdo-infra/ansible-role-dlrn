@@ -100,6 +100,24 @@
     - ansible_selinux.status == 'enabled'
     - worker.value.enable_api_login_logs | default(false)
 
+- name: Create worker distroinfo directory
+  file:
+    path: "/home/{{ worker.key }}/.distroinfo"
+    state: directory
+    mode: 0775
+    owner: "{{ worker.key }}"
+    group: "{{ worker.key }}"
+
+- name: Set SELinux file context for distroinfo directory
+  sefcontext:
+    target: "/home/{{ worker.key }}/.distroinfo(/.*)?"
+    setype: 'httpd_sys_rw_content_t'
+    ignore_selinux_state: yes
+  register: dlrn_distroinfo_fcontext
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.status == 'enabled'
+
 - name: Create worker dlrn-user logs directory
   file:
     path: "/var/log/dlrn-logs/{{ worker.key }}/user"
@@ -546,3 +564,9 @@
   when:
     - dlrn_api_logs_fcontext is defined
     - dlrn_api_logs_fcontext.changed
+
+- name: Run restorecon on dlrn logs directory
+  command: restorecon -R "/home/{{ worker.key }}/.distroinfo"
+  when:
+    - dlrn_distroinfo_fcontext is defined
+    - dlrn_distroinfo_fcontext.changed
