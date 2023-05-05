@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07fdeb6c_16e2e256",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-05-05T09:26:17Z",
+      "side": 1,
+      "message": "Note that sefcontext does not apply the context to an existing file, only creates the map https://docs.ansible.com/ansible/latest/collections/community/general/sefcontext_module.html\n\nSo we need to create the sefcontext before creating the directory or running restorecon after that.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 57
+      },
+      "revId": "8c8157ff8c89ca733dfc3b6f0d603f7ec7021302",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
