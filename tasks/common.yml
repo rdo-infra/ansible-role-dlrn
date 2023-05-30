@@ -22,6 +22,12 @@
     name: "{{ required_packages }}"
     state: present
 
+- name: Install kerberos required packages
+  package:
+    name: "{{ kerberos_required_packages }}"
+    state: present
+  when: "'KrbAuthentication' in (api_authentication_drivers | default([]))"
+
 - name: Set SELinux to enforcing
   selinux:
     policy: targeted

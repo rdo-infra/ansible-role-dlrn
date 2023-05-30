@@ -274,12 +274,26 @@
 - name: Install DLRN on venv
   shell: |
     source /home/{{ worker.key }}/.venv/bin/activate
-    python setup.py install
+    pip install .
   args:
     chdir: "/home/{{ worker.key }}/dlrn"
     creates: "/home/{{ worker.key }}/.venv/bin/dlrn"
   become: yes
   become_user: "{{ worker.key }}"
+  when: "'KrbAuthentication' not in (api_authentication_drivers | default([]))"
+
+
+- name: Install DLRN kerberos on venv
+  shell: |
+    source /home/{{ worker.key }}/.venv/bin/activate
+    pip install .[kerberos]
+  args:
+    chdir: "/home/{{ worker.key }}/dlrn"
+    creates: "/home/{{ worker.key }}/.venv/bin/dlrn"
+  become: yes
+  become_user: "{{ worker.key }}"
+  when: "'KrbAuthentication' in (api_authentication_drivers | default([]))"
+
 
 - name: Set DB url on alembic.ini
   ini_file:
