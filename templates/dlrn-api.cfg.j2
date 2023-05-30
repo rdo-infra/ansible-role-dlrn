@@ -12,3 +12,24 @@ DLRN_LOG_FILE = '/var/log/dlrn-logs/{{ worker.key }}/api/api.log'
 API_AUTH_DEBUG = False
 API_AUTH_LOG_FILE = '/var/log/dlrn-logs/{{ worker.key }}/api_login/api_login.log'
 {% endif %}
+
+{% if api_authentication_drivers is defined %}
+AUTHENTICATION_DRIVERS = {{ api_authentication_drivers }}
+{% endif %}
+{% if api_keytab is defined %}
+KEYTAB_PATH = '{{ api_keytab }}'
+{% endif %}
+{% if http_api_keytab is defined %}
+HTTP_KEYTAB_PATH = '{{ http_api_keytab }}'
+{% elif api_keytab is defined %}
+HTTP_KEYTAB_PATH = '{{ api_keytab }}'
+{% endif %}
+{% if api_keytab_princ is defined %}
+KEYTAB_PRINC = '{{ api_keytab_princ }}'
+{% endif %}
+{% if api_ipa_allowed_group is defined %}
+ALLOWED_GROUP = '{{ api_ipa_allowed_group }}'
+{% endif %}
+{% if api_protected_read_endpoints is defined %}
+PROTECT_READ_ENDPOINTS = {{ api_protected_read_endpoints }}
+{% endif %}

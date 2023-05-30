@@ -93,3 +93,39 @@
     regexp: '^IndexOptions'
     line: "IndexOptions FancyIndexing HTMLTable VersionSort NameWidth=* DescriptionWidth=* Charset=UTF-8"
   notify: Restart httpd
+
+- name: Check if keytab for API exists
+  stat:
+    path: "{{ api_keytab }}"
+  register: api_keytab_file
+  when: api_keytab is defined
+
+- name: Change API keytab permission
+  file:
+    path: "{{ api_keytab }}"
+    state: file
+    owner: root
+    group: root
+    mode: "0744"
+  when:
+    - api_keytab is defined
+    - api_keytab_file.stat.exists
+  become: true
+
+- name: Check if http keytab for API exists
+  stat:
+    path: "{{ api_keytab }}"
+  register: http_api_keytab_file
+  when: http_api_keytab is defined
+
+- name: Change http keytab permission
+  file:
+    path: "{{ api_keytab }}"
+    state: file
+    owner: root
+    group: root
+    mode: "0744"
+  when:
+    - http_api_keytab is defined
+    - http_api_keytab_file.stat.exists
+  become: true
