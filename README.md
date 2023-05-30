@@ -49,6 +49,14 @@ The role will use the following variables, defined in the inventory:
   used for the LetsEncrypt certificate. Defaults to `test@example.com`.
 * `api_workers` (optional) is a list of the workers where the DLRN API will be enabled.
   Defaults to an empty list.
+* `api_authentication_drivers` (optional) is a list of the authentication drivers to use for incoming http requests.
+  Defaults to DBAuthentication.
+* `api_ipa_allowed_group` (required with KrbAuthentication driver) is the group allowed to consume the API.
+* `api_keytab_princ` (required with KrbAuthentication driver) defines the keytab principal for retrieving a valid kerberos credential in order to connect IPA server.
+* `api_keytab` (required with KrbAuthentication driver) defines the keytab path for retrieving a valid kerberos credential in order to connect IPA server.
+* `http_api_keytab` (optional) is the keytab path for decrypt the incoming kerberos token in order to authenticate the request's user.
+  Defaults to api_keytab.
+* `api_protected_read_endpoints` (optional) impose the authentication for those read-only endpoints.
 * `force_python_version` (optional), if set, allows us to force a non-default Python version for
   the DLRN virtualenv. Set it to ``python3`` if you want to use python3 on a CentOS 7 system, for
   example. By default, it is undefined, meaning the default Python version will be used.

@@ -18,6 +18,30 @@ def application(environ, start_response):
     if api_auth_log_file:
         os.environ['API_AUTH_LOG_FILE'] = api_auth_log_file
 
+    authentication_drivers = environ.get('AUTHENTICATION_DRIVERS', False)
+    if authentication_drivers:
+        os.environ['AUTHENTICATION_DRIVERS'] = authentication_drivers
+
+    keytab_path = environ.get('KEYTAB_PATH', False)
+    if keytab_path:
+        os.environ['KEYTAB_PATH'] = keytab_path
+
+    keytab_princ = environ.get('KEYTAB_PRINC', False)
+    if api_auth_log_file:
+        os.environ['KEYTAB_PRINC'] = keytab_princ
+
+    allowed_group = environ.get('ALLOWED_GROUP', False)
+    if api_auth_log_file:
+        os.environ['ALLOWED_GROUP'] = allowed_group
+
+    http_keytab_path = environ.get('HTTP_KEYTAB_PATH', False)
+    if http_keytab_path:
+        os.environ['HTTP_KEYTAB_PATH'] = http_keytab_path
+
+    protected_endpoints = environ.get('PROTECT_READ_ENDPOINTS', False)
+    if protected_endpoints:
+        os.environ['PROTECT_READ_ENDPOINTS'] = protected_endpoints
+
     os.environ['CONFIG_FILE'] = environ['CONFIG_FILE']
     from dlrn.api import app
     return app(environ, start_response)
