@@ -23,3 +23,6 @@ required_packages:
     - selinux-policy-devel
     - rsync
     - httpd
+kerberos_required_packages:
+    - openldap-devel
+    - krb5-devel
