@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac73bb00_4920a7ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 61
+      },
+      "writtenOn": "2023-06-07T14:49:51Z",
+      "side": 1,
+      "message": "Overall this looks pretty reasonable to me. Made a couple suggestions on wording changes for the README.",
+      "revId": "34fa12805a78997058f729458a55a3f2ac34cb7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "831c8be4_c2218854",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 61
+      },
+      "writtenOn": "2023-06-07T14:49:51Z",
+      "side": 1,
+      "message": "I am not sure there is any benefit to this last sentence",
+      "revId": "34fa12805a78997058f729458a55a3f2ac34cb7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa11d2a_c656c45c",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 61
+      },
+      "writtenOn": "2023-06-07T14:49:51Z",
+      "side": 1,
+      "message": "I think for both of these, it would be better to just have \u0027defines\u0027 rather than \u0027it defines\u0027.",
+      "revId": "34fa12805a78997058f729458a55a3f2ac34cb7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
