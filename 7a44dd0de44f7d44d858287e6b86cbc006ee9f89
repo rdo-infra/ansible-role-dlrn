@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f8d3b5e_7606ff66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-06-07T15:13:17Z",
+      "side": 1,
+      "message": "IIUC we need to install krb5-devel and openldap-devel in dlrn hosts now, we should add it to this role.",
+      "revId": "7a44dd0de44f7d44d858287e6b86cbc006ee9f89",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
