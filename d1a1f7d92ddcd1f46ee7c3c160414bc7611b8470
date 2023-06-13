@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5641deb4_daf499f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-06-13T09:49:28Z",
+      "side": 1,
+      "message": "I think this patch should depend on https://softwarefactory-project.io/r/c/DLRN/+/24269 in order to make sure that pip install .[kerberos] works\n",
+      "revId": "d1a1f7d92ddcd1f46ee7c3c160414bc7611b8470",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3093b3b_42dc99b8",
+        "filename": "README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-06-13T09:49:28Z",
+      "side": 1,
+      "message": "All these variables are being defined globally for the server, not per-worker so  when changing authentication configuration, we will modify all builders. Is that the desired behavior or we should allow a more fine-grained per-worker config?",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "d1a1f7d92ddcd1f46ee7c3c160414bc7611b8470",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
