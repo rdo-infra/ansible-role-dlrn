@@ -105,6 +105,30 @@
       },
       "revId": "0215c4d1faf4ef3df2b1952efc2d39bb0820a199",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d99c24_a6b01c73",
+        "filename": "vars/CentOS.8.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-06-13T09:57:34Z",
+      "side": 1,
+      "message": "forget this comment, i just realized gcc is in required_packages and we install ipalib from pip as it\u0027s in requirements.txt.",
+      "parentUuid": "bb133206_445af175",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "0215c4d1faf4ef3df2b1952efc2d39bb0820a199",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
