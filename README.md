@@ -51,7 +51,8 @@ The role will use the following variables, defined in the inventory:
   Defaults to an empty list.
 * `api_authentication_drivers` (optional) is a list of the authentication drivers to use for incoming http requests.
   Defaults to DBAuthentication.
-* `api_ipa_allowed_group` (required with KrbAuthentication driver) is the group allowed to consume the API.
+* `api_read_only_roles` (required for authorization). Role to be used for allowing to consume HTTP GET endpoints.
+* `api_read_write_roles` (required for authorization). Role to be used for allowing to consume HTTP POST endpoints. It also allows consuming HTTP GET endpoints.
 * `api_keytab_princ` (required with KrbAuthentication driver) defines the keytab principal for retrieving a valid kerberos credential in order to connect IPA server.
 * `api_keytab` (required with KrbAuthentication driver) defines the keytab path for retrieving a valid kerberos credential in order to connect IPA server.
 * `http_api_keytab` (optional) is the keytab path for decrypt the incoming kerberos token in order to authenticate the request's user.
