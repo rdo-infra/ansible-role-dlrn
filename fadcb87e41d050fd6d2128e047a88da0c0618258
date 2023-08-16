@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f01ec7c_32eaeb6e",
+        "filename": "files/centos9-bobcat-dlrn-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-08-16T12:36:23Z",
+      "side": 1,
+      "message": "In order to bootstrap the bobcat repo we need to add the current rdo trunk dlrn repos from master to this file to use them to resolve requirements until bootstrap is finished.\n\nTo do that you can add the content of https://trunk.rdoproject.org/centos9-master/current/delorean.repo to this file but replacing commit hashes based url by current link in baseurl.i.e. for baremetal component, it\u0027d be:\n\n[delorean-component-baremetal]\nname\u003ddelorean-openstack-ironic-current\nbaseurl\u003dhttps://trunk.rdoproject.org/centos9-master/component/baremetal/current/\nenabled\u003d1\ngpgcheck\u003d0\npriority\u003d1\n\nAnd similar for the rest of components.",
+      "revId": "fadcb87e41d050fd6d2128e047a88da0c0618258",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
