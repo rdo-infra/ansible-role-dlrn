@@ -35,6 +35,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dfcc555_ea3ac9cb",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2023-08-17T09:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3d6347b_84ebdb4d",
+      "revId": "7a0da9bd76f55c4d30b6ead4d44c6901d7ab29a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8a48df2_1a980a7c",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-08-17T09:30:51Z",
       "side": 1,
       "message": "question: I\u0027m a bit confused because we seem to be setting it back to what it already is, here? Isn\u0027t this a no-op?",
+      "revId": "7a0da9bd76f55c4d30b6ead4d44c6901d7ab29a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9aab6fe_8a273c77",
+        "filename": "files/dlrn-api.wsgi",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2023-08-17T09:43:19Z",
+      "side": 1,
+      "message": "we have two env variables there:\nos.environ: is taken from the cfg file.\nenviron: is taken from the httpd config file.\n\nHere we are checking if we defined the variables from the httpd config file, if so, then we get that value and save that where the config file saves that value.\nIf the config file there has the value KEYTAB_PRINC, then will overwrite what we have in the httpd config file.\n\nSo, in the code, we are OK by checking a single environment variable.\n\nSo config_file \u003e httpd_config_file (with \u003e means higher precedence)",
+      "parentUuid": "a8a48df2_1a980a7c",
       "revId": "7a0da9bd76f55c4d30b6ead4d44c6901d7ab29a7",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
