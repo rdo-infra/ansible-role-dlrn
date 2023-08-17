@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07f313e_689eff5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2023-08-17T09:30:51Z",
+      "side": 1,
+      "message": "A question inline, looks reasonable to me otherwise!",
+      "revId": "7a0da9bd76f55c4d30b6ead4d44c6901d7ab29a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3d6347b_84ebdb4d",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2023-08-17T09:30:51Z",
+      "side": 1,
+      "message": "nit: allows to consume -\u003e allows consuming",
+      "revId": "7a0da9bd76f55c4d30b6ead4d44c6901d7ab29a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a48df2_1a980a7c",
+        "filename": "files/dlrn-api.wsgi",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 254
+      },
+      "writtenOn": "2023-08-17T09:30:51Z",
+      "side": 1,
+      "message": "question: I\u0027m a bit confused because we seem to be setting it back to what it already is, here? Isn\u0027t this a no-op?",
+      "revId": "7a0da9bd76f55c4d30b6ead4d44c6901d7ab29a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
