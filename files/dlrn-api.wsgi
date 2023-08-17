@@ -27,12 +27,16 @@ def application(environ, start_response):
         os.environ['KEYTAB_PATH'] = keytab_path
 
     keytab_princ = environ.get('KEYTAB_PRINC', False)
-    if api_auth_log_file:
+    if keytab_princ:
         os.environ['KEYTAB_PRINC'] = keytab_princ
 
-    allowed_group = environ.get('ALLOWED_GROUP', False)
-    if api_auth_log_file:
-        os.environ['ALLOWED_GROUP'] = allowed_group
+    api_read_write_roles = environ.get('API_READ_WRITE_ROLES', False)
+    if api_read_write_roles:
+        os.environ['API_READ_WRITE_ROLES'] = api_read_write_roles
+
+    api_read_only_roles = environ.get('API_READ_ONLY_ROLES', False)
+    if api_read_only_roles:
+        os.environ['API_READ_ONLY_ROLES'] = api_read_only_roles
 
     http_keytab_path = environ.get('HTTP_KEYTAB_PATH', False)
     if http_keytab_path:
