@@ -1,0 +1,9 @@
+Code-Review+1: Julie Pichon <jpichon@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 17 Aug 2023 12:55:52 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/49401
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
