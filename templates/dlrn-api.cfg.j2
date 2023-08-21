@@ -28,10 +28,10 @@ HTTP_KEYTAB_PATH = '{{ api_keytab }}'
 KEYTAB_PRINC = '{{ api_keytab_princ }}'
 {% endif %}
 {% if api_read_only_roles is defined %}
-API_READ_ONLY_ROLES = '{{ api_read_only_roles }}'
+API_READ_ONLY_ROLES = {{ api_read_only_roles }}
 {% endif %}
 {% if api_read_write_roles is defined %}
-API_READ_WRITE_ROLES = '{{ api_read_write_roles }}'
+API_READ_WRITE_ROLES = {{ api_read_write_roles }}
 {% endif %}
 {% if api_protected_read_endpoints is defined %}
 PROTECT_READ_ENDPOINTS = {{ api_protected_read_endpoints }}
