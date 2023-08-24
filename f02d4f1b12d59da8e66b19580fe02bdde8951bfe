@@ -1,0 +1,10 @@
+Code-Review+1: Julie Pichon <jpichon@redhat.com>
+Code-Review+1: Karolina Kula <kkula@redhat.com>
+Code-Review+2: Alan Pevec <alan.pevec@redhat.com>
+Workflow+1: Alan Pevec <alan.pevec@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 24 Aug 2023 11:14:48 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/49694
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
