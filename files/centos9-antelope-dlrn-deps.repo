@@ -21,7 +21,7 @@ module_hotfixes=1
 
 [centos9-storage]
 name=centos9-storage
-baseurl=http://mirror.stream.centos.org/SIGs/9-stream/storage/$basearch/ceph-quincy/
+baseurl=http://mirror.stream.centos.org/SIGs/9-stream/storage/$basearch/ceph-reef/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
@@ -40,3 +40,11 @@ gpgcheck=0
 enabled=1
 module_hotfixes=1
 
+# epel is required for Ceph Reef
+[epel-low-priority]
+name=Extra Packages for Enterprise Linux $releasever - $basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
+enabled=1
+gpgcheck=0
+countme=1
+priority=100
