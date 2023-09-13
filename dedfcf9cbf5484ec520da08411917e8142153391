@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8580cfaa_2a79ffa8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2023-09-13T14:17:10Z",
+      "side": 1,
+      "message": "lemme test p-o-i with new ceph release before merging please",
+      "revId": "dedfcf9cbf5484ec520da08411917e8142153391",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
