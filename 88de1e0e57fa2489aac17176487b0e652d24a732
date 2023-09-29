@@ -16,6 +16,23 @@
       "message": "Tested with https://review.opendev.org/c/openstack/puppet-openstack-integration/+/895947",
       "revId": "88de1e0e57fa2489aac17176487b0e652d24a732",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c68afd_7c260e10",
+        "filename": "files/centos9-antelope-dlrn-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2023-09-29T12:07:01Z",
+      "side": 1,
+      "message": "it also needs newer python3-grpcio from EPEL",
+      "revId": "88de1e0e57fa2489aac17176487b0e652d24a732",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ],
   "submitRequirementResults": []
