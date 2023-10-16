@@ -16,6 +16,24 @@
       "message": "i\u0027m not sure if this will work as review.r.o/r requires sso with github. In any case i don\u0027t like too much putting github credentials if we can avoid it. Given that this is only a one-time per release thing, i think we can keep it manual",
       "revId": "b310d0d72141f7c95dcd2ac1c0643219f7f71191",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "439f7720_440839cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-10-16T13:26:37Z",
+      "side": 1,
+      "message": "Ok I do understand your point of view about the security of your GH account.\nI\u0027ll abandon it and close the JIRA",
+      "parentUuid": "062ba886_2dfa5905",
+      "revId": "b310d0d72141f7c95dcd2ac1c0643219f7f71191",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
