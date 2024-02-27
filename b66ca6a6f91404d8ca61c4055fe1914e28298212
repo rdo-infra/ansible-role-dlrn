@@ -46,6 +46,30 @@
       },
       "revId": "b66ca6a6f91404d8ca61c4055fe1914e28298212",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d533818_479d1042",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 757
+      },
+      "writtenOn": "2024-02-27T15:30:37Z",
+      "side": 1,
+      "message": "skip means undo the change or remove entire \"Create current-passed-ci symlink\" task?",
+      "parentUuid": "9040824b_938baad1",
+      "range": {
+        "startLine": 184,
+        "startChar": 142,
+        "endLine": 184,
+        "endChar": 149
+      },
+      "revId": "b66ca6a6f91404d8ca61c4055fe1914e28298212",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
