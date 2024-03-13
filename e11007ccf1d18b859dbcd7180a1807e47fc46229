@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6072656d_c7ad72b4",
+        "filename": "files/centos9-caracal-dlrn-deps.repo",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2024-03-13T09:36:00Z",
+      "side": 1,
+      "message": "During caracal, at least two new components barbican and keystone were removed and security was removed. You can get the actual list of components from https://trunk.rdoproject.org/centos9-master/current/delorean.repo",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 7
+      },
+      "revId": "e11007ccf1d18b859dbcd7180a1807e47fc46229",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
