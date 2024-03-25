@@ -1,20 +1,9 @@
-- name: Install required packages for (Python 2)
-  package:
-    name:
-      - httpd
-      - mod_wsgi
-    state: present
-  when:
-    - ansible_distribution_major_version | int == 7
-    - force_python_version is not defined or force_python_version != "python3"
-
 - name: Install required packages (Python 3)
   package:
     name:
       - httpd
       - python3-mod_wsgi
     state: present
-  when: (ansible_distribution_major_version | int == 8) or (force_python_version is defined and force_python_version == "python3")
 
 - name: Deploy mod_ssl
   package:

@@ -26,43 +26,12 @@
           - epel-release
       when: ansible_distribution != "Fedora"
 
-    - name: Enable PowerTools repo in Centos 8
-      yum_repository:
-        name: "CentOS-PowerTools"
-        description: "CentOS-$releasever - PowerTools"
-        mirrorlist: "http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=PowerTools&infra=$infra"
-        enabled: yes
-        gpgcheck: yes
-        gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial"
-      when:
-        - ansible_distribution != "Fedora"
-        - ansible_distribution_major_version == "8"
-
-    - name: Install certbot from EPEL
-      package:
-        name:
-          - certbot
-        state: present
-        enablerepo: epel
-      when: ansible_distribution != "Fedora"
-
-    - name: Install python2-certbot-apache from EPEL on CentOS 7
-      package:
-        name:
-          - python2-certbot-apache
-        state: present
-        enablerepo: epel
-      when:
-        - ansible_distribution != "Fedora"
-        - ansible_distribution_major_version == "7"
-
-    - name: Install certbot on Fedora
+    - name: Install plugin for certbot for Apache
       package:
         name:
           - certbot
           - python3-certbot-apache
         state: present
-      when: ansible_distribution == "Fedora"
 
 # cronie, which provides crontab, might not be installed by default
 - name: Ensure cronie is installed for crontab configuration

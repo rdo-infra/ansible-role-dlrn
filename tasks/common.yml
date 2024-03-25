@@ -1,6 +1,4 @@
-# NOTE(jpena): this should be a temporary measure. We must be able to
-# set SELinux as enforcing
-- name: Include OS-specific variables
+- name: Include OS-specefic variables
   include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -15,7 +13,13 @@
   package:
     name: epel-release
     state: present
-  when: ansible_distribution == "CentOS"
+  when: ansible_facts.distribution == "CentOS"
+
+- name: Ensure EPEL is enabled on RHEL
+  ansible.builtin.command: "dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_facts.distribution_major_version }}.noarch.rpm"
+  become: true
+  when: ansible_facts.distribution == "RedHat"
+  changed_when: false
 
 - name: Install required packages
   package:
@@ -33,9 +37,6 @@
     policy: targeted
     state: enforcing
 
-# NOTE(jpena): if we start from a system with SELinux disabled, we will need two
-# runs to get this right. Trying to set a SELinux boolean when SELinux is disabled
-# fails.
 - name: SELinux configuration
   when:
     - ansible_selinux is defined
@@ -54,6 +55,7 @@
         - daemons_use_tty
         - httpd_unified
         - httpd_execmem
+        - httpd_use_nfs
 
     - name: Allow SSH port access to SELinux
       seport:
@@ -76,54 +78,11 @@
     line: "Port 22"
   notify: Restart sshd
 
-- name: Make postfix listen only on localhost
-  lineinfile:
-    path: /etc/postfix/main.cf
-    regexp: '^inet_interfaces.*'
-    line: inet_interfaces = 127.0.0.1
-  notify: Restart postfix
-
-- name: Deploy rsyncd configuration file
-  copy:
-    src: rsyncd.conf
-    dest: "/etc/rsyncd.conf"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Create rsyncd.d directory
-  file:
-    path: /etc/rsyncd.d
-    state: directory
-    mode: 0755
-    owner: root
-    group: root
-
-- name: Enable postfix
-  service:
-    name: postfix
-    state: started
-    enabled: yes
-
-- name: Enable rsyncd
-  service:
-    name: rsyncd
-    state: started
-    enabled: yes
-
 - name: Enable firewalld service
   service:
     name: firewalld
     state: started
     enabled: yes
-
-- name: Enable network service on CentOS 7
-  service:
-    name: network
-    state: started
-    enabled: yes
-  when:
-    - ansible_distribution_major_version | int == 7
 
 - name: Add mock group
   group:
@@ -140,7 +99,6 @@
   with_items:
     - ssh
     - http
-    - rsyncd
 
 - name: Allow custom SSH port through firewall
   firewalld:
@@ -198,6 +156,71 @@
     section: main
     option: timeout
     value: '120'
+
+- name: Enable NFS server in builder server
+  block:
+    - name: Create trunkinfra firewalld zone
+      firewalld:
+        zone: trunkinfra
+        permanent: yes
+        state: present
+
+    - name: Add trunk server to trunkinfra firewalld zone
+      firewalld:
+        zone: trunkinfra
+        permanent: yes
+        state: enabled
+        source: "{{ ip_trunk_server }}"
+
+    - name: Allow NFS in trunkinfra zone
+      firewalld:
+        zone: trunkinfra
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+      with_items:
+        - ssh
+        - http
+        - nfs
+
+    - name: Allow HTTPS in trunkinfra through firewall
+      firewalld:
+        zone: public
+        service: https
+        permanent: yes
+        immediate: yes
+        state: enabled
+      when: enable_https
+
+    - name: Reload firewalld
+      ansible.builtin.command: "firewall-cmd --reload"
+      changed_when: false
+
+    - name: Disable NFS v3
+      community.general.ini_file:
+        path: /etc/nfs.conf
+        section: nfsd
+        option: vers3
+        value: 'n'
+
+    - name: Mask nfs v3 only services
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: stopped
+        masked: true
+      with_items:
+        - rpc-statd.service
+        - rpcbind.service
+        - rpcbind.socket
+
+    - name: Enable nfs-server service
+      ansible.builtin.systemd_service:
+        name: nfs-server
+        state: started
+        enabled: yes
+
+  when:
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Configure vgdelorean if needed
   block:

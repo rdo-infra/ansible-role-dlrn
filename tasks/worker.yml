@@ -11,6 +11,11 @@
     - worker.value.release_numbering != '0.1.date.hash'
     - worker.value.release_numbering != 'minor.date.hash'
 
+- name: Create group
+  ansible.builtin.group:
+    name: "{{ worker.key }}"
+    gid: "{{ worker.value.gid }}"
+
 - name: Create user
   user:
     name: "{{ worker.key }}"
@@ -19,7 +24,8 @@
     groups: users, mock
     comment: "User for {{ worker.key }} worker"
     append: yes
-    uid: "{{ worker.value.uid | default(omit) }}"
+    uid: "{{ worker.value.uid }}"
+    group: "{{ worker.value.gid }}"
     shell: "{{ worker.value.shell | default(omit) }}"
 
 - name: Set 755 permissions to user home
@@ -142,91 +148,102 @@
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
 
-- name: Deploy dlrn-deps.repo file
-  copy:
-    src: "{{ worker.key }}-dlrn-deps.repo"
-    dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
-    mode: 0644
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  register: dlrndeps_status
-  ignore_errors: true
+- name: Configure data/repos in builder server
+  when:
+    - dlrn_server_type | default('server') == 'builder'
+  block:
+    - name: Deploy dlrn-deps.repo file
+      copy:
+        src: "{{ worker.key }}-dlrn-deps.repo"
+        dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+        mode: 0644
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      register: dlrndeps_status
+      ignore_errors: true
 
-- name: Create dummy dlrn-deps.repo file if template is not present
-  copy:
-    content: ' '
-    dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
-    mode: 0644
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  when: dlrndeps_status.failed
+    - name: Create dummy dlrn-deps.repo file if template is not present
+      copy:
+        content: ' '
+        dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+        mode: 0644
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      when: dlrndeps_status.failed
 
-- name: Create delorean-deps.repo symlink
-  file:
-    src: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
-    dest: "/home/{{ worker.key }}/data/repos/delorean-deps.repo"
-    state: link
+    - name: Create delorean-deps.repo symlink
+      file:
+        src: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+        dest: "/home/{{ worker.key }}/data/repos/delorean-deps.repo"
+        state: link
 
-- name: Create current-tripleo-rdo symlink for releases where it will not exist
-  file:
-    src: "/home/{{ worker.key }}/data/repos/puppet-passed-ci"
-    dest: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
-    state: link
-    force: yes
-  when: worker.key | regex_search('^(centos8|centos9)\-(xena|yoga)')
+    - name: Create deps directories
+      file:
+        path: "/home/{{ worker.key }}/data/repos/{{ item }}"
+        state: directory
+        mode: 0755
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      with_items:
+        - deps
+        - deps/latest
+        - deps/latest/SRPMS
+        - deps/latest/aarch64
+        - deps/latest/noarch
+        - deps/latest/ppc64le
+        - deps/latest/ppc64
+        - deps/latest/x86_64
+      when: worker.value.enable_deps_sync | default(false)
 
-- name: Create current-passed-ci symlink
-  file:
-    src: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
-    dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
-    state: link
-    force: yes
-  when: worker.key | regex_search('^(centos|centos8|centos9)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|yoga)')
+    - name: Create build deps directories
+      file:
+        path: "/home/{{ worker.key }}/data/repos/{{ item }}"
+        state: directory
+        mode: 0755
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      with_items:
+        - build-deps
+        - build-deps/latest
+        - build-deps/latest/SRPMS
+        - build-deps/latest/aarch64
+        - build-deps/latest/noarch
+        - build-deps/latest/ppc64le
+        - build-deps/latest/ppc64
+        - build-deps/latest/x86_64
+      when: worker.value.enable_brs_sync | default(false)
 
-- name: Create deps directories
-  file:
-    path: "/home/{{ worker.key }}/data/repos/{{ item }}"
-    state: directory
-    mode: 0755
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  with_items:
-    - deps
-    - deps/latest
-    - deps/latest/SRPMS
-    - deps/latest/aarch64
-    - deps/latest/noarch
-    - deps/latest/ppc64le
-    - deps/latest/ppc64
-    - deps/latest/x86_64
-  when: worker.value.enable_deps_sync | default(false)
+    - name: Deploy rdo-trunk-runtime-deps.repo
+      copy:
+        src: "{{ worker.key }}-rdo-trunk-runtime-deps.repo"
+        dest: "/home/{{ worker.key }}/data/repos/rdo-trunk-runtime-deps.repo"
+        mode: 0644
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      when: worker.value.enable_brs_sync | default(false)
 
-- name: Create build deps directories
-  file:
-    path: "/home/{{ worker.key }}/data/repos/{{ item }}"
-    state: directory
-    mode: 0755
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  with_items:
-    - build-deps
-    - build-deps/latest
-    - build-deps/latest/SRPMS
-    - build-deps/latest/aarch64
-    - build-deps/latest/noarch
-    - build-deps/latest/ppc64le
-    - build-deps/latest/ppc64
-    - build-deps/latest/x86_64
-  when: worker.value.enable_brs_sync | default(false)
+    - name: Export data/repos directory using NFS
+      ansible.builtin.lineinfile:
+        dest: '/etc/exports'
+        regexp: "^/home/{{ worker.key }}/data/repos.+$"
+        line: "/home/{{ worker.key }}/data/repos {{ ip_trunk_server }}(rw)"
+      register: nfs_export
 
-- name: Deploy rdo-trunk-runtime-deps.repo
-  copy:
-    src: "{{ worker.key }}-rdo-trunk-runtime-deps.repo"
-    dest: "/home/{{ worker.key }}/data/repos/rdo-trunk-runtime-deps.repo"
-    mode: 0644
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  when: worker.value.enable_brs_sync | default(false)
+    - name: Export NFS filesystems
+      ansible.builtin.command: "exportfs -a -v"
+      when:
+        - nfs_export is defined
+        - nfs_export.changed
+
+- name: Configure data/repos in builder server
+  ansible.posix.mount:
+    path: "/home/{{ worker.key }}/data/repos"
+    src: "{{ ip_trunk_builder }}:/home/{{ worker.key }}/data/repos"
+    opts: rw,soft
+    state: mounted
+    fstype: nfs4
+  when:
+    - dlrn_server_type | default('server') == 'server'
 
 - name: Create .ssh directory
   file:
@@ -272,7 +289,7 @@
   become_user: "{{ worker.key }}"
 
 - name: Install DLRN on venv
-  shell: |
+  ansible.builtin.command: |
     source /home/{{ worker.key }}/.venv/bin/activate
     pip install .
   args:
@@ -284,7 +301,7 @@
 
 
 - name: Install DLRN kerberos on venv
-  shell: |
+  ansible.builtin.command: |
     source /home/{{ worker.key }}/.venv/bin/activate
     pip install .[kerberos]
   args:
@@ -345,7 +362,7 @@
     job: "DLRN_ENV={{ worker.value.cron_env | default('') }} /usr/local/bin/run-dlrn.sh"
   when:
     - worker.value.enable_cron | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable DLRN run cron job if not needed
   cron:
@@ -353,7 +370,7 @@
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_cron | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_cron | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create cron job to run dlrn-purge
   cron:
@@ -365,7 +382,7 @@
     job: "/usr/local/bin/run-purge.sh {{ worker.value.purge_custom_args | default('') }}"
   when:
     - worker.value.enable_purge | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable dlrn-purge cron job if not needed
   cron:
@@ -373,7 +390,7 @@
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_purge | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_purge | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create cron job to sync dependencies
   cron:
@@ -385,7 +402,7 @@
     job: '/usr/local/bin/update-deps.sh > $HOME/dlrn-logs/update-deps-$(date +\%Y\%m\%d\%H\%M).log 2>&1'
   when:
     - worker.value.enable_deps_sync | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable cron job to sync dependencies if not needed
   cron:
@@ -393,7 +410,7 @@
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_deps_sync | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_deps_sync | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create cron job to sync build dependencies
   cron:
@@ -405,7 +422,7 @@
     job: 'TAG_PHASE="build" DEPS_DIR="${HOME}/data/repos/build-deps/" /usr/local/bin/update-deps.sh > $HOME/dlrn-logs/update-build-deps-$(date +\%Y\%m\%d\%H\%M).log 2>&1'
   when:
     - worker.value.enable_brs_sync | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable cron job to sync build dependencies if not needed
   cron:
@@ -413,7 +430,7 @@
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_brs_sync | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_brs_sync | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create job to purge dependency sync log
   cron:
@@ -424,14 +441,6 @@
     job: '/usr/local/bin/purge-deps.sh'
   when:
     - worker.value.enable_purge | default(False)
-    - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
-
-- name: Enable copr repo for centos-packager on CentOS 8
-  command: 'dnf copr enable ykarel/ykarel-centos-stream centos-stream-8-x86_64 -y'
-  args:
-    creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ykarel:ykarel-centos-stream.repo
-  when:
-    - ansible_distribution_major_version | int == 8
     - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
 
 - name: Install centos-packager
@@ -446,7 +455,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: 0755
-  when: worker.key | regex_search('^(centos|centos8|centos9|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|yoga|zed|antelope|bobcat|caracal).*')
+  when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal).*')
 
 - name: Set up symlinks
   file:
@@ -476,7 +485,7 @@
 - name: Set up gerrit, if configured
   when:
     - worker.value.gerrit_user is defined
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
   block:
     - name: Fail if gerrit email is not defined
       fail:
@@ -532,25 +541,6 @@
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
     mode: 0600
-
-- name: Set up rsync if needed
-  when:
-    - worker.value.enable_public_rsync is defined
-    - worker.value.enable_public_rsync
-  block:
-    - name: Ensure rsyncd service is started
-      service:
-        name: rsyncd
-        state: started
-        enabled: yes
-
-    - name: Create rsyncd configuration for this worker
-      template:
-        src: rsync-worker.conf.j2
-        dest: "/etc/rsyncd.d/{{ worker.key }}.conf"
-        owner: root
-        group: root
-        mode: 0644
 
 - name: Run restorecon on data directory
   command: restorecon -R "/home/{{ worker.key }}/data"

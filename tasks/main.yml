@@ -1,9 +1,6 @@
 - name: Common DLRN deployment
   include_tasks: common.yml
 
-- name: Prepare promoter user
-  include_tasks: promoter.yml
-
 - name: Configure rdoinfo user
   include_tasks: rdoinfo.yml
 
