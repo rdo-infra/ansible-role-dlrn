@@ -1,8 +1,8 @@
 sshd_port: 22
-enable_https: False
+enable_https: false
 dlrn_server_type: primary
 web_domain: ''
-dlrn_manage_letsencrypt: False
+dlrn_manage_letsencrypt: false
 cert_mail: test@example.com
 api_workers: []
 promoter_authorized_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH7MmSecn77eU98/MOEnNBfzNJwva+/0df/G3iWKfaNcGq7JrHmiujLnjrWSVKaRogDEVVmitFKcKSR1dlpHGCFFcN7Wh3JlayKekQknyNxn1jYa1oGOiT4dO9PKcWeDkyGjtBaODDRi4TV4eBRIzFg3yCIzMnl/GinZEKLafREKmySHfteID3U4F+u1pPcXk7NywN/E7xvmMaRa+vr0+mF1ulxx1OMED1wxsFy51AO3au+eTwoKd7ZrtX0XL3DyNE91aty9hUUMMlbhtpXLDof5SfYWFGuXPfn/AEOD2nbq4QrgZ9DXw+1CgxgAsW2GBZrVYOWI5FDWrvTIljMxfD cico_rhos_ci_key@ci.centos.org'

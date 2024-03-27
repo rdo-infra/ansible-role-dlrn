@@ -1,36 +1,36 @@
 - name: Create rdoinfo user
-  user:
+  ansible.builtin.user:
     name: rdoinfo
     comment: 'rdoinfo user'
     home: '/home/rdoinfo'
-    create_home: yes
+    create_home: true
     groups: users,mock
-    append: yes
+    append: true
     shell: "{{ rdoinfo_shell | default(omit) }}"
 
 - name: Set 755 permissions to rdoinfo home
-  file:
+  ansible.builtin.file:
     path: /home/rdoinfo
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Clone rdoinfo repo
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/redhat-openstack/rdoinfo'
     dest: '/home/rdoinfo/rdoinfo'
     version: master
-    update: no
-  become: yes
+    update: false
+  become: true
   become_user: rdoinfo
 
 - name: Deploy rdoinfo-update script
-  copy:
+  ansible.builtin.copy:
     src: rdoinfo-update.sh
     dest: /usr/local/bin/rdoinfo-update.sh
-    mode: 0755
+    mode: "0755"
 
 - name: Create cron job to update rdoinfo contents
-  cron:
+  ansible.builtin.cron:
     name: rdoinfo-update
     user: rdoinfo
     minute: "3,33"
@@ -39,7 +39,7 @@
     job: '/usr/local/bin/rdoinfo-update.sh > /dev/null'
 
 - name: Create symlink to rdoinfo repo
-  file:
+  ansible.builtin.file:
     src: /home/rdoinfo/rdoinfo
     dest: /var/www/html/rdoinfo
     state: link

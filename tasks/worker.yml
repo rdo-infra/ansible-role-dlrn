@@ -1,9 +1,9 @@
 - name: Log user
-  debug:
+  ansible.builtin.debug:
     msg: "Deploying user {{ worker.key }}"
 
 - name: Fail if release numbering is incorrect
-  fail:
+  ansible.builtin.fail:
     msg: "Invalid release numbering for {{ worker.key }}: {{ worker.value.release_numbering }}"
   when:
     - worker.value.release_numbering is defined
@@ -11,68 +11,74 @@
     - worker.value.release_numbering != '0.1.date.hash'
     - worker.value.release_numbering != 'minor.date.hash'
 
+- name: Create group
+  ansible.builtin.group:
+    name: "{{ worker.key }}"
+    gid: "{{ worker.value.gid }}"
+
 - name: Create user
-  user:
+  ansible.builtin.user:
     name: "{{ worker.key }}"
     home: "/home/{{ worker.key }}"
-    create_home: yes
+    create_home: true
     groups: users, mock
     comment: "User for {{ worker.key }} worker"
-    append: yes
-    uid: "{{ worker.value.uid | default(omit) }}"
+    append: true
+    uid: "{{ worker.value.uid }}"
+    group: "{{ worker.value.gid }}"
     shell: "{{ worker.value.shell | default(omit) }}"
 
 - name: Set 755 permissions to user home
-  file:
+  ansible.builtin.file:
     path: "/home/{{ worker.key }}"
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Set SELinux file context for data directory
-  sefcontext:
+  community.general.sefcontext:
     target: "/home/{{ worker.key }}/data(/.*)?"
     setype: 'httpd_sys_rw_content_t'
-    ignore_selinux_state: yes
+    ignore_selinux_state: true
   register: data_fcontext
   when:
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
 - name: Set SELinux file context for venv directory
-  sefcontext:
+  community.general.sefcontext:
     target: "/home/{{ worker.key }}/.venv(/.*)?"
     setype: 'httpd_sys_rw_content_t'
-    ignore_selinux_state: yes
+    ignore_selinux_state: true
   register: venv_fcontext
   when:
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
 - name: Set SELinux file context for dlrn directory
-  sefcontext:
+  community.general.sefcontext:
     target: "/home/{{ worker.key }}/dlrn(/.*)?"
     setype: 'httpd_sys_rw_content_t'
-    ignore_selinux_state: yes
+    ignore_selinux_state: true
   register: dlrn_fcontext
   when:
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
 - name: Create worker api login logs directory
-  file:
+  ansible.builtin.file:
     path: "/var/log/dlrn-logs/{{ worker.key }}/api_login"
     state: directory
-    mode: 0755
+    mode: '0755'
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
   when:
     - worker.value.enable_api_login_logs | default(false)
 
 - name: Set SELinux file context for dlrn api logging
-  sefcontext:
+  community.general.sefcontext:
     target: "/var/log/dlrn-logs/{{ worker.key }}/api_login(/.*)?"
     setype: 'httpd_log_t'
-    ignore_selinux_state: yes
+    ignore_selinux_state: true
   register: dlrn_api_login_logs_fcontext
   when:
     - ansible_selinux is defined
@@ -80,20 +86,20 @@
     - worker.value.enable_api_login_logs | default(false)
 
 - name: Create worker api logs directory
-  file:
+  ansible.builtin.file:
     path: "/var/log/dlrn-logs/{{ worker.key }}/api"
     state: directory
-    mode: 0755
+    mode: '0755'
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
   when:
     - worker.value.enable_api_login_logs | default(false)
 
 - name: Set SELinux file context for dlrn api
-  sefcontext:
+  community.general.sefcontext:
     target: "/var/log/dlrn-logs/{{ worker.key }}/api(/.*)?"
     setype: 'httpd_log_t'
-    ignore_selinux_state: yes
+    ignore_selinux_state: true
   register: dlrn_api_logs_fcontext
   when:
     - ansible_selinux is defined
@@ -101,233 +107,248 @@
     - worker.value.enable_api_login_logs | default(false)
 
 - name: Create worker distroinfo directory
-  file:
+  ansible.builtin.file:
     path: "/home/{{ worker.key }}/.distroinfo"
     state: directory
-    mode: 0775
+    mode: '0775'
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
 
 - name: Set SELinux file context for distroinfo directory
-  sefcontext:
+  community.general.sefcontext:
     target: "/home/{{ worker.key }}/.distroinfo(/.*)?"
     setype: 'httpd_sys_rw_content_t'
-    ignore_selinux_state: yes
+    ignore_selinux_state: true
   register: dlrn_distroinfo_fcontext
   when:
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
 
 - name: Create worker dlrn-user logs directory
-  file:
+  ansible.builtin.file:
     path: "/var/log/dlrn-logs/{{ worker.key }}/user"
     state: directory
-    mode: 0755
+    mode: '0755'
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
 
 - name: Create worker API directory
-  file:
+  ansible.builtin.file:
     path: "/home/{{ worker.key }}/api"
     state: directory
-    mode: 0755
+    mode: '0755'
     owner: "root"
     group: "root"
 
 - name: Create data/repos directory
-  file:
+  ansible.builtin.file:
     path: "/home/{{ worker.key }}/data/repos"
     state: directory
-    mode: 0755
+    mode: '0755'
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
 
-- name: Deploy dlrn-deps.repo file
-  copy:
-    src: "{{ worker.key }}-dlrn-deps.repo"
-    dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
-    mode: 0644
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  register: dlrndeps_status
-  ignore_errors: true
+- name: Configure data/repos in builder server
+  when:
+    - dlrn_server_type | default('server') == 'builder'
+  block:
+    - name: Deploy dlrn-deps.repo file
+      ansible.builtin.copy:
+        src: "{{ worker.key }}-dlrn-deps.repo"
+        dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+        mode: '0644'
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      register: dlrndeps_status
+      ignore_errors: true
 
-- name: Create dummy dlrn-deps.repo file if template is not present
-  copy:
-    content: ' '
-    dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
-    mode: 0644
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  when: dlrndeps_status.failed
+    - name: Create dummy dlrn-deps.repo file if template is not present
+      ansible.builtin.copy:
+        content: ' '
+        dest: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+        mode: '0644'
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      when: dlrndeps_status.failed
 
-- name: Create delorean-deps.repo symlink
-  file:
-    src: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
-    dest: "/home/{{ worker.key }}/data/repos/delorean-deps.repo"
-    state: link
+    - name: Create delorean-deps.repo symlink
+      ansible.builtin.file:
+        src: "/home/{{ worker.key }}/data/repos/dlrn-deps.repo"
+        dest: "/home/{{ worker.key }}/data/repos/delorean-deps.repo"
+        state: link
 
-- name: Create current-tripleo-rdo symlink for releases where it will not exist
-  file:
-    src: "/home/{{ worker.key }}/data/repos/puppet-passed-ci"
-    dest: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
-    state: link
-    force: yes
-  when: worker.key | regex_search('^(centos8|centos9)\-(xena|yoga)')
+    - name: Create deps directories
+      ansible.builtin.file:
+        path: "/home/{{ worker.key }}/data/repos/{{ item }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      with_items:
+        - deps
+        - deps/latest
+        - deps/latest/SRPMS
+        - deps/latest/aarch64
+        - deps/latest/noarch
+        - deps/latest/ppc64le
+        - deps/latest/ppc64
+        - deps/latest/x86_64
+      when: worker.value.enable_deps_sync | default(false)
 
-- name: Create current-passed-ci symlink
-  file:
-    src: "/home/{{ worker.key }}/data/repos/current-tripleo-rdo"
-    dest: "/home/{{ worker.key }}/data/repos/current-passed-ci"
-    state: link
-    force: yes
-  when: worker.key | regex_search('^(centos|centos8|centos9)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|yoga)')
+    - name: Create build deps directories
+      ansible.builtin.file:
+        path: "/home/{{ worker.key }}/data/repos/{{ item }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      with_items:
+        - build-deps
+        - build-deps/latest
+        - build-deps/latest/SRPMS
+        - build-deps/latest/aarch64
+        - build-deps/latest/noarch
+        - build-deps/latest/ppc64le
+        - build-deps/latest/ppc64
+        - build-deps/latest/x86_64
+      when: worker.value.enable_brs_sync | default(false)
 
-- name: Create deps directories
-  file:
-    path: "/home/{{ worker.key }}/data/repos/{{ item }}"
-    state: directory
-    mode: 0755
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  with_items:
-    - deps
-    - deps/latest
-    - deps/latest/SRPMS
-    - deps/latest/aarch64
-    - deps/latest/noarch
-    - deps/latest/ppc64le
-    - deps/latest/ppc64
-    - deps/latest/x86_64
-  when: worker.value.enable_deps_sync | default(false)
+    - name: Deploy rdo-trunk-runtime-deps.repo
+      ansible.builtin.copy:
+        src: "{{ worker.key }}-rdo-trunk-runtime-deps.repo"
+        dest: "/home/{{ worker.key }}/data/repos/rdo-trunk-runtime-deps.repo"
+        mode: '0644'
+        owner: "{{ worker.key }}"
+        group: "{{ worker.key }}"
+      when: worker.value.enable_brs_sync | default(false)
 
-- name: Create build deps directories
-  file:
-    path: "/home/{{ worker.key }}/data/repos/{{ item }}"
-    state: directory
-    mode: 0755
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  with_items:
-    - build-deps
-    - build-deps/latest
-    - build-deps/latest/SRPMS
-    - build-deps/latest/aarch64
-    - build-deps/latest/noarch
-    - build-deps/latest/ppc64le
-    - build-deps/latest/ppc64
-    - build-deps/latest/x86_64
-  when: worker.value.enable_brs_sync | default(false)
+    - name: Export data/repos directory using NFS
+      ansible.builtin.lineinfile:
+        dest: '/etc/exports'
+        regexp: "^/home/{{ worker.key }}/data/repos.+$"
+        line: "/home/{{ worker.key }}/data/repos {{ ip_trunk_server }}(rw)"
+      register: nfs_export
+      when:
+        - nfs_shared_repos | default(false)
 
-- name: Deploy rdo-trunk-runtime-deps.repo
-  copy:
-    src: "{{ worker.key }}-rdo-trunk-runtime-deps.repo"
-    dest: "/home/{{ worker.key }}/data/repos/rdo-trunk-runtime-deps.repo"
-    mode: 0644
-    owner: "{{ worker.key }}"
-    group: "{{ worker.key }}"
-  when: worker.value.enable_brs_sync | default(false)
+    - name: Export NFS filesystems
+      ansible.builtin.command: "exportfs -a -v"
+      when:
+        - nfs_export is defined
+        - nfs_export.changed
+      changed_when: false
+
+- name: Configure data/repos in builder server
+  ansible.posix.mount:
+    path: "/home/{{ worker.key }}/data/repos"
+    src: "{{ ip_trunk_builder }}:/home/{{ worker.key }}/data/repos"
+    opts: rw,soft
+    state: mounted
+    fstype: nfs4
+  when:
+    - dlrn_server_type | default('server') == 'server'
+    - nfs_shared_repos | default(false)
 
 - name: Create .ssh directory
-  file:
+  ansible.builtin.file:
     path: "/home/{{ worker.key }}/.ssh"
     state: directory
-    mode: 0700
+    mode: '0700'
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
 
 - name: Create SSH key
-  openssh_keypair:
+  community.crypto.openssh_keypair:
     path: "/home/{{ worker.key }}/.ssh/id_rsa"
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
-    force: no
+    force: false
     size: 2048  # This is the default for CentOS 7 and CentOS 8
 
 - name: Clone DLRN repo
-  git:
+  ansible.builtin.git:
     repo: 'https://github.com/softwarefactory-project/DLRN'
     dest: "/home/{{ worker.key }}/dlrn"
     version: master
-    update: no
-  become: yes
+    update: false
+  become: true
   become_user: "{{ worker.key }}"
 
 - name: Create virtual environment for DLRN
-  pip:
+  ansible.builtin.pip:
     name: pip
     state: latest   # noqa package-latest
     virtualenv: "/home/{{ worker.key }}/.venv"
     virtualenv_python: "{{ force_python_version | default(omit) }}"
     virtualenv_site_packages: true
-  become: yes
+  become: true
   become_user: "{{ worker.key }}"
 
 - name: Deploy DLRN requirements on venv
-  pip:
+  ansible.builtin.pip:
     requirements: "/home/{{ worker.key }}/dlrn/requirements.txt"
     virtualenv: "/home/{{ worker.key }}/.venv"
     virtualenv_python: "{{ force_python_version | default(omit) }}"
-  become: yes
+  become: true
   become_user: "{{ worker.key }}"
 
 - name: Install DLRN on venv
-  shell: |
+  ansible.builtin.shell: |
     source /home/{{ worker.key }}/.venv/bin/activate
     pip install .
   args:
     chdir: "/home/{{ worker.key }}/dlrn"
     creates: "/home/{{ worker.key }}/.venv/bin/dlrn"
-  become: yes
+  become: true
   become_user: "{{ worker.key }}"
   when: "'KrbAuthentication' not in (api_authentication_drivers | default([]))"
 
-
 - name: Install DLRN kerberos on venv
-  shell: |
+  ansible.builtin.shell: |
     source /home/{{ worker.key }}/.venv/bin/activate
     pip install .[kerberos]
   args:
     chdir: "/home/{{ worker.key }}/dlrn"
     creates: "/home/{{ worker.key }}/.venv/bin/dlrn"
-  become: yes
+  become: true
   become_user: "{{ worker.key }}"
   when: "'KrbAuthentication' in (api_authentication_drivers | default([]))"
-
+  changed_when: false
 
 - name: Set DB url on alembic.ini
-  ini_file:
+  community.general.ini_file:
     path: "/home/{{ worker.key }}/dlrn/alembic.ini"
     section: alembic
     option: sqlalchemy.url
     value: "{{ worker.value.db_connection }}"
+    mode: '0644'
 
 - name: Create directory for workers project.ini
-  file:
+  ansible.builtin.file:
     path: "/usr/local/share/dlrn/{{ worker.key }}"
     state: directory
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
-    mode: 0700
+    mode: '0700'
 
 - name: Deploy projects.ini for worker
-  template:
+  ansible.builtin.template:
     src: projects.ini.j2
     dest: "/usr/local/share/dlrn/{{ worker.key }}/projects.ini"
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
-    mode: 0600
+    mode: '0600'
 
 - name: Add sudo permissions to worker
-  copy:
+  ansible.builtin.copy:
     content: "{{ worker.key }} ALL=(ALL) NOPASSWD: /bin/rm\n"
     dest: "/etc/sudoers.d/10_{{ worker.key }}"
-    mode: 0440
+    mode: '0440'
     owner: root
     group: root
 
 - name: Create cron job for log rotation
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-logrotate"
     user: "{{ worker.key }}"
     minute: "0"
@@ -336,27 +357,27 @@
     job: "/usr/bin/find /home/{{ worker.key }}/dlrn-logs/*.log -mtime +2 -exec rm {} \\;"
 
 - name: Create cron job to run DLRN
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}"
     user: "{{ worker.key }}"
     minute: "{{ worker.value.cron_minute | default('*/5') }}"
-    hour: "{{ worker.value.cron_hour |default('*') }}"
+    hour: "{{ worker.value.cron_hour | default('*') }}"
     day: "*"
     job: "DLRN_ENV={{ worker.value.cron_env | default('') }} /usr/local/bin/run-dlrn.sh"
   when:
     - worker.value.enable_cron | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable DLRN run cron job if not needed
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}"
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_cron | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_cron | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create cron job to run dlrn-purge
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-purge"
     user: "{{ worker.key }}"
     minute: "{{ worker.value.purge_minute | default('7') }}"
@@ -365,18 +386,18 @@
     job: "/usr/local/bin/run-purge.sh {{ worker.value.purge_custom_args | default('') }}"
   when:
     - worker.value.enable_purge | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable dlrn-purge cron job if not needed
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-purge"
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_purge | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_purge | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create cron job to sync dependencies
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-deps"
     user: "{{ worker.key }}"
     minute: "10,40"
@@ -385,18 +406,18 @@
     job: '/usr/local/bin/update-deps.sh > $HOME/dlrn-logs/update-deps-$(date +\%Y\%m\%d\%H\%M).log 2>&1'
   when:
     - worker.value.enable_deps_sync | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable cron job to sync dependencies if not needed
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-deps"
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_deps_sync | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_deps_sync | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create cron job to sync build dependencies
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-build-deps"
     user: "{{ worker.key }}"
     minute: "25,55"
@@ -405,18 +426,18 @@
     job: 'TAG_PHASE="build" DEPS_DIR="${HOME}/data/repos/build-deps/" /usr/local/bin/update-deps.sh > $HOME/dlrn-logs/update-build-deps-$(date +\%Y\%m\%d\%H\%M).log 2>&1'
   when:
     - worker.value.enable_brs_sync | default(False)
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
 
 - name: Disable cron job to sync build dependencies if not needed
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-build-deps"
     user: "{{ worker.key }}"
     state: absent
   when:
-    - not worker.value.enable_brs_sync | default(False) or dlrn_server_type | default('primary') != 'primary'
+    - not worker.value.enable_brs_sync | default(False) or dlrn_server_type | default('server') != 'builder'
 
 - name: Create job to purge dependency sync log
-  cron:
+  ansible.builtin.cron:
     name: "{{ worker.key }}-deps-purge"
     user: "{{ worker.key }}"
     minute: "0"
@@ -426,65 +447,57 @@
     - worker.value.enable_purge | default(False)
     - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
 
-- name: Enable copr repo for centos-packager on CentOS 8
-  command: 'dnf copr enable ykarel/ykarel-centos-stream centos-stream-8-x86_64 -y'
-  args:
-    creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:ykarel:ykarel-centos-stream.repo
-  when:
-    - ansible_distribution_major_version | int == 8
-    - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
-
 - name: Install centos-packager
-  package:
+  ansible.builtin.package:
     name: centos-packager
     state: present
   when:
     - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
 
 - name: Create directory under /var/www/html for stable release version
-  file:
+  ansible.builtin.file:
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
-    mode: 0755
-  when: worker.key | regex_search('^(centos|centos8|centos9|fedora|rhel8)\-(queens|rocky|stein|train|ussuri|victoria|wallaby|xena|yoga|zed|antelope|bobcat|caracal).*')
+    mode: '0755'
+  when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal).*')
 
 - name: Set up symlinks
-  file:
+  ansible.builtin.file:
     src: "/home/{{ worker.key }}/data/repos"
     dest: "{{ item }}"
     state: link
   with_items: "{{ worker.value.symlinks }}"
 
 - name: Set fact for source mock configuration template
-  set_fact:
+  ansible.builtin.set_fact:
     mock_cfg_template: "{{ worker.value.mock_config }}"
   when: worker.value.mock_config is defined
 
 - name: Set fact for source mock configuration template (default)
-  set_fact:
+  ansible.builtin.set_fact:
     mock_cfg_template: "{{ worker.key.split('-')[0] }}.cfg.j2"
   when: worker.value.mock_config is not defined
 
 - name: Deploy mock config
-  template:
+  ansible.builtin.template:
     src: "{{ mock_cfg_template }}"
     dest: "/home/{{ worker.key }}/dlrn/scripts/{{ worker.value.target }}.cfg"
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
-    mode: 0644
+    mode: '0644'
 
 - name: Set up gerrit, if configured
   when:
     - worker.value.gerrit_user is defined
-    - dlrn_server_type | default('primary') == 'primary'
+    - dlrn_server_type | default('server') == 'builder'
   block:
     - name: Fail if gerrit email is not defined
-      fail:
+      ansible.builtin.fail:
         msg: "gerrit_email not set for {{ worker.key }}, but gerrit_user is set to {{ worker.value.gerrit_user }}"
       when: worker.value.gerrit_email is not defined
 
     - name: Deploy review.rdoproject.org server key
-      known_hosts:
+      ansible.builtin.known_hosts:
         name: '{{ item.name }}'
         key: '{{ item.key }}'
         path: /etc/ssh/ssh_known_hosts
@@ -494,96 +507,83 @@
         - { name: '[review.rdoproject.org]:29418', key: '[review.rdoproject.org]:29418 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLOLaO81l9MzOYM85DVm7RzDQp3GIPuf86F4gUbOQUYR8/1fGjZ6+5wrz3ZqIwxe4X5D43ZwRZD/DNFmvQPtYLg=' }
 
     - name: Set gerrit user
-      git_config:
+      community.general.git_config:
         name: gitreview.username
         scope: global
         value: "{{ worker.value.gerrit_user }}"
-      become: yes
+      become: true
       become_user: "{{ worker.key }}"
 
     - name: Set git user
-      git_config:
+      community.general.git_config:
         name: user.name
         scope: global
         value: "{{ worker.value.gerrit_user }}"
-      become: yes
+      become: true
       become_user: "{{ worker.key }}"
 
     - name: Set git email
-      git_config:
+      community.general.git_config:
         name: user.email
         scope: global
         value: "{{ worker.value.gerrit_email }}"
-      become: yes
+      become: true
       become_user: "{{ worker.key }}"
 
 - name: Deploy WSGI file for worker API
-  copy:
+  ansible.builtin.copy:
     src: dlrn-api.wsgi
     dest: "/home/{{ worker.key }}/api/dlrn-api-{{ worker.key }}.wsgi"
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
-    mode: 0644
+    mode: '0644'
 
 - name: Deploy config file for worker API
-  template:
+  ansible.builtin.template:
     src: dlrn-api.cfg.j2
     dest: "/home/{{ worker.key }}/api/dlrn-api-{{ worker.key }}.cfg"
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
-    mode: 0600
-
-- name: Set up rsync if needed
-  when:
-    - worker.value.enable_public_rsync is defined
-    - worker.value.enable_public_rsync
-  block:
-    - name: Ensure rsyncd service is started
-      service:
-        name: rsyncd
-        state: started
-        enabled: yes
-
-    - name: Create rsyncd configuration for this worker
-      template:
-        src: rsync-worker.conf.j2
-        dest: "/etc/rsyncd.d/{{ worker.key }}.conf"
-        owner: root
-        group: root
-        mode: 0644
+    mode: '0600'
 
 - name: Run restorecon on data directory
-  command: restorecon -R "/home/{{ worker.key }}/data"
+  ansible.builtin.command: restorecon -R "/home/{{ worker.key }}/data"
   when:
     - data_fcontext is defined
     - data_fcontext.changed
+  changed_when: false
 
 - name: Run restorecon on venv directory
-  command: restorecon -R "/home/{{ worker.key }}/.venv"
+  ansible.builtin.command: restorecon -R "/home/{{ worker.key }}/.venv"
   when:
     - venv_fcontext is defined
     - venv_fcontext.changed
+  changed_when: false
 
 - name: Run restorecon on dlrn directory
-  command: restorecon -R "/home/{{ worker.key }}/dlrn"
+  ansible.builtin.command: restorecon -R "/home/{{ worker.key }}/dlrn"
   when:
     - dlrn_fcontext is defined
     - dlrn_fcontext.changed
+  changed_when: false
 
 - name: Run restorecon on dlrn login logs directory
-  command: restorecon -R "/var/log/dlrn-logs/{{ worker.key }}/api_login"
+  ansible.builtin.command: restorecon -R "/var/log/dlrn-logs/{{ worker.key }}/api_login"
   when:
     - dlrn_api_login_logs_fcontext is defined
     - dlrn_api_login_logs_fcontext.changed
+  changed_when: false
 
 - name: Run restorecon on dlrn logs directory
-  command: restorecon -R "/var/log/dlrn-logs/{{ worker.key }}/api"
+  ansible.builtin.command: restorecon -R "/var/log/dlrn-logs/{{ worker.key }}/api"
   when:
     - dlrn_api_logs_fcontext is defined
     - dlrn_api_logs_fcontext.changed
+  changed_when: false
 
 - name: Run restorecon on distroinfo directory
-  command: restorecon -R "/home/{{ worker.key }}/.distroinfo"
+  ansible.builtin.command: restorecon -R "/home/{{ worker.key }}/.distroinfo"
   when:
     - dlrn_distroinfo_fcontext is defined
     - dlrn_distroinfo_fcontext.changed
+  changed_when: false

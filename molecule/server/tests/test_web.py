@@ -21,20 +21,14 @@ def test_httpd_is_running(host):
      assert host.service("httpd").is_running
 
 def test_vhost_files(host):
-    vhost_file = host.file('/etc/httpd/conf.d/25-trunk.rdoproject.org.conf')
-    ssl_file = host.file('/etc/httpd/conf.d/25-ssl-trunk.rdoproject.org.conf')
+    vhost_file = host.file('/etc/httpd/conf.d/25-amoralej-trunk-server.rdoproject.org.conf')
+    ssl_file = host.file('/etc/httpd/conf.d/25-ssl-amoralej-trunk-server.rdoproject.org.conf')
 
     assert vhost_file.exists
     assert ssl_file.exists
-    assert b'Redirect permanent / https://trunk.rdoproject.org/' in vhost_file.content
-    assert b'<Location "/api-rhel8-master">' in vhost_file.content
-    assert b'<Location "/api-redhat-master">' in vhost_file.content
-    assert b'<Location "/api-centos8-train">' in vhost_file.content
-    assert b'WSGIDaemonProcess dlrn-centos-stein python-home=' in vhost_file.content
-    assert b'<Location "/api-rhel8-master">' in ssl_file.content
-    assert b'<Location "/api-redhat-master">' in ssl_file.content
-    assert b'<Location "/api-centos8-train">' in ssl_file.content
-    assert b'WSGIDaemonProcess dlrn-centos-stein python-home=' in vhost_file.content
+    assert b'Redirect' not in vhost_file.content
+    assert b'<Location "/api-centos9-caracal">' in vhost_file.content
+    assert b'WSGIDaemonProcess dlrn-centos9-caracal python-home=' in vhost_file.content
 
 def test_rdo_files(host):
     logo_file = host.file('/var/www/html/images/rdo-logo-white.png')
@@ -54,9 +48,3 @@ def test_packages(host):
 def test_cron(host):
     cmd = host.run('crontab -l -u root')
     assert '/usr/local/bin/update-web-index.sh' not in cmd.stdout
-
-def test_autoindex_options(host):
-    autoindex_file = host.file('/etc/httpd/conf.d/autoindex.conf')
-
-    assert autoindex_file.exists
-    assert b'IndexOptions FancyIndexing HTMLTable VersionSort NameWidth=* DescriptionWidth=* Charset=UTF-8' in autoindex_file.content
