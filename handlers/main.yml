@@ -1,19 +1,14 @@
-- name: Restart postfix
-  service:
-    name: postfix
-    state: restarted
-
 - name: Restart sshd
-  service:
+  ansible.builtin.service:
     name: sshd
     state: restarted
 
 - name: Restart fail2ban
-  service:
+  ansible.builtin.service:
     name: fail2ban
     state: restarted
 
 - name: Restart httpd
-  service:
+  ansible.builtin.service:
     name: httpd
     state: restarted
