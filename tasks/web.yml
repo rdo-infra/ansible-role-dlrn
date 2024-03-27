@@ -1,55 +1,44 @@
-- name: Install required packages for (Python 2)
-  package:
-    name:
-      - httpd
-      - mod_wsgi
-    state: present
-  when:
-    - ansible_distribution_major_version | int == 7
-    - force_python_version is not defined or force_python_version != "python3"
-
 - name: Install required packages (Python 3)
-  package:
+  ansible.builtin.package:
     name:
       - httpd
       - python3-mod_wsgi
     state: present
-  when: (ansible_distribution_major_version | int == 8) or (force_python_version is defined and force_python_version == "python3")
 
 - name: Deploy mod_ssl
-  package:
+  ansible.builtin.package:
     name: mod_ssl
   when: enable_https
 
 - name: Create /var/www/html/images directory
-  file:
+  ansible.builtin.file:
     path: /var/www/html/images
     state: directory
     mode: '0755'
 
 - name: Deploy RDO logo
-  copy:
+  ansible.builtin.copy:
     src: web/rdo-logo-white.png
     dest: /var/www/html/images/rdo-logo-white.png
     mode: '0644'
 
 - name: Deploy home page
-  copy:
+  ansible.builtin.copy:
     src: web/index.html
     dest: /var/www/html/index.html
     mode: '0644'
 
 - name: Remove cron job to run update-web-index, if present
-  cron:
+  ansible.builtin.cron:
     name: update-web-index
     user: root
     state: absent
 
 - name: Start httpd service
-  service:
+  ansible.builtin.service:
     name: httpd
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Request SSL certficate
   when:
@@ -57,7 +46,7 @@
     - dlrn_manage_letsencrypt | default(false)
   block:
     - name: Prepare facts for task
-      set_fact:
+      ansible.builtin.set_fact:
         ssl_cert_options:
           cert1:
             email: "{{ cert_mail | default('softwarefactory-operations-team@redhat.com') }}"
@@ -66,10 +55,10 @@
         certbot_plugin: "--webroot"
 
     - name: Run SSL certificate request
-      include_tasks: ssl.yml
+      ansible.builtin.include_tasks: ssl.yml
 
 - name: Deploy vhost for port 80
-  template:
+  ansible.builtin.template:
     src: vhost_80.j2
     dest: "/etc/httpd/conf.d/25-{{ web_domain }}.conf"
     owner: root
@@ -78,7 +67,7 @@
   notify: Restart httpd
 
 - name: Deploy vhost for port 443
-  template:
+  ansible.builtin.template:
     src: vhost_443.j2
     dest: "/etc/httpd/conf.d/25-ssl-{{ web_domain }}.conf"
     owner: root
@@ -88,20 +77,20 @@
   notify: Restart httpd
 
 - name: Allow long file names in autoindex.conf
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/httpd/conf.d/autoindex.conf
     regexp: '^IndexOptions'
     line: "IndexOptions FancyIndexing HTMLTable VersionSort NameWidth=* DescriptionWidth=* Charset=UTF-8"
   notify: Restart httpd
 
 - name: Check if keytab for API exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ api_keytab }}"
   register: api_keytab_file
   when: api_keytab is defined
 
 - name: Change API keytab permission
-  file:
+  ansible.builtin.file:
     path: "{{ api_keytab }}"
     state: file
     owner: root
@@ -113,13 +102,13 @@
   become: true
 
 - name: Check if http keytab for API exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ http_api_keytab }}"
   register: http_api_keytab_file
   when: http_api_keytab is defined
 
 - name: Change http keytab permission
-  file:
+  ansible.builtin.file:
     path: "{{ http_api_keytab }}"
     state: file
     owner: root

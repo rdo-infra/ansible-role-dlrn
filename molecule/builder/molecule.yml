@@ -7,8 +7,12 @@ platforms:
   - name: instance
     registry:
       url: quay.io/centos
-    image: centos:stream8
+    image: centos:stream9
+    dockerfile: Dockerfile
+    privileged: True
     command: "/sbin/init"
+    volumes: 
+      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
 provisioner:
   name: ansible
 verifier:
