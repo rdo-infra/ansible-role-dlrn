@@ -10,7 +10,7 @@ DEPS_DIR=${DEPS_DIR:-${HOME}/data/repos/deps/}
 LATEST_DEPS_DIR=${DEPS_DIR}/latest/
 RDOINFO_LOCATION=${RDOINFO_LOCATION:-/home/rdoinfo/rdoinfo}
 DATE_VERSION=$(date +%Y%m%d%H%M)
-RSYNC_REMOTE=${RSYNC_REMOTE:-1}
+RSYNC_REMOTE=${RSYNC_REMOTE:-0}
 TAG_PHASE=${TAG_PHASE:-testing}
 
 # Find CentOS version
@@ -45,9 +45,11 @@ if [ -f ~/.venv/bin/activate ]; then
 fi
 
 # Find remote server to rsync the dependencies
-RSYNC_DEST=$(grep rsyncdest /usr/local/share/dlrn/${USER}/projects.ini | awk -F= '{print $2}')
-RSYNC_SERVER=$(echo $RSYNC_DEST | awk -F: '{print $1}')
-RSYNC_PORT=$(grep rsyncport /usr/local/share/dlrn/${USER}/projects.ini | awk -F= '{print $2}')
+if [ $RSYNC_REMOTE -eq 1 ]; then
+    RSYNC_DEST=$(grep rsyncdest /usr/local/share/dlrn/${USER}/projects.ini | awk -F= '{print $2}')
+    RSYNC_SERVER=$(echo $RSYNC_DEST | awk -F: '{print $1}')
+    RSYNC_PORT=$(grep rsyncport /usr/local/share/dlrn/${USER}/projects.ini | awk -F= '{print $2}')
+fi
 #
 
 LOCK="/home/${USER}/update-deps.lock"

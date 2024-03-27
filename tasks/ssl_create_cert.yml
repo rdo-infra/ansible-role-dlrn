@@ -18,16 +18,17 @@
 #              so we can use it in environments where sf-infra is not in use
 
 - name: Check for existing certificates
-  stat:
+  ansible.builtin.stat:
     path: "/etc/letsencrypt/live/{{ cert_item.value.domain }}"
   register: cert
 
 - name: Generate certificate
-  command: "certbot certonly {{ certbot_plugin }} --webroot-path {{ cert_item.value.webroot | default('/var/www/html') }} -m {{ cert_item.value.email }} --agree-tos -n -d {{ cert_item.value.domain }}"
+  ansible.builtin.command: "certbot certonly {{ certbot_plugin }} --webroot-path {{ cert_item.value.webroot | default('/var/www/html') }} -m {{ cert_item.value.email }} --agree-tos -n -d {{ cert_item.value.domain }}"
   when: not cert.stat.exists
+  changed_when: false
 
 - name: Create cron job for automatic cert renewal
-  cron:
+  ansible.builtin.cron:
     name: "Automatic SSL cert renew for {{ cert_item.value.domain }}"
     minute: "{{ 60 | random }}"
     hour: "0"
