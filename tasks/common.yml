@@ -1,7 +1,5 @@
-# NOTE(jpena): this should be a temporary measure. We must be able to
-# set SELinux as enforcing
-- name: Include OS-specific variables
-  include_vars: "{{ lookup('first_found', params) }}"
+- name: Include OS-specefic variables
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -12,40 +10,53 @@
         - 'vars'
 
 - name: Ensure EPEL is enabled on CentOS
-  package:
+  ansible.builtin.package:
     name: epel-release
     state: present
-  when: ansible_distribution == "CentOS"
+  when: ansible_facts.distribution == "CentOS"
+
+- name: Ensure EPEL is enabled on RHEL
+  ansible.builtin.command: "dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_facts.distribution_major_version }}.noarch.rpm"
+  become: true
+  when: ansible_facts.distribution == "RedHat"
+  changed_when: false
+
+- name: Install dnf-plugins-core
+  ansible.builtin.package:
+    name: dnf-plugins-core
+    state: present
+
+- name: Enable CRB repo
+  ansible.builtin.command: dnf config-manager --enable crb --save
+  when: ansible_facts.distribution == "CentOS"
+  changed_when: false
 
 - name: Install required packages
-  package:
+  ansible.builtin.package:
     name: "{{ required_packages }}"
     state: present
 
 - name: Install kerberos required packages
-  package:
+  ansible.builtin.package:
     name: "{{ kerberos_required_packages }}"
     state: present
   when: "'KrbAuthentication' in (api_authentication_drivers | default([]))"
 
 - name: Set SELinux to enforcing
-  selinux:
+  ansible.posix.selinux:
     policy: targeted
     state: enforcing
 
-# NOTE(jpena): if we start from a system with SELinux disabled, we will need two
-# runs to get this right. Trying to set a SELinux boolean when SELinux is disabled
-# fails.
 - name: SELinux configuration
   when:
     - ansible_selinux is defined
     - ansible_selinux.status == 'enabled'
   block:
     - name: Set SELinux booleans
-      seboolean:
+      ansible.posix.seboolean:
         name: "{{ item }}"
-        state: yes
-        persistent: yes
+        state: true
+        persistent: true
       with_items:
         - httpd_read_user_content
         - httpd_enable_homedirs
@@ -54,184 +65,200 @@
         - daemons_use_tty
         - httpd_unified
         - httpd_execmem
+        - httpd_use_nfs
 
     - name: Allow SSH port access to SELinux
-      seport:
+      community.general.seport:
         ports: "{{ sshd_port }}"
         proto: tcp
         setype: ssh_port_t
         state: present
 
 - name: Add SSH port to sshd configuration
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^Port (?!22)'
     line: "Port {{ sshd_port }}"
   notify: Restart sshd
 
 - name: Keep SSH port 22 in sshd configuration
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^#Port 22'
     line: "Port 22"
   notify: Restart sshd
 
-- name: Make postfix listen only on localhost
-  lineinfile:
-    path: /etc/postfix/main.cf
-    regexp: '^inet_interfaces.*'
-    line: inet_interfaces = 127.0.0.1
-  notify: Restart postfix
-
-- name: Deploy rsyncd configuration file
-  copy:
-    src: rsyncd.conf
-    dest: "/etc/rsyncd.conf"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Create rsyncd.d directory
-  file:
-    path: /etc/rsyncd.d
-    state: directory
-    mode: 0755
-    owner: root
-    group: root
-
-- name: Enable postfix
-  service:
-    name: postfix
-    state: started
-    enabled: yes
-
-- name: Enable rsyncd
-  service:
-    name: rsyncd
-    state: started
-    enabled: yes
-
 - name: Enable firewalld service
-  service:
+  ansible.builtin.service:
     name: firewalld
     state: started
-    enabled: yes
-
-- name: Enable network service on CentOS 7
-  service:
-    name: network
-    state: started
-    enabled: yes
-  when:
-    - ansible_distribution_major_version | int == 7
+    enabled: true
 
 - name: Add mock group
-  group:
+  ansible.builtin.group:
     name: mock
     state: present
 
 - name: Allow required services through firewall
-  firewalld:
+  ansible.posix.firewalld:
     zone: public
     service: "{{ item }}"
-    permanent: yes
-    immediate: yes
+    permanent: true
+    immediate: true
     state: enabled
   with_items:
     - ssh
     - http
-    - rsyncd
 
 - name: Allow custom SSH port through firewall
-  firewalld:
+  ansible.posix.firewalld:
     zone: public
     port: "{{ sshd_port }}/tcp"
-    permanent: yes
-    immediate: yes
+    permanent: true
+    immediate: true
     state: enabled
 
 - name: Allow HTTPS through firewall
-  firewalld:
+  ansible.posix.firewalld:
     zone: public
     service: https
-    permanent: yes
-    immediate: yes
+    permanent: true
+    immediate: true
     state: enabled
   when: enable_https
 
 - name: Create /usr/local/share/dlrn directory
-  file:
+  ansible.builtin.file:
     path: /usr/local/share/dlrn
     state: directory
     mode: '0755'
 
 - name: Create the api logs directory
-  file:
+  ansible.builtin.file:
     path: /var/log/dlrn-logs/
     state: directory
     mode: '0755'
 
 - name: Deploy required scripts
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
-    mode: 0755
+    mode: '0755'
   with_items:
     - run-dlrn.sh
     - run-purge.sh
     - run-user.sh
     - update-deps.sh
     - purge-deps.sh
-
-- name: Deploy disabled-dlrn script
-  become: true
-  copy:
-    src: "disable-dlrn.sh"
-    dest: "/usr/local/bin/disable-dlrn.sh"
-    mode: 0744
-    owner: root
-    group: root
+    - disable-dlrn.sh
 
 - name: Set yum timeout config
-  ini_file:
+  community.general.ini_file:
     path: /etc/yum.conf
     section: main
     option: timeout
     value: '120'
+    mode: '0644'
+
+- name: Enable NFS server in builder server
+  when:
+    - dlrn_server_type | default('server') == 'builder'
+    - nfs_shared_repos | default(false)
+  block:
+    - name: Create trunkinfra firewalld zone
+      ansible.posix.firewalld:
+        zone: trunkinfra
+        permanent: true
+        state: present
+
+    - name: Add trunk server to trunkinfra firewalld zone
+      ansible.posix.firewalld:
+        zone: trunkinfra
+        permanent: true
+        state: enabled
+        source: "{{ ip_trunk_server }}"
+
+    - name: Allow NFS in trunkinfra zone
+      ansible.posix.firewalld:
+        zone: trunkinfra
+        service: "{{ item }}"
+        permanent: true
+        state: enabled
+      with_items:
+        - ssh
+        - http
+        - nfs
+
+    - name: Allow HTTPS in trunkinfra through firewall
+      ansible.posix.firewalld:
+        zone: public
+        service: https
+        permanent: true
+        immediate: true
+        state: enabled
+      when: enable_https
+
+    - name: Reload firewalld
+      ansible.builtin.command: "firewall-cmd --reload"
+      changed_when: false
+
+    - name: Disable NFS v3
+      community.general.ini_file:
+        path: /etc/nfs.conf
+        section: nfsd
+        option: vers3
+        value: 'n'
+        mode: '0644'
+
+    - name: Mask nfs v3 only services
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: stopped
+        masked: true
+      with_items:
+        - rpc-statd.service
+        - rpcbind.service
+        - rpcbind.socket
+
+    - name: Enable nfs-server service
+      ansible.builtin.systemd_service:
+        name: nfs-server
+        state: started
+        enabled: true
 
 - name: Configure vgdelorean if needed
+  when:
+    - disk_for_builders is defined
   block:
     - name: Find device
-      set_fact:
+      ansible.builtin.set_fact:
         diskdev: "{{ disk_for_builders.split('/')[2] }}"
 
     - name: Fail if device does not exist
-      fail:
+      ansible.builtin.fail:
         msg: "Device {{ disk_for_builders }} does not exist"
       when: ansible_devices[diskdev] is undefined
 
     - name: Create vgdelorean
-      lvg:
+      community.general.lvg:
         vg: vgdelorean
         pvs: "{{ disk_for_builders }}"
 
     - name: Create vgdelorean/lvol1
-      lvol:
+      community.general.lvol:
         vg: vgdelorean
         lv: lvol1
         size: 100%VG
 
     - name: Create file system
-      filesystem:
+      community.general.filesystem:
         dev: /dev/vgdelorean/lvol1
-        force: no
+        force: false
         fstype: ext4
 
     - name: Mount vgdelorean/lvol1 at /home
-      mount:
+      ansible.posix.mount:
         path: /home
         src: /dev/vgdelorean/lvol1
         fstype: ext4
         state: mounted
-  when:
-    - disk_for_builders is defined

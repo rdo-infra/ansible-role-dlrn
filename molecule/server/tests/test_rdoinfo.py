@@ -16,15 +16,21 @@ import testinfra
 
 testinfra_hosts = ['all']
 
+def test_rdoinfo_user(host):
+    user = host.user('rdoinfo')
+    assert user.exists
+    assert 'users' in user.groups
+    assert 'mock' in user.groups
 
-def test_httpd_is_running(host):
-     assert host.service("httpd").is_running
+def test_rdoinfo_update_script(host):
+    upd_file = host.file('/usr/local/bin/rdoinfo-update.sh')
+    assert upd_file.exists
 
-def test_vhost_files(host):
-    vhost_file = host.file('/etc/httpd/conf.d/25-trunk.rdoproject.org.conf')
-    ssl_file = host.file('/etc/httpd/conf.d/25-ssl-trunk.rdoproject.org.conf')
+def test_rdoinfo_repo(host):
+    repo = host.file('/home/rdoinfo/rdoinfo')
+    assert repo.exists
+    assert repo.is_directory
 
-    assert vhost_file.exists
-    assert not ssl_file.exists
-    assert b'Redirect' not in vhost_file.content
-    assert b'WSGIDaemonProcess' not in vhost_file.content
+def test_rdoinfo_cron(host):
+    cmd = host.run('crontab -l -u rdoinfo')
+    assert '/usr/local/bin/rdoinfo-update.sh' in cmd.stdout

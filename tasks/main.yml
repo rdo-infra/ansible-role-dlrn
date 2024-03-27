@@ -1,20 +1,24 @@
-- name: Common DLRN deployment
-  include_tasks: common.yml
+# This role is only supported for EL9. Fail otherwise.
 
-- name: Prepare promoter user
-  include_tasks: promoter.yml
+- name: Fail if running in non EL9
+  ansible.builtin.fail:
+    msg: "OS major release is {{ ansible_facts.distribution_major_version }}"
+  when: ansible_facts.distribution_major_version != '9'
+
+- name: Common DLRN deployment
+  ansible.builtin.include_tasks: common.yml
 
 - name: Configure rdoinfo user
-  include_tasks: rdoinfo.yml
+  ansible.builtin.include_tasks: rdoinfo.yml
 
 - name: Configure fail2ban
-  include_tasks: fail2ban.yml
+  ansible.builtin.include_tasks: fail2ban.yml
 
 - name: Configure DLRN workers
-  include_tasks: worker.yml
+  ansible.builtin.include_tasks: worker.yml
   loop: "{{ lookup('dict', dlrn_workers, wantlist=True) }}"
   loop_control:
     loop_var: worker
 
 - name: Configure web server
-  include_tasks: web.yml
+  ansible.builtin.include_tasks: web.yml
