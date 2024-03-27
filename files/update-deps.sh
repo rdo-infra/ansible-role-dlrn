@@ -10,7 +10,7 @@ DEPS_DIR=${DEPS_DIR:-${HOME}/data/repos/deps/}
 LATEST_DEPS_DIR=${DEPS_DIR}/latest/
 RDOINFO_LOCATION=${RDOINFO_LOCATION:-/home/rdoinfo/rdoinfo}
 DATE_VERSION=$(date +%Y%m%d%H%M)
-RSYNC_REMOTE=${RSYNC_REMOTE:-1}
+RSYNC_REMOTE=${RSYNC_REMOTE:-0}
 TAG_PHASE=${TAG_PHASE:-testing}
 
 # Find CentOS version
