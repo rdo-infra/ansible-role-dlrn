@@ -23,16 +23,18 @@ This role can configure the basic parameters required by a DLRN instace, plus al
 
 The role will use the following variables, defined in the inventory:
 
-* `dlrn_server_type` (optional) can be `primary` or `backup`.  A primary server checks periodically
-  for changes in repos and synchronizes every build to a passive server if rsync is enabled. A passive
-  server receives builds from the primary and serves the repos. Some DLRN configuration will be
-   different depending on the server type. Defaults to `primary`.
+* `dlrn_server_type` (optional) can be `builder` or `server`.  A builder server checks periodically
+  for changes in repos. The `server` roles access the built packages through NFS shares and
+  serves the repos and APIs. Some DLRN configuration will be different depending on the server type.
 * `web_domain` (optional) defines the web url used to serve the repositories, without the initial
   `http://` part. Defaults to an empty string.
+* `nfs_shared_repos`: if set to `true` the repositories directory in the builder server will be shared
+  to the host with server role via NFS for each dlrn worker.
+* `ip_trunk_builder`: IP address of the dlrn host with builder role.
+* `ip_trunk_server`: IP address of the dlrn host with server role.
+* `ip_db_master`: IP address of the host running the db used by dlrn.
 * `disk_for_builders` (optional), if set, specifies a disk to be used by the role for the workers. This
   disk will be initialized using LVM and mounted as /home.
-* `sshd_port` (optional) defines an extra SSH port. The SSH daemon will be configured to use it,
-  so you may reduce the number of automated attacks. Defaults to 22.
 * `enable_https` (optional) allows us to specify if we want to set up HTTPS
   for the web component. If set to `true`, the required Apache vhost entries will be created. Defaults
   to `false`.
@@ -70,7 +72,6 @@ The role will use the following variables, defined in the inventory:
   - `target` (required): Mock target (centos, rhel8-osp16, centos8-ussuri...).
   - `distgit_branch` (optional): Branch for dist-git. Defaults to rpm-master.
   - `distro_branch` (optional): Branch for upstream git. Defaults to master.
-  - `disable_email` (optional): Disable e-mail notifications. Defaults to true.
   - `mock_tmpfs_enable` (optional): Enable the mock tmpfs plugin. Note this requires a lot of RAM.
     Defaults to false.
   - `mock_config` (optional): If defined, a custom mock configuration file will be used for this
@@ -305,28 +306,12 @@ The role will use the following variables, defined in the inventory:
     this option defines a list of additional tags to be applied to the build, once it is finished.
     Not defined by default.
   - `enable_api_login_logs` (optional): If true, the API will log every authentication and authorization process for protected endpoints and regular logs to the files defined with environment variable API_AUTH_LOG_FILE and DLRN_LOG_FILE respectively. If one/all of them is missing, then It'll be written in the WSGI logs defined in its configuration file.
-
-# Migration notes
-
-If you are migrating a server deployed using [puppet-dlrn](https://github.com/rdo-infra/puppet-dlrn),
-please take into account the following details:
-
-* Cron jobs for workers should not be duplicated, however you will have duplicate comments from Puppet
-  and Ansible in each crontab. Just make sure the old Puppet comments are removed.
-* The `httpd` service may fail to restart on the first deployment. If that is the case, please check if
-  there are duplicate files under /etc/httpd/conf.d with different numbers (e.g. 10-trunk-primary.rdoproject.org.conf
-  and 25-trunk-primary.rdoproject.org.conf). If that is the case, please remove the file with an older
-  timestamp and restart the httpd service.
-* The YAML configuration file from the puppet-dlrn instance can be almost completely reused for the
-  Ansible role. However, the `cron_hour` and `cron_minute` parameters, which accepted a list in
-  puppet-dlrn, now require a string in the same format as required by crontab. For example,
-  'cron_minute: [1,31]' would now be 'cron_minute: "1,31'.
-* The SSH key generated for each worker may be changed, if it was not created with the default size
-  of 2048 bits for RSA keys (CentOS 7 and 8).
+  - `uid`: user id number for the worker user. This is mandatory and should be different for each worker.
+  - `gid`: user id number for the worker user private group. This is mandatory and should be different for each worker.
 
 # Limitations
 
-The module has only been tested on CentOS/RHEL 7 and 8.
+The module has only been tested on CentOS/RHEL 9.
 
 SELinux is set to `enforcing`, and the required SELinux booleans and file contexts
 are set. However, there is one limitation with this setup:

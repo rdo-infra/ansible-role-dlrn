@@ -23,7 +23,7 @@ def test_packages(host):
 def test_fail2ban_sshd_config(host):
     cfg_file = host.file('/etc/fail2ban/jail.d/01-sshd.conf')
     assert cfg_file.exists
-    assert b'port = 22,3000' in cfg_file.content
+    assert b'port = 22,22' in cfg_file.content
 
 def test_fail2ban_is_running(host):
      assert host.service("fail2ban").is_running is True
