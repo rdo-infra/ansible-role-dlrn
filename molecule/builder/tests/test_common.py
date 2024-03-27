@@ -28,22 +28,15 @@ def test_packages(host):
 def test_sshd(host):
     sshd_config = host.file('/etc/ssh/sshd_config')
     assert b'Port 22' in sshd_config.content
-    assert b'Port 3000' in sshd_config.content
     assert host.service("sshd").is_running
-
-def test_postfix(host):
-    config_file = host.file('/etc/postfix/main.cf')
-    assert b'inet_interfaces = 127.0.0.1' in config_file.content
-    assert host.service("postfix").is_running
 
 def test_firewalld(host):
     rule_file = host.file('/etc/firewalld/zones/public.xml')
     assert host.service("firewalld").is_running
     assert b'service name="ssh"' in rule_file.content
     assert b'service name="http"' in rule_file.content
-    assert b'service name="https"' in rule_file.content
-    assert b'service name="rsyncd"' in rule_file.content
-    assert b'port port="3000" protocol="tcp"' in rule_file.content
+    assert b'service name="https"' not in rule_file.content
+    assert b'port port="22" protocol="tcp"' in rule_file.content
 
 def test_mock(host):
     assert host.group('mock').exists

@@ -4,7 +4,7 @@
     parent: tox
     pre-run: zuul/molecule-prepare.yml
     run: zuul/molecule-run.yml
-    nodeset: rdo-centos-8-stream
+    nodeset: rdo-centos-9-stream
     timeout: 10800
     vars:
       tox_envlist: molecule
