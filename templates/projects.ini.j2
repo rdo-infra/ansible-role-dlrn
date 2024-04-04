@@ -9,6 +9,9 @@ target={{ worker.value.target }}
 reponame=delorean
 project_name={{ worker.value.project_name | default('RDO') }}
 tags={{ worker.value.release | default('rocky') }}
+{% if worker.value.buildsys_tags is defined %}
+buildsys_tags={{ worker.value.buildsys_tags }}
+{% endif %}
 workers={{ worker.value.worker_processes | default(1) }}
 {% if dlrn_server_type | default('primary') == 'primary' %}
 smtpserver={% if not worker.value.disable_email | default(True) %}localhost{% else %}
@@ -73,6 +76,45 @@ downstream_source_git_key={{ worker.value.downstream_source_git_key | default(''
 {% if worker.value.downstream_source_git_branch is defined %}
 downstream_source_git_branch={{ worker.value.downstream_source_git_branch | default('') }}
 {% endif %}
+{% elif worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') == 'dlrn.drivers.downstream.DownstreamDepsInfoDriver' %}
+
+[downstream_deps_driver]
+{% if worker.value.downstream_distroinfo_repo is defined %}
+repo={{ worker.value.downstream_distroinfo_repo | default('') }}
+{% endif %}
+{% if worker.value.downstream_info_files is defined %}
+info_files={{ worker.value.downstream_info_files | default('') }}
+{% endif %}
+{% if worker.value.source_url_path is defined %}
+source_url_path={{ worker.value.source_url_path }}
+{% endif %}
+{% if worker.value.downstream_tag is defined %}
+downstream_tag={{ worker.value.downstream_tag | default('') }}
+{% endif %}
+{% if worker.value.downstream_sync_tag is defined %}
+downstream_sync_tag={{ worker.value.downstream_sync_tag | default('') }}
+{% endif %}
+{% if worker.value.downstream_distgit_key is defined %}
+downstream_distgit_key={{ worker.value.downstream_distgit_key | default('') }}
+{% endif %}
+{% if worker.value.downstream_distro_branch is defined %}
+downstream_distro_branch={{ worker.value.downstream_distro_branch | default('') }}
+{% endif %}
+{% if worker.value.downstream_patch_git_key is defined %}
+downstream_patch_git_key={{ worker.value.downstream_patch_git_key | default('') }}
+{% endif %}
+{% if worker.value.downstream_patch_git_branch is defined %}
+downstream_patch_git_branch={{ worker.value.downstream_patch_git_branch | default('') }}
+{% endif %}
+{% if worker.value.downstream_source_git_key is defined %}
+downstream_source_git_key={{ worker.value.downstream_source_git_key | default('') }}
+{% endif %}
+{% if worker.value.downstream_source_git_branch is defined %}
+downstream_source_git_branch={{ worker.value.downstream_source_git_branch | default('') }}
+{% endif %}
+{% if worker.value.cbs_koji_url is defined %}
+cbs_koji_url={{ worker.value.cbs_koji_url }}
+{% endif %}
 {% elif worker.value.pkginfo_driver | default('dlrn.drivers.rdoinfo.RdoInfoDriver') == 'dlrn.drivers.rdoinfo.RdoInfoDriver' %}
 [rdoinfo_driver]
 {% if worker.value.rdoinfo_repo is defined %}
@@ -85,7 +127,6 @@ info_files={{ worker.value.rdoinfo_info_files }}
 cache_dir={{ worker.value.rdoinfo_cache_dir }}
 {% endif %}
 {% endif %}
-
 {% if worker.value.build_driver | default('dlrn.drivers.mockdriver.MockBuildDriver') == 'dlrn.drivers.kojidriver.KojiBuildDriver' %}
 [kojibuild_driver]
 koji_exe={{ worker.value.koji_exe | default('koji') }}
