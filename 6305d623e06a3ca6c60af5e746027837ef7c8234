@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a522c3c8_1f5a9ddb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2024-05-23T08:03:01Z",
+      "side": 1,
+      "message": "LGTM.",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5d06b1_7ae09664",
+        "filename": "tasks/common.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 762
+      },
+      "writtenOn": "2024-05-23T08:03:01Z",
+      "side": 1,
+      "message": "might this not be necessary anymore? or nfs required this selinux context?",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
