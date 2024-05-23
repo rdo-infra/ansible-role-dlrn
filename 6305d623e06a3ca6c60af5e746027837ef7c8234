@@ -33,6 +33,24 @@
       "message": "might this not be necessary anymore? or nfs required this selinux context?",
       "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2911338d_0b3ba266",
+        "filename": "tasks/common.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2024-05-23T08:17:28Z",
+      "side": 1,
+      "message": "right, actually, that\u0027s meaningless without rsyncd service. However, note that enabling rsync_export_all_ro option is allowing to export in RO, so iiuc is more restrictive that defaults from security point of view.",
+      "parentUuid": "dc5d06b1_7ae09664",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
