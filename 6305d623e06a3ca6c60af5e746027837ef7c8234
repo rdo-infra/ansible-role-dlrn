@@ -18,6 +18,327 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90fdc436_1c1d2d1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "We can handle all the comments in a follow-up patch\n\nWe can remove the files below:\nvars/CentOS.7.yml\nvars/CentOS.8.yml\n\nWe need to add or remove some tasks to fully integrate sshd_port. Currently there is not specific firewall rule for sshd_port. It\u0027s working because default is 22 which matches the default firewalld ssh service. I\u0027ll propose a follow-up patch to handle it.",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6a4290_2dec84a2",
+        "filename": "README.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "this line can be removed",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25571216_df41a1ee",
+        "filename": "README.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "We can remove those definitions",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 21
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b085e6_99861ef2",
+        "filename": "defaults/main.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "This line can be removed",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7968b9b4_dfc51e18",
+        "filename": "molecule/builder/converge.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "maybe we should put a more generic name (even if it\u0027s for test only)",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9a445e_6490b879",
+        "filename": "molecule/builder/converge.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525a3072_353cab2f",
+        "filename": "molecule/builder/converge.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "we can remove those lines",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f57b95a_be22580a",
+        "filename": "molecule/builder/tests/test_web.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 71
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59acb4a7_4a0272ab",
+        "filename": "molecule/server/converge.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ad5d12_7be30292",
+        "filename": "molecule/server/converge.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6518c568_2e26f81d",
+        "filename": "molecule/server/converge.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "we can remove those lines",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a50b23be_b5b7ead9",
+        "filename": "molecule/server/tests/test_common.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "this should be removed as we already assert it in line 36",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb993199_911c77ff",
+        "filename": "molecule/server/tests/test_web.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c1c6270_ad5216f8",
+        "filename": "molecule/server/tests/test_web.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 25,
+        "startChar": 51,
+        "endLine": 25,
+        "endChar": 72
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1daae62a_9cd847e2",
+        "filename": "molecule/server/tests/test_web.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 78
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc5d06b1_7ae09664",
@@ -67,6 +388,92 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "2911338d_0b3ba266",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e90e50d_38461c40",
+        "filename": "tasks/common.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "I think we can remove those services as they are already allowed within public zone which accept any IP address as source.\nBut if you want to keep them, then maybe we should edit the task name by adding all the services",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 14
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6b732f3_1aea1378",
+        "filename": "tasks/common.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "I think you want to allow https in trunkinfra zone ?\nAnyway, this task is useless as we allow it already in public zone (in line 121), any IP address can initialize HTTPS session.",
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a689a3_7e30f548",
+        "filename": "tasks/web.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "this can be removed",
+      "range": {
+        "startLine": 1,
+        "startChar": 33,
+        "endLine": 1,
+        "endChar": 44
+      },
+      "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613b7936_312fb6f7",
+        "filename": "tasks/worker.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-05-29T10:31:23Z",
+      "side": 1,
+      "message": "I found it misleading having both \u0027builder\u0027 and \u0027server\u0027 which are the both type.\nIIUC we can reword it as \"Trunk server\" wdyt ?",
+      "range": {
+        "startLine": 241,
+        "startChar": 32,
+        "endLine": 241,
+        "endChar": 46
+      },
       "revId": "6305d623e06a3ca6c60af5e746027837ef7c8234",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
