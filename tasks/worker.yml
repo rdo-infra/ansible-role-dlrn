@@ -148,7 +148,7 @@
     owner: "{{ worker.key }}"
     group: "{{ worker.key }}"
 
-- name: Configure data/repos in builder server
+- name: Configure data/repos in builder node
   when:
     - dlrn_server_type | default('server') == 'builder'
   block:
@@ -238,7 +238,7 @@
         - nfs_export.changed
       changed_when: false
 
-- name: Configure data/repos in builder server
+- name: Configure data/repos in server host
   ansible.posix.mount:
     path: "/home/{{ worker.key }}/data/repos"
     src: "{{ ip_trunk_builder }}:/home/{{ worker.key }}/data/repos"

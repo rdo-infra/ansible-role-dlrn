@@ -64,7 +64,6 @@ The role will use the following variables, defined in the inventory:
   the DLRN virtualenv. Set it to ``python3`` if you want to use python3 on a CentOS 7 system, for
   example. By default, it is undefined, meaning the default Python version will be used.
 * `rdoinfo_shell` (optional). With this we select the shell to use for the user rdoinfo.
-* `promoter_shell` (optional). With this we select the shell to use for the user promoter.
 * `dlrn_workers` (optional). This dictionary contains the definition of all workers to be deployed
   by the role. Each dictionary entry can contain the following entries:
 

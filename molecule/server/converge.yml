@@ -9,12 +9,12 @@
     dlrn_server_type: 'server'
     enable_https: true
     dlrn_manage_letsencrypt: false
-    dlrn_host: amoralej-trunk-server
+    dlrn_host: trunk-server
 
     ip_trunk_server: 192.168.1.2
     ip_trunk_builder: 192.168.1.3
 
-    web_domain: 'amoralej-trunk-server.rdoproject.org'
+    web_domain: 'trunk-server.rdoproject.org'
 
     api_workers:
       - centos9-caracal
@@ -43,8 +43,6 @@
         #gerrit_user: 'rdo-trunk'
         #gerrit_email: 'amoralej+rdo-trunk@redhat.com'
         #gerrit_topic: 'rdo-FTBFS-caracal-cs9'
-        #rsyncdest: 'centos9-caracal@3.87.151.16:/home/centos9-caracal/data/repos'
-        #rsyncport: '3300'
         #use_components: true
         rdoinfo_repo: 'http://github.com/redhat-openstack/rdoinfo'
         rdoinfo_info_files: 'test.yml'

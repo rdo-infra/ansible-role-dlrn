@@ -21,12 +21,12 @@ def test_httpd_is_running(host):
      assert host.service("httpd").is_running
 
 def test_vhost_files(host):
-    vhost_file = host.file('/etc/httpd/conf.d/25-amoralej-trunk-server.rdoproject.org.conf')
-    ssl_file = host.file('/etc/httpd/conf.d/25-ssl-amoralej-trunk-server.rdoproject.org.conf')
+    vhost_file = host.file('/etc/httpd/conf.d/25-trunk-server.rdoproject.org.conf')
+    ssl_file = host.file('/etc/httpd/conf.d/25-ssl-trunk-server.rdoproject.org.conf')
 
     assert vhost_file.exists
     assert ssl_file.exists
-    assert b'Redirect permanent / https://amoralej-trunk-server.rdoproject.org/' in vhost_file.content
+    assert b'Redirect permanent / https://trunk-server.rdoproject.org/' in vhost_file.content
     assert b'<Location "/api-centos9-caracal">' in vhost_file.content
     assert b'WSGIDaemonProcess dlrn-centos9-caracal python-home=' in vhost_file.content
 

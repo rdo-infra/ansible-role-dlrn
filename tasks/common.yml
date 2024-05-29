@@ -191,7 +191,7 @@
 
     - name: Allow HTTPS in trunkinfra through firewall
       ansible.posix.firewalld:
-        zone: public
+        zone: trunkinfra
         service: https
         permanent: true
         immediate: true
