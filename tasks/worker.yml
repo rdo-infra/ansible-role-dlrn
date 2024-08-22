@@ -459,7 +459,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: '0755'
-  when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal).*')
+  when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal|dalmatian).*')
 
 - name: Set up symlinks
   ansible.builtin.file:
