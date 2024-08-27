@@ -16,6 +16,23 @@
       "message": "We need the sf-infra patch (e.g [1]) to test this patch before merging it\n\n[1] https://softwarefactory-project.io/r/c/software-factory/sf-infra/+/27459",
       "revId": "44adeea9206a30d274d4ab71a9c921c2019bc3f6",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "500db601_893248da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-08-27T07:59:49Z",
+      "side": 1,
+      "message": "can you set topic with \"dalmatian-branching\" please ?",
+      "revId": "44adeea9206a30d274d4ab71a9c921c2019bc3f6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
