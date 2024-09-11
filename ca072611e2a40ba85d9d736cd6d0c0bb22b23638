@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7daf8c_25a85f3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 73
+      },
+      "writtenOn": "2024-09-11T07:37:03Z",
+      "side": 1,
+      "message": "do you have to restart the NFS client as well?",
+      "revId": "ca072611e2a40ba85d9d736cd6d0c0bb22b23638",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
