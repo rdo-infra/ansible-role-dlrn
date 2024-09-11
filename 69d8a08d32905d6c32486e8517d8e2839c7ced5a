@@ -16,6 +16,24 @@
       "message": "would be nice to have a reference to https://issues.redhat.com/browse/OSPCIX-463",
       "revId": "69d8a08d32905d6c32486e8517d8e2839c7ced5a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf21e18_1957f120",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-09-11T09:46:50Z",
+      "side": 1,
+      "message": "Good point, I amended the commit message in PS3",
+      "parentUuid": "31136c31_92f91dec",
+      "revId": "69d8a08d32905d6c32486e8517d8e2839c7ced5a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
