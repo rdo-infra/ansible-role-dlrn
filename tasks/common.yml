@@ -220,6 +220,14 @@
         - rpcbind.service
         - rpcbind.socket
 
+    - name: Disable NFSv4 delegations
+      ansible.posix.sysctl:
+        name: fs.leases-enable
+        value: '0'
+        sysctl_set: true
+        state: present
+      notify: Restart nfs-server
+
     - name: Enable nfs-server service
       ansible.builtin.systemd_service:
         name: nfs-server
