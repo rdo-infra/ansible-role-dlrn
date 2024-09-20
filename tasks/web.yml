@@ -17,22 +17,10 @@
     mode: '0644'
   when: enable_https
 
-- name: Create /var/www/html/images directory
-  ansible.builtin.file:
-    path: /var/www/html/images
-    state: directory
-    mode: '0755'
-
-- name: Deploy RDO logo
+- name: Deploy web files
   ansible.builtin.copy:
-    src: web/rdo-logo-white.png
-    dest: /var/www/html/images/rdo-logo-white.png
-    mode: '0644'
-
-- name: Deploy home page
-  ansible.builtin.copy:
-    src: web/index.html
-    dest: /var/www/html/index.html
+    src: web/
+    dest: /var/www/html/
     mode: '0644'
 
 - name: Remove cron job to run update-web-index, if present
