@@ -1,0 +1,9 @@
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+1: Enrique Vallespi Gil <evallesp@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Joel Capitao <jcapitao@redhat.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 23 Sep 2024 14:57:45 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/54524
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
