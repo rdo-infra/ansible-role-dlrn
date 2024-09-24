@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fdb7dc4_6fdf12f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-09-24T14:52:46Z",
+      "side": 1,
+      "message": "To test the code:\npodman run -d -p 8080:80 --name apache -v ./files/web:/usr/local/apache2/htdocs/:Z docker.io/library/httpd",
+      "revId": "1b0cbb0dc41c44de6051d47a6211b1b057476a9a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
