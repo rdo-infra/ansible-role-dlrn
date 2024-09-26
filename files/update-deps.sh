@@ -4,7 +4,7 @@
 
 set -e
 
-MASTER_TAG=${MASTER_TAG:-dalmatian}
+MASTER_TAG=${MASTER_TAG:-epoxy}
 RELEASE=${RELEASE:-$(echo $USER|cut -d'-' -f2-)}
 DEPS_DIR=${DEPS_DIR:-${HOME}/data/repos/deps/}
 LATEST_DEPS_DIR=${DEPS_DIR}/latest/
