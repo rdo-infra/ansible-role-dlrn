@@ -29,6 +29,10 @@ def test_vhost_files(host):
     assert b'Redirect permanent / https://trunk-server.rdoproject.org/' in vhost_file.content
     assert b'<Location "/api-centos9-caracal">' in vhost_file.content
     assert b'WSGIDaemonProcess dlrn-centos9-caracal python-home=' in vhost_file.content
+    assert b'Redirect /docs/ http://new.example.com/docs/' in vhost_file.content
+    assert b'RedirectMatch ^/docs/(.*) http://new.example.com/docs/$1' in vhost_file.content
+    assert b'Redirect /docs/ http://new.example.com/docs/' in ssl_file.content
+    assert b'RedirectMatch ^/docs/(.*) http://new.example.com/docs/$1' in ssl_file.content
 
 def test_rdo_files(host):
     logo_file = host.file('/var/www/html/images/rdo-logo-white.png')
