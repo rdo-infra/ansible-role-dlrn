@@ -454,12 +454,19 @@
   when:
     - worker.value.enable_brs_sync | default(False) or worker.value.enable_deps_sync | default(False)
 
-- name: Create directory under /var/www/html for stable release version
+- name: Create release name directory under /var/www/html for stable release version
   ansible.builtin.file:
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: '0755'
   when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal|dalmatian).*')
+
+- name: Create release identifier directory under /var/www/html for stable release version
+  ansible.builtin.file:
+    path: "/var/www/html/{{ worker.value.distro_branch.split('/')[1:] | join('') }}"
+    state: directory
+    mode: '0755'
+  when: worker.key | regex_search('^(centos9)\-(antelope|bobcat|caracal|dalmatian).*')
 
 - name: Set up symlinks
   ansible.builtin.file:
