@@ -1,0 +1,8 @@
+Workflow+1: Fabien Boucher <fboucher@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+2: Daniel Pawlik <pawlik.dan@gmail.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 07 Oct 2024 11:57:54 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/rdo-infra/ansible-role-dlrn/+/54980
+Project: rdo-infra/ansible-role-dlrn
+Branch: refs/heads/master
