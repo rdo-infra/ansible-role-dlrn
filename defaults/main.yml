@@ -3,6 +3,7 @@ enable_https: false
 dlrn_server_type: primary
 web_domain: ''
 dlrn_manage_letsencrypt: false
+redirect_rules: {}
 cert_mail: test@example.com
 api_workers: []
 dlrn_workers: {}

@@ -59,8 +59,18 @@
   </Location>
 
 {% if enable_https %}
-  ## Redirect rules
+  ## Redirect to HTTPS permanently
   Redirect permanent / https://{{ web_domain }}/
+{% endif %}
+{% if redirect_rules %}
+  ## Redirect rules
+{% for redirect in redirect_rules %}
+{% if redirect.match|default(False) %}
+  RedirectMatch {{ redirect.src }} {{ redirect.target }}
+{% else %}
+  Redirect {{ redirect.src }} {{ redirect.target }}
+{% endif %}
+{% endfor %}
 {% endif %}
 </VirtualHost>
 

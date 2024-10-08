@@ -10,6 +10,12 @@
     enable_https: true
     dlrn_manage_letsencrypt: false
     dlrn_host: trunk-server
+    redirect_rules:
+      - src: '/docs/'
+        target: 'http://new.example.com/docs/'
+      - src: '^/docs/(.*)'
+        target: 'http://new.example.com/docs/$1'
+        match: true
 
     ip_trunk_server: 192.168.1.2
     ip_trunk_builder: 192.168.1.3

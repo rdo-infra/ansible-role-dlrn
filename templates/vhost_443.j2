@@ -66,5 +66,16 @@
   SSLCACertificatePath    "/etc/pki/tls/certs"
   SSLProtocol             ALL -SSLv2 -SSLv3
   SSLHonorCipherOrder     on
+
+{% if redirect_rules %}
+  ## Redirect rules
+{% for redirect in redirect_rules %}
+{% if redirect.match|default(False) %}
+  RedirectMatch {{ redirect.src }} {{ redirect.target }}
+{% else %}
+  Redirect {{ redirect.src }} {{ redirect.target }}
+{% endif %}
+{% endfor %}
+{% endif %}
 </VirtualHost>
 
