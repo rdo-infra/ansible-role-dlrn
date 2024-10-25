@@ -1,1 +1,26 @@
-CentOS.8.yml
+required_packages:
+    - lvm2
+    - xfsprogs
+    - yum-utils
+    - vim-enhanced
+    - mock
+    - rpm-build
+    - git
+    - python3-pip
+    - python3-virtualenv
+    - gcc
+    - createrepo_c
+    - screen
+    - git-review
+    - postfix
+    - firewalld
+    - openssl-devel
+    - libffi-devel
+    - dnf-plugins-core
+    - rpmdevtools
+    - selinux-policy-devel
+    - rsync-daemon
+    - httpd
+kerberos_required_packages:
+    - openldap-devel
+    - krb5-devel
