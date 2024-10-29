@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ce5439a_b10c3932",
+        "filename": "files/centos10-master-uc-dlrn-deps.repo",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 757
+      },
+      "writtenOn": "2024-10-29T08:44:27Z",
+      "side": 1,
+      "message": "shouldn\u0027t be centos10-rabbitmq? same in other repo names",
+      "revId": "f558f774b8b98e99df35b946ca3e6ab1addaf791",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
