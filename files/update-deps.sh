@@ -16,17 +16,13 @@ TAG_PHASE=${TAG_PHASE:-testing}
 # Find CentOS version
 
 case $(echo $USER|cut -d'-' -f1) in
-centos)
-  CENTOS_RELEASE=7
-  TAG_PREFFIX="cloud7"
-  ;;
-centos8)
-  CENTOS_RELEASE=8
-  TAG_PREFFIX="cloud8s"
-  ;;
 centos9)
   CENTOS_RELEASE=9s
   TAG_PREFFIX="cloud9s"
+  ;;
+centos10)
+  CENTOS_RELEASE=10s
+  TAG_PREFFIX="cloud10s"
   ;;
 esac
 
@@ -70,13 +66,8 @@ fi
 
 TEMPDIR=$(mktemp -d)
 
-# CentOS 8 uses dnf user's cache in repoquery, we need to clean it before running repoquery
-if type "dnf" 2>/dev/null;then
-    dnf clean all
-    QUERY_EXTRA_OPTS="--disable-modular-filtering"
-else
-    QUERY_EXTRA_OPTS=""
-fi
+dnf clean all
+QUERY_EXTRA_OPTS="--disable-modular-filtering"
 
 repoquery --archlist=x86_64,noarch,ppc64le,aarch64 --repofrompath=deps,file://$LATEST_DEPS_DIR --disablerepo=* --enablerepo=deps -s -q -a $QUERY_EXTRA_OPTS|sort -u|sed 's/.src.rpm//g'>$TEMPDIR/current_deps
 rdopkg info -l $RDOINFO_LOCATION "buildsys-tags:$CBS_TAG" "tags:dependency"|grep $CBS_TAG|awk '{print $2}'>$TEMPDIR/required_deps
