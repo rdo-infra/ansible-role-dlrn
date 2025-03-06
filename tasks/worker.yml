@@ -459,7 +459,7 @@
     path: "/var/www/html/{{ worker.key.split('-')[1:] | join('-') }}"
     state: directory
     mode: '0755'
-  when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal|dalmatian).*')
+  when: worker.key | regex_search('^(centos9)\-(wallaby|xena|yoga|zed|antelope|bobcat|caracal|dalmatian|epoxy).*')
 
 - name: Create release identifier directory under /var/www/html for stable release version
   ansible.builtin.file:
