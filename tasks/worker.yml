@@ -466,7 +466,7 @@
     path: "/var/www/html/{{ worker.value.distro_branch.split('/')[1:] | join('') }}"
     state: directory
     mode: '0755'
-  when: worker.key | regex_search('^(centos9)\-(antelope|bobcat|caracal|dalmatian).*')
+  when: worker.key | regex_search('^(centos9)\-(antelope|bobcat|caracal|dalmatian|epoxy).*')
 
 - name: Set up symlinks
   ansible.builtin.file:
