@@ -20,14 +20,14 @@ gpgcheck=0
 module_hotfixes=1
 
 [centos10-storage]
-name=centos9-storage
-baseurl=http://mirror.stream.centos.org/SIGs/10-stream/storage/$basearch/ceph-reef/
-enabled=0
+name=centos10-storage
+baseurl=http://mirror.stream.centos.org/SIGs/10-stream/storage/$basearch/ceph-squid/
+enabled=1
 gpgcheck=0
 module_hotfixes=1
 
 [centos10-opstools]
-name=centos9-opstools
+name=centos10-opstools
 baseurl=http://mirror.stream.centos.org/SIGs/10-stream/opstools/$basearch/collectd-5/
 enabled=0
 gpgcheck=0
