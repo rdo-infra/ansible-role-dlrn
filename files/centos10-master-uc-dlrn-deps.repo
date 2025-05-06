@@ -44,8 +44,8 @@ module_hotfixes=1
 [epel-low-priority]
 name=Extra Packages for Enterprise Linux $releasever - $basearch
 metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
-enabled=0
+enabled=1
 gpgcheck=0
 countme=1
 priority=100
-includepkgs=libarrow*,parquet*,python3-asyncssh,re2,python3-grpcio,grpc*,abseil*
+includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*
