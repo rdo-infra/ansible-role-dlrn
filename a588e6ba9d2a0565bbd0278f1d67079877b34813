@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de14d11_5e5f4add",
+        "filename": "files/centos10-master-uc-dlrn-deps.repo",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2025-05-07T07:08:31Z",
+      "side": 1,
+      "message": "nit, this should be Squid",
+      "range": {
+        "startLine": 43,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 32
+      },
+      "revId": "a588e6ba9d2a0565bbd0278f1d67079877b34813",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
