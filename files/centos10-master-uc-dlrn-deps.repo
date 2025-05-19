@@ -40,7 +40,7 @@ enabled=1
 gpgcheck=0
 module_hotfixes=1
 
-# epel is required for Ceph Squid
+# epel is required for Ceph Squid and DLRN mock
 [epel-low-priority]
 name=Extra Packages for Enterprise Linux $releasever - $basearch
 metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
@@ -48,4 +48,4 @@ enabled=1
 gpgcheck=0
 countme=1
 priority=100
-includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*
+includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*,mock*,distribution-gpg-keys,python3-templated-dictionary,python3-backoff
