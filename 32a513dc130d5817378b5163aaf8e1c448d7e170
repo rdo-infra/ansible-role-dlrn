@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3cb1117_21211dda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2025-05-19T15:59:30Z",
+      "side": 1,
+      "message": "This is not really a requirement to run openstack but to run dlrn. In the past we shipped it in the bulid-requirements repo inside delorean-deps.repo.\n\nIMO doing it this way, it\u0027s an improvement. For a more organized config file, we may add the mock requirements from epel as a new repo config in the delorean-deps.repo instead of the same as the one for storage, but this is also good.",
+      "revId": "32a513dc130d5817378b5163aaf8e1c448d7e170",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
