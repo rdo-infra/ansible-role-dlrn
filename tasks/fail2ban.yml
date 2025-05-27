@@ -1,9 +1,32 @@
+- name: Check if fail2ban is present
+  command: /usr/bin/fail2ban-server --version
+  failed_when: false
+  register: _fail2ban_service
+
 - name: Install fail2ban packages
   ansible.builtin.package:
     name:
       - fail2ban
       - fail2ban-systemd
     state: present
+  when: _fail2ban_service.rc != 0
+
+- name: Ensure fail2ban won't be updated for rhel-9.4
+  # we use rhel-9.4 and fail2ban from epel is build based on 9.5
+  # hosts should be reinstalled if needed with rhel-9.5
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/dnf.conf
+    regexp: '^#exclude=.*'
+    insertafter: '^fastestmirror=.*'
+    line: 'exclude=fail2ban*'
+  when: ansible_distribution_version == '9.4'
+
+- name: Remove fail2ban exclude if not rhel-9.4
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/dnf.conf
+    line: 'exclude=fail2ban*'
+    state: absent
+  when: ansible_distribution_version != '9.4'
 
 - name: Deploy fail2ban config file for sshd
   ansible.builtin.copy:
