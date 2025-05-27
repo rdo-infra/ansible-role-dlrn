@@ -5,6 +5,23 @@
       - fail2ban-systemd
     state: present
 
+- name: Ensure fail2ban won't be updated for rhel-9.4
+  # we use rhel-9.4 and fail2ban from epel is build based on 9.5
+  # hosts should be reinstalled if needed with rhel-9.5
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/dnf.conf
+    regexp: '^#exclude=.*'
+    insertafter: '^fastestmirror=.*'
+    line: 'exclude=fail2ban*'
+  when: ansible_distribution_version == '9.4'
+
+- name: Remove fail2ban exclude if not rhel-9.4
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/dnf.conf
+    line: 'exclude=fail2ban*'
+    state: absent
+  when: ansible_distribution_version != '9.4'
+
 - name: Deploy fail2ban config file for sshd
   ansible.builtin.copy:
     content: "[sshd]\nenabled = true\nport = 22,{{ sshd_port }}\n"
