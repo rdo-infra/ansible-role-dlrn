@@ -16,6 +16,23 @@
       "message": "FYI tests look good: https://review.opendev.org/c/openstack/puppet-openstack-integration/+/969046 \n\nsee [1] for example.\n\n[1] https://f4e8f4bf26e31661b712-346c02a9e1e5e1d1d02c825991cd779a.ssl.cf1.rackcdn.com/openstack/44927e4d3ff3462ea6fabdfe4cc2d96c/logs/rpm-qa.txt",
       "revId": "7884696c3eeed3132ec48952706ad26d9377cd75",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "053b2af6_d35c9e08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 602
+      },
+      "writtenOn": "2025-12-01T21:38:39Z",
+      "side": 1,
+      "message": "also tested via https://github.com/openstack-k8s-operators/glance-operator/pull/842",
+      "revId": "7884696c3eeed3132ec48952706ad26d9377cd75",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
