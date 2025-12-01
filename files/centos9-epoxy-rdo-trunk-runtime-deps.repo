@@ -41,4 +41,4 @@ enabled=1
 gpgcheck=0
 countme=1
 priority=100
-includepkgs=libarrow*,parquet*,python3-asyncssh,re2,python3-grpcio,grpc*,abseil*,thrift*
+includepkgs=libarrow*,parquet*,python3-asyncssh,re2,python3-grpcio,grpc*,abseil*,thrift*,blake3
