@@ -14,7 +14,7 @@ module_hotfixes=1
 
 [centos10-storage]
 name=centos10-storage
-baseurl=http://mirror.stream.centos.org/SIGs/10-stream/storage/$basearch/ceph-squid/
+baseurl=http://mirror.stream.centos.org/SIGs/10-stream/storage/$basearch/ceph-tentacle/
 enabled=1
 gpgcheck=0
 module_hotfixes=1
@@ -33,7 +33,7 @@ enabled=1
 gpgcheck=0
 module_hotfixes=1
 
-# epel is required for Ceph Squid and DLRN mock
+# epel is required for Ceph Tentacle and DLRN mock
 [epel-low-priority]
 name=Extra Packages for Enterprise Linux $releasever - $basearch
 metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir
@@ -41,4 +41,15 @@ enabled=1
 gpgcheck=0
 countme=1
 priority=100
-includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*,mock*,distribution-gpg-keys,python3-templated-dictionary,python3-backoff
+includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*,mock*,distribution-gpg-keys,python3-templated-dictionary,python3-backoff,blake3,luarocks,python3-asyncssh,python3-cheroot,python3-cherrypy,python3-zc-lockfile,rocksdb
+
+# currently required for Ceph Tentacle
+[crb]
+name=CentOS Stream $releasever - CRB
+metalink=https://mirrors.centos.org/metalink?repo=centos-crb-$stream&arch=$basearch&protocol=https,http
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial-SHA256
+gpgcheck=1
+repo_gpgcheck=0
+metadata_expire=6h
+countme=1
+enabled=1
