@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e04b333_bea4d447",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 602
+      },
+      "writtenOn": "2025-12-02T06:29:57Z",
+      "side": 1,
+      "message": "Not sure this patch is enough: it requires lua-devel and I can only add it via crb. Need to explore an alternative for this, not sure you have suggestions.",
+      "revId": "fee90ae52f84fcd8300383cc0b2864516eaae9fa",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
