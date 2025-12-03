@@ -16,6 +16,23 @@
       "message": "Testing this locally, i got error:\n\n```\n# dnf install --enablerepo\u003dcrb ceph-common\ndlrn-master-testing                                                                                                                                                                1.1 MB/s | 2.4 MB     00:02    \ncentos9-rabbitmq                                                                                                                                                                    88 kB/s | 123 kB     00:01    \ncentos9-opstools                                                                                                                                                                    94 kB/s |  51 kB     00:00    \nNFV SIG OpenvSwitch                                                                                                                                                                1.9 MB/s | 456 kB     00:00    \nExtra Packages for Enterprise Linux 9 - x86_64                                                                                                                                      59 kB/s |  33 kB     00:00    \nError: \n Problem: package ceph-common-2:20.2.0-1.el9s.x86_64 from centos-ceph-tentacle requires liboath.so.0()(64bit), but none of the providers can be installed\n  - package ceph-common-2:20.2.0-1.el9s.x86_64 from centos-ceph-tentacle requires liboath.so.0(LIBOATH_1.10.0)(64bit), but none of the providers can be installed\n  - package ceph-common-2:20.2.0-1.el9s.x86_64 from centos-ceph-tentacle requires liboath.so.0(LIBOATH_1.2.0)(64bit), but none of the providers can be installed\n  - cannot install the best candidate for the job\n  - package liboath-2.6.12-1.el9.x86_64 from epel-low-priority is filtered out by exclude filtering\n```\n\n\nAdding liboath to the list of included packages from epel fixed it for me",
       "revId": "6d596cde0fc44d6d952dae0c070bb9e7460057d9",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "633d2412_d4dfc964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2025-12-03T14:51:28Z",
+      "side": 1,
+      "message": "IMO https://cbs.centos.org/koji/buildinfo?buildID\u003d34739 should be tagged in the tentacle repo for centos9, otherwise, added here. Said that, this patch will work for the required use case as-is, so merging it.",
+      "revId": "6d596cde0fc44d6d952dae0c070bb9e7460057d9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
