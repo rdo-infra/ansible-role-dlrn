@@ -48,4 +48,4 @@ enabled=1
 gpgcheck=0
 countme=1
 priority=100
-includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*,mock*,distribution-gpg-keys,python3-templated-dictionary,python3-backoff
+includepkgs=liboath,gperftools-libs,thrift,libpmemobj,liborc2,libpmem,parquet-libs,libarrow*,mock*,distribution-gpg-keys,python3-templated-dictionary,python3-backoff,python3-tox-current-env
